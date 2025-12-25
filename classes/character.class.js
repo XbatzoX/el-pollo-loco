@@ -36,17 +36,17 @@ class Character extends MoveableObject {
     animate(){
         setInterval(() => {
             if(this.world.keyboard.RIGHT && (this.position_x < this.world.level.level_end_x)){
-                this.position_x += this.speed;
+                this.moveRight();
                 this.otherDirection = false;
             }
 
             if(this.world.keyboard.LEFT && (this.position_x > 0)){
-                this.position_x -= this.speed;
+                this.moveLeft();
                 this.otherDirection = true;
             }
 
-            if(this.world.keyboard.UP){
-                this.speedY = 20;
+            if(this.world.keyboard.SPACE && !this.isAboveGround()){
+                this.jump();
             }
 
             this.world.camera_x = -this.position_x + 100;
@@ -61,13 +61,7 @@ class Character extends MoveableObject {
                     // walk animation
                     this.playAnimation(this.IMAGES_WALKING);
                 }
-            }
-
-            
+            }           
         },50);
-    }
-
-    jump(){
-
     }
 }
