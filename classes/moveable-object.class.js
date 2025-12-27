@@ -38,21 +38,15 @@ class MoveableObject extends DrawableObject {
     }
 
     isAboveGround(){
-        return this.position_y < 230;
+        if(this instanceof ThrowableObject){ // Throwable objects should always fall
+            return true;
+        }else{
+            return this.position_y < 230;
+        }
     }
 
     jump(){
         this.speedY = 30;
-    }
-
-    drawFrame(ctx){
-        if(this instanceof Character || this instanceof Chicken){
-            ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.position_x, this.position_y, this.width, this.height);
-            ctx.stroke();
-        }
     }
 
     // character.isColliding(chicken)
