@@ -1,13 +1,7 @@
-class MoveableObject{
-    position_x = 120;
-    position_y = 280;
-    img;
-    width = 100;
-    height = 150;
-    imageCache = {};
-    currentImage = 0;
+class MoveableObject extends DrawableObject {
     speed = 0.15;
     otherDirection = false;
+    currentImage = 0;
     speedY = 0;
     acceleration = 2.5;
     offset = {
@@ -18,19 +12,6 @@ class MoveableObject{
     };
     energy = 100;
     lastHit = 0;
-
-    loadImage(path){
-        this.img = new Image(); // document.getElementById('image') <img id="image">
-        this.img.src = path;
-    }
-
-    loadImages(arr){
-        arr.forEach(path => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
-    }
 
     moveRight(){
         this.position_x += this.speed;
@@ -62,11 +43,6 @@ class MoveableObject{
 
     jump(){
         this.speedY = 30;
-    }
-
-    draw(ctx){
-        ctx.drawImage(this.img, this.position_x, this.position_y, this.width, this.height);
-
     }
 
     drawFrame(ctx){
