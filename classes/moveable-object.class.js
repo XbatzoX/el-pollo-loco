@@ -55,4 +55,17 @@ class MoveableObject{
     jump(){
         this.speedY = 30;
     }
+
+    draw(ctx){
+        ctx.drawImage(this.img, this.position_x, this.position_y, this.width, this.height);
+
+    }
+
+    drawFrame(ctx){
+        ctx.beginPath();
+        ctx.lineWidth = '5';
+        ctx.strokeStyle = 'blue';
+        ctx.rect(this.position_x, this.position_y, this.width, this.height);
+        ctx.stroke();
+    }
 }
