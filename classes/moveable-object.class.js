@@ -10,6 +10,13 @@ class MoveableObject{
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
+    offset = {
+        "UP" : 0,
+        "DOWN" : 0,
+        "LEFT" : 0,
+        "RIGHT" : 0
+    };
+    energy = 100;
 
     loadImage(path){
         this.img = new Image(); // document.getElementById('image') <img id="image">
@@ -62,10 +69,27 @@ class MoveableObject{
     }
 
     drawFrame(ctx){
-        ctx.beginPath();
-        ctx.lineWidth = '5';
-        ctx.strokeStyle = 'blue';
-        ctx.rect(this.position_x, this.position_y, this.width, this.height);
-        ctx.stroke();
+        if(this instanceof Character || this instanceof Chicken){
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.position_x, this.position_y, this.width, this.height);
+            ctx.stroke();
+        }
+    }
+
+    // character.isColliding(chicken)
+    isColliding(mo){
+        return (((this.position_x + this.width - this.offset.RIGHT) > (mo.position_x + mo.offset.LEFT)) &&
+            ((this.position_y + this.height - this.offset.DOWN) > (mo.position_y + mo.offset.UP)) &&
+            ((this.position_x + this.offset.LEFT) < (mo.position_x + mo.width - mo.offset.RIGHT)) &&
+            ((this.position_y + this.offset.UP) < (mo.position_y + mo.height - mo.offset.DOWN)));
+    }
+
+    hit(){
+        this.energy -= 5;
+        if(this.energy < 0){
+            this.energy = 0;
+        }
     }
 }
