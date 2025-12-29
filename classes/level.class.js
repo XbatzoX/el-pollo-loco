@@ -15,24 +15,6 @@ class Level {
         this.fillBackgroundObjects(this.objArr, this.numberRepetitions);
     }
 
-    test(objArr){
-        for (let index = 0; index <= this.numberRepetitions; index++) {
-            if(index == 0){
-                for (let i = 0; i < (objArr.length / 2); i++){
-                    this.backgroundObjects.push(new BackgroundObject(objArr[i], -719));
-                }
-            }else if((index % 2) != 0){
-                for (let i = 4; i < objArr.length; i++) {
-                    this.backgroundObjects.push(new BackgroundObject(objArr[i], ((index - 1) * 719)));
-                }
-            }else{
-                for (let i = 0; i < (objArr.length / 2); i++) {
-                   this.backgroundObjects.push(new BackgroundObject(objArr[i], ((index - 1) * 719))); 
-                }
-            }
-        }
-    }
-
     fillBackgroundObjects(objArr, numberRepetitions){
         for (let index = 0; index <= (numberRepetitions + 1); index++) {
             if(index == 0){
