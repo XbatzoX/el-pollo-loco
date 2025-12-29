@@ -103,5 +103,5 @@ class World {
     flipImageBack(mo){
         mo.position_x = mo.position_x * -1;
         this.ctx.restore();
-    }
+    } 
 }
