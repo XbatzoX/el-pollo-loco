@@ -1,5 +1,5 @@
 class Endboss extends MoveableObject {
-    position_x = 2500;
+    position_x = 3950;
     position_y = 50;
     height = 400;
     width = 200;
