@@ -50,6 +50,7 @@ class World {
                     if(this.actualBottle.isColliding(enemy)){
                         this.actualBottle.bottleHitsEnemy();
                         // this.actualBottle.speed = 0;
+                        enemy.hit();
                     }
                     this.actualBottle.shiftBottleFromArray(this.actualBottle, this.throwableObjects);
                     // check bottle in air

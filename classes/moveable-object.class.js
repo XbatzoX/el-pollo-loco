@@ -54,7 +54,7 @@ class MoveableObject extends DrawableObject {
         return (((this.position_x + this.width - this.offset.RIGHT) > (mo.position_x + mo.offset.LEFT)) &&
             ((this.position_y + this.height - this.offset.DOWN) > (mo.position_y + mo.offset.UP)) &&
             ((this.position_x + this.offset.LEFT) < (mo.position_x + mo.width - mo.offset.RIGHT)) &&
-            ((this.position_y + this.offset.UP) < (mo.position_y + mo.height - mo.offset.DOWN)));
+            ((this.position_y + this.offset.UP) < (mo.position_y + mo.height - mo.offset.DOWN)) && (mo.energy > 0));
     }
 
     hit(){
