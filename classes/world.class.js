@@ -7,6 +7,7 @@ class World {
     keyboard;
     camera_x = 0;
     throwableObjects = [];
+    actualBottle;
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
@@ -43,6 +44,14 @@ class World {
                     this.character.hit();
                     this.statusbar.setPercentage(this.character.energy);
                 }
+                if(this.throwableObjects.length > 0){
+                    this.actualBottle = this.throwableObjects[0];
+                    if(this.actualBottle.isColliding(enemy)){
+                        this.actualBottle.bottleHitsEnemy();
+                    }
+                    this.actualBottle.shiftBottleFromArray(this.actualBottle, this.throwableObjects);
+                }
+                
         });
     }
 
