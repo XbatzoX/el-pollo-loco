@@ -45,6 +45,7 @@ class ThrowableObject extends MoveableObject {
 
     bottleHitsEnemy(){
         this.speedY = 0;
+        this.speed = 0;
         clearInterval(this.idBottleThrow);
         clearInterval(this.idBottlePosition_x);
 
@@ -54,7 +55,7 @@ class ThrowableObject extends MoveableObject {
     }
 
     shiftBottleFromArray(actualBottle, bottleArr){
-        if(actualBottle.position_y >= 480){
+        if((actualBottle.position_y >= 480)){
             bottleArr.shift();
         }
     }

@@ -8,6 +8,7 @@ class World {
     camera_x = 0;
     throwableObjects = [];
     actualBottle;
+    bottleInAir = false;
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
@@ -32,7 +33,7 @@ class World {
     }
 
     checkThrowObjects(){
-        if(this.keyboard.D){
+        if(this.keyboard.D && this.bottleInAir == false){
             let bottle = new ThrowableObject((this.character.position_x + 100), (this.character.position_y + 100));
             this.throwableObjects.push(bottle);
         }
@@ -48,8 +49,11 @@ class World {
                     this.actualBottle = this.throwableObjects[0];
                     if(this.actualBottle.isColliding(enemy)){
                         this.actualBottle.bottleHitsEnemy();
+                        // this.actualBottle.speed = 0;
                     }
                     this.actualBottle.shiftBottleFromArray(this.actualBottle, this.throwableObjects);
+                    // check bottle in air
+                    this.checkIfBottleInAir();
                 }
                 
         });
@@ -114,5 +118,13 @@ class World {
     flipImageBack(mo){
         mo.position_x = mo.position_x * -1;
         this.ctx.restore();
-    } 
+    }
+    
+    checkIfBottleInAir(){
+        if( (this.actualBottle.position_y > 480)){
+            this.bottleInAir = false;
+        }else{
+            this.bottleInAir = true;
+        }
+    }
 }
