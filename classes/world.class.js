@@ -92,7 +92,8 @@ class World {
 
     addObjectsToMap(objects){
         objects.forEach(o => {
-            this.addToMap(o);
+            // this.addToMap(o);
+            this.checkIfEnemyAlive(o);
         })
     }
 
@@ -126,6 +127,24 @@ class World {
             this.bottleInAir = false;
         }else{
             this.bottleInAir = true;
+        }
+    }
+
+    checkIfEnemyAlive(o){
+        if(o instanceof Chicken){
+            if(o.isDead()){
+                if(!o.visible){return;}
+                let actualTime = new Date().getTime();
+                if((actualTime - o.timestampDead) > 2000){
+                    o.visible = false;
+                }else{
+                    this.addToMap(o);
+                }
+            }else{
+                this.addToMap(o);
+            }
+        }else{
+            this.addToMap(o);
         }
     }
 }

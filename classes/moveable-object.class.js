@@ -12,6 +12,9 @@ class MoveableObject extends DrawableObject {
     };
     energy = 100;
     lastHit = 0;
+    timestampDead;
+    visible;
+    isNoLongerAlive = false;
 
     moveRight(){
         this.position_x += this.speed;
@@ -73,6 +76,10 @@ class MoveableObject extends DrawableObject {
     }
 
     isDead(){
+        if((this.energy <= 0) && (!this.isNoLongerAlive)){
+            this.isNoLongerAlive = true;
+            this.timestampDead = new Date().getTime();
+        }
         return (this.energy == 0);
     }
 }
