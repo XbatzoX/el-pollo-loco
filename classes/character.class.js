@@ -48,6 +48,18 @@ class Character extends MoveableObject {
         '../assets/img/2_character_pepe/1_idle/idle/I-9.png',
         '../assets/img/2_character_pepe/1_idle/idle/I-10.png'
     ];
+    IMAGES_IDLE_LONG = [
+        '../assets/img/2_character_pepe/1_idle/long_idle/I-11.png',
+        '../assets/img/2_character_pepe/1_idle/long_idle/I-12.png',
+        '../assets/img/2_character_pepe/1_idle/long_idle/I-13.png',
+        '../assets/img/2_character_pepe/1_idle/long_idle/I-14.png',
+        '../assets/img/2_character_pepe/1_idle/long_idle/I-15.png',
+        '../assets/img/2_character_pepe/1_idle/long_idle/I-16.png',
+        '../assets/img/2_character_pepe/1_idle/long_idle/I-17.png',
+        '../assets/img/2_character_pepe/1_idle/long_idle/I-18.png',
+        '../assets/img/2_character_pepe/1_idle/long_idle/I-19.png',
+        '../assets/img/2_character_pepe/1_idle/long_idle/I-20.png',
+    ];
     world;
     speed = 10;
 
@@ -58,8 +70,10 @@ class Character extends MoveableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_IDLE_LONG);
         this.animate();
         this.applyGravity();
+        this.initialiseIdleData();
     }
 
     animate(){
@@ -88,6 +102,9 @@ class Character extends MoveableObject {
             }else if(this.isHurt()){
                 // hurt animation
                 this.playAnimation(this.IMAGES_HURT);
+            }else if(this.isLongIdle()){
+                // long idle animation
+                this.playAnimation(this.IMAGES_IDLE_LONG);
             }else if(this.isIdle()){
                 // idle animation
                 this.playAnimation(this.IMAGES_IDLE);

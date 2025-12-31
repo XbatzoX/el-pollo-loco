@@ -15,6 +15,8 @@ class MoveableObject extends DrawableObject {
     timestampDead;
     timeLastMove_x;
     timeLastMove_y;
+    timestampIdle = 0;
+    timestampLongIdle = 0;
     visible;
     isNoLongerAlive = false;
     jumpOnEnemy;
@@ -111,12 +113,39 @@ class MoveableObject extends DrawableObject {
         let idle = false;
         if(this.checkIdleTime()){
             idle = true;
+            if(this.timestampIdle <= 0){
+                this.timestampIdle = new Date().getTime();
+            }else{
+                this.timestampIdle = 0;
+            }
         }
         return idle;
     }
 
+    isLongIdle(){
+        let longIdle;
+        if((this.timestampLongIdle <= 0) && (this.isIdle())){
+            this.timestampLongIdle = new Date().getTime();
+        }
+
+        if(this.isIdle()){
+            longIdle = ((new Date().getTime() - this.timestampLongIdle) > 5000);
+        }else{
+            longIdle = false;
+            this.timestampLongIdle = 0;
+        }
+        return longIdle;
+    }
+
     checkIdleTime(){
         return ((this.position_x == this.storePosition_x) && (this.position_y == this.storePosition_y) &&
-            (new Date().getTime() - this.timeLastMove_x >= 3000) && (new Date().getTime() - this.timeLastMove_y > 3000));
+            (new Date().getTime() - this.timeLastMove_x >= 1000) && (new Date().getTime() - this.timeLastMove_y > 1000));
+    }
+
+    initialiseIdleData(){
+        this.storePosition_x = this.position_x;
+        this.storePosition_y = this.position_y;
+        this.timeLastMove_x = new Date().getTime();
+        this.timeLastMove_y = new Date().getTime();
     }
 }
