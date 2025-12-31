@@ -115,7 +115,7 @@ class Character extends MoveableObject {
                 // walk animation
                 this.playAnimation(this.IMAGES_WALKING);
             }else{
-                // stay image
+                // stay image view
                 this.playAnimation(['assets/img/2_character_pepe/1_idle/idle/I-1.png']);
             }           
         },50);
