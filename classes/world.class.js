@@ -41,21 +41,24 @@ class World {
 
     checkCollisions(){
         this.level.enemies.forEach((enemy) => {
-                if(this.character.isColliding(enemy)){
-                    this.character.hit();
-                    this.statusbar.setPercentage(this.character.energy);
+            if(this.character.isJumpingOnEnemy(enemy)){
+                enemy.hit();
+            }
+            if(this.character.isColliding(enemy)){
+                this.character.hit();
+                this.statusbar.setPercentage(this.character.energy);
+            }
+            if(this.throwableObjects.length > 0){
+                this.actualBottle = this.throwableObjects[0];
+                if(this.actualBottle.isColliding(enemy)){
+                    this.actualBottle.bottleHitsEnemy();
+                    // this.actualBottle.speed = 0;
+                    enemy.hit();
                 }
-                if(this.throwableObjects.length > 0){
-                    this.actualBottle = this.throwableObjects[0];
-                    if(this.actualBottle.isColliding(enemy)){
-                        this.actualBottle.bottleHitsEnemy();
-                        // this.actualBottle.speed = 0;
-                        enemy.hit();
-                    }
-                    this.actualBottle.shiftBottleFromArray(this.actualBottle, this.throwableObjects);
-                    // check bottle in air
-                    this.checkIfBottleInAir();
-                }
+                this.actualBottle.shiftBottleFromArray(this.actualBottle, this.throwableObjects);
+                // check bottle in air
+                this.checkIfBottleInAir();
+            }
                 
         });
     }

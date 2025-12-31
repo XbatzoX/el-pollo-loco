@@ -15,17 +15,22 @@ class MoveableObject extends DrawableObject {
     timestampDead;
     visible;
     isNoLongerAlive = false;
+    jumpOnEnemy;
+    storePosition_x;
+    storePosition_y;
 
     moveRight(){
         this.position_x += this.speed;
+        this.storePosition_x = this.position_x;
     }
 
     moveLeft(){
         this.position_x -= this.speed;
+        this.storePosition_x = this.position_x;
     }
 
     playAnimation(images){
-        let i = this.currentImage % images.length; // let i = 7 % 6 => 1, Rest 1 (0,1,2,3,4,5,0,1,...)
+        let i = this.currentImage % images.length; // let i = 7 % 6 => 1, rest 1 (0,1,2,3,4,5,0,1,...)
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
@@ -36,6 +41,7 @@ class MoveableObject extends DrawableObject {
             if(this.isAboveGround() || (this.speedY > 0)){
                 this.position_y -= this.speedY;
                 this.speedY -= this.acceleration;
+                this.storePosition_y = this.position_y;
             }
         }, (1000 / 25));
     }
@@ -57,7 +63,7 @@ class MoveableObject extends DrawableObject {
         return (((this.position_x + this.width - this.offset.RIGHT) > (mo.position_x + mo.offset.LEFT)) &&
             ((this.position_y + this.height - this.offset.DOWN) > (mo.position_y + mo.offset.UP)) &&
             ((this.position_x + this.offset.LEFT) < (mo.position_x + mo.width - mo.offset.RIGHT)) &&
-            ((this.position_y + this.offset.UP) < (mo.position_y + mo.height - mo.offset.DOWN)) && (mo.energy > 0));
+            ((this.position_y + this.offset.UP) < (mo.position_y + mo.height - mo.offset.DOWN)) && (mo.energy > 0) && (!this.jumpOnEnemy));
     }
 
     hit(){
@@ -81,5 +87,22 @@ class MoveableObject extends DrawableObject {
             this.timestampDead = new Date().getTime();
         }
         return (this.energy == 0);
+    }
+
+    // Pepe jumps on enemy
+    isJumpingOnEnemy(mo){
+        this.jumpOnEnemy = false;
+        let diff_x = (this.position_x - mo.position_x);
+        let diff_y = ((this.position_y + this.height) - mo.position_y);
+         
+        diff_x = Math.abs(diff_x);
+        diff_y = Math.abs(diff_y);
+        this.jumpOnEnemy = ((diff_x <= 50) && (diff_y <= 20))
+
+        return this.jumpOnEnemy;
+    }
+
+    isIdle(){
+
     }
 }
