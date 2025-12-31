@@ -13,6 +13,8 @@ class MoveableObject extends DrawableObject {
     energy = 100;
     lastHit = 0;
     timestampDead;
+    timeLastMove_x;
+    timeLastMove_y;
     visible;
     isNoLongerAlive = false;
     jumpOnEnemy;
@@ -22,11 +24,13 @@ class MoveableObject extends DrawableObject {
     moveRight(){
         this.position_x += this.speed;
         this.storePosition_x = this.position_x;
+        this.timeLastMove_x = new Date().getTime();
     }
 
     moveLeft(){
         this.position_x -= this.speed;
         this.storePosition_x = this.position_x;
+        this.timeLastMove_x = new Date().getTime();
     }
 
     playAnimation(images){
@@ -42,6 +46,7 @@ class MoveableObject extends DrawableObject {
                 this.position_y -= this.speedY;
                 this.speedY -= this.acceleration;
                 this.storePosition_y = this.position_y;
+                this.timeLastMove_y = new Date().getTime();
             }
         }, (1000 / 25));
     }
@@ -97,12 +102,21 @@ class MoveableObject extends DrawableObject {
          
         diff_x = Math.abs(diff_x);
         diff_y = Math.abs(diff_y);
-        this.jumpOnEnemy = ((diff_x <= 50) && (diff_y <= 20))
+        this.jumpOnEnemy = ((diff_x <= 50) && (diff_y <= 50) && (this.speedY <= 0))
 
         return this.jumpOnEnemy;
     }
 
     isIdle(){
+        let idle = false;
+        if(this.checkIdleTime()){
+            idle = true;
+        }
+        return idle;
+    }
 
+    checkIdleTime(){
+        return ((this.position_x == this.storePosition_x) && (this.position_y == this.storePosition_y) &&
+            (new Date().getTime() - this.timeLastMove_x >= 3000) && (new Date().getTime() - this.timeLastMove_y > 3000));
     }
 }

@@ -36,6 +36,18 @@ class Character extends MoveableObject {
         '../assets/img/2_character_pepe/4_hurt/H-42.png',
         '../assets/img/2_character_pepe/4_hurt/H-43.png'
     ];
+    IMAGES_IDLE = [
+        '../assets/img/2_character_pepe/1_idle/idle/I-1.png',
+        '../assets/img/2_character_pepe/1_idle/idle/I-2.png',
+        '../assets/img/2_character_pepe/1_idle/idle/I-3.png',
+        '../assets/img/2_character_pepe/1_idle/idle/I-4.png',
+        '../assets/img/2_character_pepe/1_idle/idle/I-5.png',
+        '../assets/img/2_character_pepe/1_idle/idle/I-6.png',
+        '../assets/img/2_character_pepe/1_idle/idle/I-7.png',
+        '../assets/img/2_character_pepe/1_idle/idle/I-8.png',
+        '../assets/img/2_character_pepe/1_idle/idle/I-9.png',
+        '../assets/img/2_character_pepe/1_idle/idle/I-10.png'
+    ];
     world;
     speed = 10;
 
@@ -45,6 +57,7 @@ class Character extends MoveableObject {
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_IDLE);
         this.animate();
         this.applyGravity();
     }
@@ -75,14 +88,18 @@ class Character extends MoveableObject {
             }else if(this.isHurt()){
                 // hurt animation
                 this.playAnimation(this.IMAGES_HURT);
+            }else if(this.isIdle()){
+                // idle animation
+                this.playAnimation(this.IMAGES_IDLE);
             }else if(this.isAboveGround()){
                 // jump animation
                 this.playAnimation(this.IMAGES_JUMPING);
+            }else if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
+                // walk animation
+                this.playAnimation(this.IMAGES_WALKING);
             }else{
-                if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
-                    // walk animation
-                    this.playAnimation(this.IMAGES_WALKING);
-                }
+                // stay image
+                this.playAnimation(['../assets/img/2_character_pepe/1_idle/idle/I-1.png']);
             }           
         },50);
     }
