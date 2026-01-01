@@ -5,11 +5,13 @@ class Level {
     objArr;
     numberRepetitions = 2;
     level_end_x = 1000;
+    coins;
 
-    constructor(enemies, clouds, objArr, numberRepetitions){
+    constructor(enemies, clouds, objArr, numberRepetitions, coins){
         this.enemies = enemies;
         this.clouds = clouds;
         this.numberRepetitions = numberRepetitions;
+        this.coins = coins;
         this.level_end_x = ((this.numberRepetitions + 1 ) * 719 );
         this.objArr = objArr;
         this.fillBackgroundObjects(this.objArr, this.numberRepetitions);
