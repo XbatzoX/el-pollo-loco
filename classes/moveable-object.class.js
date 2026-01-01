@@ -17,6 +17,7 @@ class MoveableObject extends DrawableObject {
     timeLastMove_y;
     timestampIdle = 0;
     timestampLongIdle = 0;
+    timestampBottleThrow = 0;
     visible;
     isNoLongerAlive = false;
     jumpOnEnemy;
@@ -109,9 +110,9 @@ class MoveableObject extends DrawableObject {
         return this.jumpOnEnemy;
     }
 
-    isIdle(){
+    isIdle(isThrowKeyActive){
         let idle = false;
-        if(this.checkIdleTime()){
+        if(this.checkIdleTime(isThrowKeyActive)){
             idle = true;
             if(this.timestampIdle <= 0){
                 this.timestampIdle = new Date().getTime();
@@ -122,13 +123,13 @@ class MoveableObject extends DrawableObject {
         return idle;
     }
 
-    isLongIdle(){
+    isLongIdle(isThrowKeyActive){
         let longIdle;
         if((this.timestampLongIdle <= 0) && (this.isIdle())){
             this.timestampLongIdle = new Date().getTime();
         }
 
-        if(this.isIdle()){
+        if(this.isIdle(isThrowKeyActive)){
             longIdle = ((new Date().getTime() - this.timestampLongIdle) > 5000);
         }else{
             longIdle = false;
@@ -137,9 +138,16 @@ class MoveableObject extends DrawableObject {
         return longIdle;
     }
 
-    checkIdleTime(){
+    checkIdleTime(isThrowKeyActive){
+        if(isThrowKeyActive){
+            this.timestampBottleThrow = new Date().getTime();
+        }else{
+            this.timestampBottleThrow = 0;
+        }
+
         return ((this.position_x == this.storePosition_x) && (this.position_y == this.storePosition_y) &&
-            (new Date().getTime() - this.timeLastMove_x >= 1000) && (new Date().getTime() - this.timeLastMove_y > 1000));
+            (new Date().getTime() - this.timeLastMove_x >= 1000) && (new Date().getTime() - this.timeLastMove_y > 1000) &&
+            (new Date().getTime() - this.timestampBottleThrow >= 1000));
     }
 
     initialiseIdleData(){

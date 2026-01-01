@@ -102,10 +102,10 @@ class Character extends MoveableObject {
             }else if(this.isHurt()){
                 // hurt animation
                 this.playAnimation(this.IMAGES_HURT);
-            }else if(this.isLongIdle()){
+            }else if(this.isLongIdle(this.world.keyboard.D)){
                 // long idle animation
                 this.playAnimation(this.IMAGES_IDLE_LONG);
-            }else if(this.isIdle()){
+            }else if(this.isIdle(this.world.keyboard.D)){
                 // idle animation
                 this.playAnimation(this.IMAGES_IDLE);
             }else if(this.isAboveGround()){
