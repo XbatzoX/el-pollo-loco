@@ -23,6 +23,8 @@ class MoveableObject extends DrawableObject {
     jumpOnEnemy;
     storePosition_x;
     storePosition_y;
+    lastStateOfHit = false;
+    currentStateOfHit;
 
     moveRight(){
         this.position_x += this.speed;
@@ -74,12 +76,18 @@ class MoveableObject extends DrawableObject {
             ((this.position_y + this.offset.UP) < (mo.position_y + mo.height - mo.offset.DOWN)) && (mo.energy > 0) && (!this.jumpOnEnemy));
     }
 
-    hit(){
-        this.energy -= 5;
-        if(this.energy < 0){
-            this.energy = 0;
-        }else{
-            this.lastHit = new Date().getTime();
+    hit(currentStateOfHit){
+        this.currentStateOfHit = currentStateOfHit;
+        let risingEdge = this.currentStateOfHit && !this.lastStateOfHit;
+        this.lastStateOfHit = this.currentStateOfHit;
+
+        if(risingEdge){
+            this.energy -= 5;
+            if(this.energy < 0){
+                this.energy = 0;
+            }else{
+                this.lastHit = new Date().getTime();
+            }
         }
     }
 
@@ -130,7 +138,7 @@ class MoveableObject extends DrawableObject {
         }
 
         if(this.isIdle(isThrowKeyActive)){
-            longIdle = ((new Date().getTime() - this.timestampLongIdle) > 5000);
+            longIdle = ((new Date().getTime() - this.timestampLongIdle) > 8000);
         }else{
             longIdle = false;
             this.timestampLongIdle = 0;
