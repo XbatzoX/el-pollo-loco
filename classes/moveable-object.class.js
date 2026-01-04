@@ -4,12 +4,6 @@ class MoveableObject extends DrawableObject {
     currentImage = 0;
     speedY = 0;
     acceleration = 2.5;
-    offset = {
-        "UP" : 0,
-        "DOWN" : 0,
-        "LEFT" : 0,
-        "RIGHT" : 0
-    };
     energy = 100;
     lastHit = 0;
     timestampDead;
@@ -25,6 +19,11 @@ class MoveableObject extends DrawableObject {
     storePosition_y;
     lastStateOfHit = false;
     currentStateOfHit;
+
+    constructor(){
+        super();
+        this.value = 0;
+    }
 
     moveRight(){
         this.position_x += this.speed;
@@ -73,7 +72,8 @@ class MoveableObject extends DrawableObject {
         return (((this.position_x + this.width - this.offset.RIGHT) > (mo.position_x + mo.offset.LEFT)) &&
             ((this.position_y + this.height - this.offset.DOWN) > (mo.position_y + mo.offset.UP)) &&
             ((this.position_x + this.offset.LEFT) < (mo.position_x + mo.width - mo.offset.RIGHT)) &&
-            ((this.position_y + this.offset.UP) < (mo.position_y + mo.height - mo.offset.DOWN)) && (mo.energy > 0) && (!this.jumpOnEnemy));
+            ((this.position_y + this.offset.UP) < (mo.position_y + mo.height - mo.offset.DOWN)) &&
+            ((mo.energy || mo.value) > 0) && (!this.jumpOnEnemy));
     }
 
     hit(currentStateOfHit){

@@ -5,6 +5,14 @@ class DrawableObject {
     width = 100;
     height = 150;
     imageCache = {};
+    offset = {
+        "UP" : 0,
+        "DOWN" : 0,
+        "LEFT" : 0,
+        "RIGHT" : 0
+    };
+    notCollected = true;
+    value = 5;
 
     loadImage(path){
         this.img = new Image(); // document.getElementById('image') <img id="image">
@@ -32,5 +40,15 @@ class DrawableObject {
             ctx.rect(this.position_x, this.position_y, this.width, this.height);
             ctx.stroke();
         }
+    }
+
+    isCollected(){
+        let collected;
+        if(!this.notCollected){
+            collected = true;
+        }else{
+            collected = false;
+        }
+        return collected;
     }
 }
