@@ -90,6 +90,7 @@ class Character extends MoveableObject {
 
             if(this.world.keyboard.SPACE && !this.isAboveGround()){
                 this.jump();
+                this.playJumpSound();
             }
 
             this.world.camera_x = -this.position_x + 100;
@@ -119,5 +120,10 @@ class Character extends MoveableObject {
                 this.playAnimation(['assets/img/2_character_pepe/1_idle/idle/I-1.png']);
             }           
         },50);
+    }
+
+    playJumpSound(){
+        let jumpSound = new Audio('assets/audio/jump.mp3');
+        jumpSound.play();
     }
 }
