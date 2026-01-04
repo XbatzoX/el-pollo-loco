@@ -1,0 +1,3 @@
+class Coinbar extends DrawableObject{
+    
+}

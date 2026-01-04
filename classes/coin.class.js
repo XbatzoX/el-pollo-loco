@@ -7,4 +7,11 @@ class Coin extends DrawableObject {
         this.position_x = position_x;
         this.position_y = position_y;
     }
+
+    playCollectingCoinSound(notCollected){
+        if(notCollected){
+            let sound = new Audio('assets/audio/collecting_coin2.mp3');
+            sound.play();
+        }
+    }
 }

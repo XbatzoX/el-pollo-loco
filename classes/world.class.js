@@ -72,6 +72,7 @@ class World {
     checkIfCollectingCoins(){
         this.level.coins.forEach((coin) => {
             if(this.character.isColliding(coin)){
+                coin.playCollectingCoinSound(coin.notCollected);
                 coin.notCollected = false;
             }
         });
