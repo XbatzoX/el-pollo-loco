@@ -32,6 +32,8 @@ class World {
             this.checkThrowObjects();
             // check collecting Coins
             this.checkIfCollectingCoins();
+            // check collecting bottles
+            this.checkIfCollectingBottles();
         }, 200);
     }
 
@@ -124,10 +126,10 @@ class World {
     addObjectsToMap(objects){
         objects.forEach(o => {
             // this.addToMap(o);
-            if(!(o instanceof Coin)){
+            if(!(o instanceof Coin || o instanceof Bottle)){
                 this.checkIfEnemyAlive(o);
             }
-            if(o instanceof Coin){
+            if(o instanceof Coin || o instanceof Bottle){
                 this.checkIfObjectCollected(o);
             }
         })
