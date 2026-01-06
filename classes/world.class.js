@@ -1,6 +1,7 @@
 class World {
     character = new Character();
     statusbar = new StatusBar();
+    coinbar = new Coinbar();
     level = level1;
     ctx;
     canvas;
@@ -72,8 +73,18 @@ class World {
     checkIfCollectingCoins(){
         this.level.coins.forEach((coin) => {
             if(this.character.isColliding(coin)){
+                this.coinbar.increaseCoinAmount(coin.notCollected);
                 coin.playCollectingCoinSound(coin.notCollected);
+                this.coinbar.setCoinValue(this.coinbar.amount, coin.notCollected);
                 coin.notCollected = false;
+            }
+        });
+    }
+
+    checkIfCollectingBottles(){
+        this.level.bottles.forEach((bottle) => {
+            if(this.character.isColliding(bottle)){
+                bottle.notCollected = false;
             }
         });
     }
@@ -86,6 +97,7 @@ class World {
 
        
         this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.bottles);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
@@ -95,6 +107,7 @@ class World {
         this.ctx.translate(-this.camera_x,0);
         // Space for unmoveable elements
         this.addToMap(this.statusbar);
+        this.addToMap(this.coinbar);
         this.ctx.translate(this.camera_x,0);
         // *********************************
         
