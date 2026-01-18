@@ -43,7 +43,7 @@ class Coinbar extends DrawableObject{
         }
     }
 
-    increaseCoinAmount(notCollected){
+    increaseAmount(notCollected){
         if(notCollected){
             this.amount += 1;
         }
