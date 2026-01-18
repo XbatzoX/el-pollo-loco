@@ -59,7 +59,8 @@ class World {
                 this.actualBottle = this.throwableObjects[0];
                 this.actualBottle.currentStateOfHit = this.actualBottle.isColliding(enemy);
                 enemy.hit(this.actualBottle.currentStateOfHit);
-                if(this.actualBottle.isColliding(enemy)){
+                //this.actualBottle.isColliding(enemy)
+                if(this.actualBottle.currentStateOfHit){
                     this.actualBottle.bottleHitsEnemy();
                     // this.actualBottle.speed = 0;
                     
