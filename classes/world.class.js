@@ -12,8 +12,7 @@ class World {
     throwableObjects = [];
     actualBottle;
     bottleInAir = false;
-    bossEncounter = false;
-    encounterTimerActive = false;
+    endbossAttacks = false;
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
@@ -38,8 +37,8 @@ class World {
             this.checkIfCollectingCoins();
             // check collecting bottles
             this.checkIfCollectingBottles();
-            // check first encounter with endboss
-            this.checkFirstEncounterEndboss();
+            // check encounter with endboss
+            this.checkEncounterEndboss();
         }, 200);
     }
 
@@ -104,15 +103,28 @@ class World {
         });
     }
 
-    checkFirstEncounterEndboss(){
-        if(!this.bossEncounter && !this.encounterTimerActive){
+    checkEncounterEndboss(){
+        let enemyEndboss = this.level.enemies.length - 1;
+        let bossEncounter = this.level.enemies[enemyEndboss].bossEncounter;
+        let encounterTimerActive = this.level.enemies[enemyEndboss].encounterTimerActive;
+        if(!bossEncounter && !encounterTimerActive){
             if(this.character.position_x >= 3400){
-                let enemyEndboss = this.level.enemies.length - 1;
                 this.level.enemies[enemyEndboss].playAlertSound();
                 setTimeout(() => {
-                    this.bossEncounter = true;
+                    this.level.enemies[enemyEndboss].bossEncounter = true;
                 }, 5000);
-                this.encounterTimerActive = true;
+                this.level.enemies[enemyEndboss].encounterTimerActive = true;
+            }
+        }
+
+        this.checkAttackScenario(enemyEndboss);
+    }
+
+    checkAttackScenario(enemyEndboss){
+        if(this.level.enemies[enemyEndboss].isAttack()){
+            if(!this.endbossAttacks){
+                this.level.enemies[enemyEndboss].playAttackSound();
+                this.endbossAttacks = true;
             }
         }
     }

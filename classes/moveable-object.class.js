@@ -19,6 +19,10 @@ class MoveableObject extends DrawableObject {
     storePosition_y;
     lastStateOfHit = false;
     currentStateOfHit;
+    bossEncounter = false;
+    encounterTimerActive = false;
+    attackTimerActive = false;
+    isAttacking = false;
 
     constructor(){
         super();
@@ -103,6 +107,20 @@ class MoveableObject extends DrawableObject {
             this.timestampDead = new Date().getTime();
         }
         return (this.energy == 0);
+    }
+
+    isAttack(){
+        if(this.bossEncounter && this.encounterTimerActive && !this.isAttacking){
+            if(!this.attackTimerActive){
+                setTimeout(() => {
+                    this.isAttacking = true;
+                }, 3000);
+                this.attackTimerActive = true;
+            }
+            return true;
+        }else{
+            return false;
+        }
     }
 
     // Pepe jumps on enemy
