@@ -13,6 +13,7 @@ class World {
     actualBottle;
     bottleInAir = false;
     bossEncounter = false;
+    encounterTimerActive = false;
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
@@ -104,11 +105,14 @@ class World {
     }
 
     checkFirstEncounterEndboss(){
-        if(!this.bossEncounter){
+        if(!this.bossEncounter && !this.encounterTimerActive){
             if(this.character.position_x >= 3400){
                 let enemyEndboss = this.level.enemies.length - 1;
                 this.level.enemies[enemyEndboss].playAlertSound();
-                this.bossEncounter = true;
+                setTimeout(() => {
+                    this.bossEncounter = true;
+                }, 5000);
+                this.encounterTimerActive = true;
             }
         }
     }
