@@ -39,8 +39,10 @@ class World {
     }
 
     checkThrowObjects(){
-        if(this.keyboard.D && this.bottleInAir == false){
+        if(this.keyboard.D && this.bottleInAir == false && this.bottlebar.amount > 0){
             let bottle = new ThrowableObject((this.character.position_x + 100), (this.character.position_y + 100));
+            this.bottlebar.amount -= 1;
+            this.bottlebar.setBottleValue(this.bottlebar.amount, true);
             this.throwableObjects.push(bottle);
         }
     }

@@ -36,7 +36,7 @@ class Coinbar extends DrawableObject{
             return 3;
         }else if(this.amount > 3){
             return 2;
-        }else if(this.amount > 1){
+        }else if(this.amount > 0){
             return 1;
         }else {
             return 0;
