@@ -3,6 +3,7 @@ class World {
     statusbar = new StatusBar();
     coinbar = new Coinbar();
     bottlebar = new Bottlebar();
+    bossbar = new Bossbar();
     level = level1;
     ctx;
     canvas;
@@ -65,6 +66,7 @@ class World {
                 //this.actualBottle.isColliding(enemy)
                 if(this.actualBottle.currentStateOfHit){
                     this.actualBottle.bottleHitsEnemy();
+                    this.bossbar.setPercentage(enemy.energy);
                     // this.actualBottle.speed = 0;
                     
                 }
@@ -118,6 +120,7 @@ class World {
         this.addToMap(this.statusbar);
         this.addToMap(this.coinbar);
         this.addToMap(this.bottlebar);
+        this.addToMap(this.bossbar);
         this.ctx.translate(this.camera_x,0);
         // *********************************
         
