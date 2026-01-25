@@ -69,7 +69,9 @@ class World {
                 //this.actualBottle.isColliding(enemy)
                 if(this.actualBottle.currentStateOfHit){
                     this.actualBottle.bottleHitsEnemy();
-                    this.bossbar.setPercentage(enemy.energy);
+                    if(enemy instanceof Endboss){
+                        this.bossbar.setPercentage(enemy.energy);
+                    }
                     // this.actualBottle.speed = 0;
                     
                 }
@@ -112,7 +114,7 @@ class World {
                 this.level.enemies[enemyEndboss].playAlertSound();
                 setTimeout(() => {
                     this.level.enemies[enemyEndboss].bossEncounter = true;
-                }, 5000);
+                }, 3000);
                 this.level.enemies[enemyEndboss].encounterTimerActive = true;
             }
         }

@@ -114,7 +114,7 @@ class MoveableObject extends DrawableObject {
             if(!this.attackTimerActive){
                 setTimeout(() => {
                     this.isAttacking = true;
-                }, 3000);
+                }, 2000);
                 this.attackTimerActive = true;
             }
             return true;
