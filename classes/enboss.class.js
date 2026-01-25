@@ -5,7 +5,7 @@ class Endboss extends MoveableObject {
     width = 200;
     energy = 30;
 
-    IMAGES_WALKING = [
+    IMAGES_ALERT = [
         'assets/img/4_enemie_boss_chicken/2_alert/G5.png',
         'assets/img/4_enemie_boss_chicken/2_alert/G6.png',
         'assets/img/4_enemie_boss_chicken/2_alert/G7.png',
@@ -18,13 +18,18 @@ class Endboss extends MoveableObject {
 
     constructor(){
         super().loadImage('assets/img/4_enemie_boss_chicken/2_alert/G5.png');
-        this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_ALERT);
         this.animate();
     }
 
     animate(){
         setInterval(() => {
-            this.playAnimation(this.IMAGES_WALKING);
+            this.playAnimation(this.IMAGES_ALERT);
         },200);
+    }
+
+    playAlertSound(){
+        let sound = new Audio('assets/audio/endboss_begin.mp3');
+        sound.play();
     }
 }

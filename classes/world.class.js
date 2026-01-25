@@ -12,6 +12,7 @@ class World {
     throwableObjects = [];
     actualBottle;
     bottleInAir = false;
+    bossEncounter = false;
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
@@ -36,6 +37,8 @@ class World {
             this.checkIfCollectingCoins();
             // check collecting bottles
             this.checkIfCollectingBottles();
+            // check first encounter with endboss
+            this.checkFirstEncounterEndboss();
         }, 200);
     }
 
@@ -98,6 +101,16 @@ class World {
                 bottle.notCollected = false;
             }
         });
+    }
+
+    checkFirstEncounterEndboss(){
+        if(!this.bossEncounter){
+            if(this.character.position_x >= 3400){
+                let enemyEndboss = this.level.enemies.length - 1;
+                this.level.enemies[enemyEndboss].playAlertSound();
+                this.bossEncounter = true;
+            }
+        }
     }
 
     draw(){
