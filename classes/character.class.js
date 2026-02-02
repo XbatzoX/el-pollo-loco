@@ -3,6 +3,7 @@ class Character extends MoveableObject {
     height = 200;
     // position_y = 230;
     position_y = 120;
+    jumpOfDeath = false;
     IMAGES_WALKING = [
         'assets/img/2_character_pepe/2_walk/W-21.png',
         'assets/img/2_character_pepe/2_walk/W-22.png',
@@ -100,6 +101,10 @@ class Character extends MoveableObject {
             if(this.isDead()){
                 // dead animation
                 this.playAnimation(this.IMAGES_DEAD);
+                if(!this.jumpOfDeath){
+                    this.jump();
+                    this.jumpOfDeath = true;
+                }
             }else if(this.isHurt()){
                 // hurt animation
                 this.playAnimation(this.IMAGES_HURT);
