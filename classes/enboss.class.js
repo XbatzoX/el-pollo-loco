@@ -6,8 +6,8 @@ class Endboss extends MoveableObject {
     width = 200;
     energy = 30;
     endbossDefeated = false;
-    leftDirection = true;
-    rightDirection = false;
+    // leftDirection = true;
+    // rightDirection = false;
 
     IMAGES_ALERT = [
         'assets/img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -77,11 +77,17 @@ class Endboss extends MoveableObject {
             }else if(!this.isDead()){
                 this.playAnimation(this.IMAGES_ALERT);
             }
+
+            this.checkDirectionOfRunning();
         },200);
 
         setInterval(() =>{
             if(this.isRunning() && !this.isDead()){
-                this.moveLeft();
+                if(this.otherDirection){
+                    this.moveRight();
+                }else{
+                    this.moveLeft();
+                }
             }
         }, (1000 / 60));
     }
@@ -94,5 +100,14 @@ class Endboss extends MoveableObject {
     playAttackSound(){
         let sound = new Audio('assets/audio/chicken-cackle.mp3');
         sound.play();
+    }
+
+    checkDirectionOfRunning(){
+        if(this.position_x < 100 && !this.otherDirection){
+            this.otherDirection = true;
+        }
+        if(this.position_x >= 3950 && this.otherDirection){
+            this.otherDirection = false;
+        }
     }
 }
