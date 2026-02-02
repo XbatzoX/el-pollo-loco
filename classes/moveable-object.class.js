@@ -46,6 +46,7 @@ class MoveableObject extends DrawableObject {
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
+        return ((this.currentImage) == images.length);
     }
 
     applyGravity(){
@@ -104,6 +105,7 @@ class MoveableObject extends DrawableObject {
     isDead(){
         if((this.energy <= 0) && (!this.isNoLongerAlive)){
             this.isNoLongerAlive = true;
+            this.currentImage = 0;
             this.timestampDead = new Date().getTime();
         }
         return (this.energy == 0);
@@ -120,6 +122,12 @@ class MoveableObject extends DrawableObject {
             return true;
         }else{
             return false;
+        }
+    }
+
+    isRunning(){
+        if(this.bossEncounter && this.encounterTimerActive && this.isAttacking && this.attackTimerActive){
+            return true;
         }
     }
 

@@ -40,25 +40,37 @@ class Endboss extends MoveableObject {
         'assets/img/4_enemie_boss_chicken/5_dead/G26.png'
     ];
 
+    IMAGES_RUNNING = [
+        'assets/img/4_enemie_boss_chicken/1_walk/G1.png',
+        'assets/img/4_enemie_boss_chicken/1_walk/G2.png',
+        'assets/img/4_enemie_boss_chicken/1_walk/G3.png',
+        'assets/img/4_enemie_boss_chicken/1_walk/G4.png'
+    ];
+
     constructor(){
         super().loadImage('assets/img/4_enemie_boss_chicken/2_alert/G5.png');
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_RUNNING);
         this.animate();
     }
 
     animate(){
         setInterval(() => {
             if(this.isDead() && !this.endbossDefeated){
-                this.playAnimation(this.IMAGES_DEAD);
+                let lastImage = this.playAnimation(this.IMAGES_DEAD);
                 this.playAttackSound();
-                this.endbossDefeated = true;
+                if(lastImage){
+                    this.endbossDefeated = true;
+                }
             }else if(this.isAttack()){
                 this.playAnimation(this.IMAGES_ATTACK);
             }else if(this.isHurt() && !this.isDead()){
                 this.playAnimation(this.IMAGES_HURT);
+            }else if(this.isRunning() && !this.isDead()){
+                this.playAnimation(this.IMAGES_RUNNING);
             }else if(!this.isDead()){
                 this.playAnimation(this.IMAGES_ALERT);
             }
