@@ -1,10 +1,13 @@
 class Endboss extends MoveableObject {
     position_x = 3950;
     position_y = 50;
+    speed = 2.5;
     height = 400;
     width = 200;
     energy = 30;
     endbossDefeated = false;
+    leftDirection = true;
+    rightDirection = false;
 
     IMAGES_ALERT = [
         'assets/img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -75,6 +78,12 @@ class Endboss extends MoveableObject {
                 this.playAnimation(this.IMAGES_ALERT);
             }
         },200);
+
+        setInterval(() =>{
+            if(this.isRunning() && !this.isDead()){
+                this.moveLeft();
+            }
+        }, (1000 / 60));
     }
 
     playAlertSound(){
