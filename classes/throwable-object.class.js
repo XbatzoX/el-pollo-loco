@@ -20,13 +20,13 @@ class ThrowableObject extends MoveableObject {
     idBottlePosition_x;
     isThrown = false;
     isHitEnemy = false;
+    throwDirectionLeft = false;
 
-    constructor(position_x, position_y){
+    constructor(position_x, position_y, throwDirectionLeft){
         super().loadImage('assets/img/6_salsa_bottle/salsa_bottle.png');
         this.loadImages(this.IMAGES_ROTATION);
         this.loadImages(this.IMAGES_SPLASH);
-        this.position_x = position_x;
-        this.position_y = position_y;
+        this.setPositionOfBottle(position_x, position_y, throwDirectionLeft);
         this.height = 70;
         this.width = 60;
         this.throw();
@@ -42,7 +42,11 @@ class ThrowableObject extends MoveableObject {
         }, 100);
 
         this.idBottlePosition_x = setInterval(() => {
-            this.position_x += 10;
+            if(!this.throwDirectionLeft){
+                this.position_x += 10;
+            }else{
+                this.position_x -= 10;
+            }
         }, 25);
     }
 
@@ -77,6 +81,16 @@ class ThrowableObject extends MoveableObject {
             let sound = new Audio('assets/audio/bottle_hit.mp3');
             sound.play();
             this.isHitEnemy = true;
+        }
+    }
+
+    setPositionOfBottle(position_x, position_y, throwDirectionLeft){
+        this.throwDirectionLeft = throwDirectionLeft;
+        this.position_y = (position_y + 100);
+        if(!this.throwDirectionLeft){
+            this.position_x = (position_x + 100);
+        }else{
+            this.position_x = (position_x - 100);
         }
     }
 }

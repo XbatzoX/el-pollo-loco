@@ -94,7 +94,11 @@ class Character extends MoveableObject {
                 this.playJumpSound();
             }
 
-            this.world.camera_x = -this.position_x + 100;
+            if(!this.world.level.enemies[this.world.level.enemies.length - 1].encounterTimerActive){
+                this.world.camera_x = -this.position_x + 100;
+            }else{
+                this.world.camera_x = -this.position_x + 250;
+            }
         }, (1000 / 60));
 
         setInterval(() => {
