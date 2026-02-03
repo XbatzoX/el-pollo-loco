@@ -6,10 +6,10 @@ class DrawableObject {
     height = 150;
     imageCache = {};
     offset = {
-        "UP" : 0,
+        "UP" : 20,
         "DOWN" : 0,
-        "LEFT" : 0,
-        "RIGHT" : 0
+        "LEFT" : 5,
+        "RIGHT" : 5
     };
     notCollected = true;
     value = 5;
@@ -33,11 +33,24 @@ class DrawableObject {
     }
 
     drawFrame(ctx){
-        if(this instanceof Character || this instanceof Chicken){
+        if(this instanceof Character || this instanceof Chicken || this instanceof Endboss){
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';
             ctx.rect(this.position_x, this.position_y, this.width, this.height);
+            ctx.stroke();
+        }
+    }
+    drawOffsetFrame(ctx){
+        if(this instanceof Character || this instanceof Chicken || this instanceof Endboss){
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'red';
+            let x = this.position_x + this.offset.LEFT;
+            let y = this.position_y + this.offset.UP;
+            let offsetWidth = this.width - this.offset.LEFT - this.offset.RIGHT;
+            let offsetHight = this.height - this.offset.UP - this.offset.DOWN;
+            ctx.rect(x, y, offsetWidth, offsetHight);
             ctx.stroke();
         }
     }
