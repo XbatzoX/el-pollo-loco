@@ -4,6 +4,9 @@ class Character extends MoveableObject {
     // position_y = 230;
     position_y = 120;
     jumpOfDeath = false;
+    cameraPositionReached = false;
+    cameraOffset = 10;
+
     IMAGES_WALKING = [
         'assets/img/2_character_pepe/2_walk/W-21.png',
         'assets/img/2_character_pepe/2_walk/W-22.png',
@@ -97,7 +100,8 @@ class Character extends MoveableObject {
             if(!this.world.level.enemies[this.world.level.enemies.length - 1].encounterTimerActive){
                 this.world.camera_x = -this.position_x + 100;
             }else{
-                this.world.camera_x = -this.position_x + 250;
+                // this.world.camera_x = -this.position_x + 250;
+                this.updateCamera();
             }
         }, (1000 / 60));
 
@@ -129,6 +133,20 @@ class Character extends MoveableObject {
                 this.playAnimation(['assets/img/2_character_pepe/1_idle/idle/I-1.png']);
             }           
         },50);
+    }
+
+    updateCamera(){
+        let offsetCameraX = -this.position_x + 250;
+        if((this.world.camera_x != offsetCameraX) && !this.cameraPositionReached){
+            // this.world.camera_x += (offsetCameraX - this.world.camera_x) * 0.01;
+            this.world.camera_x = -this.position_x + 100 + this.cameraOffset;
+            this.cameraOffset += 0.5;
+            if(this.world.camera_x == offsetCameraX){
+                this.cameraPositionReached = true;
+            }
+        }else{
+            this.world.camera_x = -this.position_x + 250;
+        }
     }
 
     playJumpSound(){

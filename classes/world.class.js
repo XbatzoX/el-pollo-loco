@@ -110,7 +110,7 @@ class World {
         let bossEncounter = this.level.enemies[enemyEndboss].bossEncounter;
         let encounterTimerActive = this.level.enemies[enemyEndboss].encounterTimerActive;
         if(!bossEncounter && !encounterTimerActive){
-            if(this.character.position_x >= 3400){
+            if(this.character.position_x >= 3500){
                 this.level.enemies[enemyEndboss].playAlertSound();
                 setTimeout(() => {
                     this.level.enemies[enemyEndboss].bossEncounter = true;
