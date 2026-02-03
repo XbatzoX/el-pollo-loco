@@ -71,6 +71,7 @@ class World {
                     this.actualBottle.bottleHitsEnemy();
                     if(enemy instanceof Endboss){
                         this.bossbar.setPercentage(enemy.energy);
+                        this.checkDirectionOfHit();
                     }
                     // this.actualBottle.speed = 0;
                     
@@ -81,6 +82,16 @@ class World {
             }
                 
         });
+    }
+
+    checkDirectionOfHit(){
+        let endbossChicken = this.level.enemies[(this.level.enemies.length) - 1];
+        if(this.character.position_x > endbossChicken.position_x){
+            this.level.enemies[(this.level.enemies.length) - 1].otherDirection = true;
+        }
+        if((this.character.position_x < endbossChicken.position_x) && endbossChicken.otherDirection == true){
+            this.level.enemies[(this.level.enemies.length) - 1].otherDirection = false;
+        }
     }
 
     checkIfCollectingCoins(){
@@ -110,7 +121,7 @@ class World {
         let bossEncounter = this.level.enemies[enemyEndboss].bossEncounter;
         let encounterTimerActive = this.level.enemies[enemyEndboss].encounterTimerActive;
         if(!bossEncounter && !encounterTimerActive){
-            if(this.character.position_x >= 3500){
+            if(this.character.position_x >= 3600){
                 this.level.enemies[enemyEndboss].playAlertSound();
                 setTimeout(() => {
                     this.level.enemies[enemyEndboss].bossEncounter = true;
