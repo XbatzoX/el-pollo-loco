@@ -6,6 +6,10 @@ class Coin extends DrawableObject {
         super().loadImage('assets/img/8_coin/coin_1.png');
         this.position_x = position_x;
         this.position_y = position_y;
+        this.offset.UP = 25;
+        this.offset.DOWN = 25;
+        this.offset.LEFT = 25;
+        this.offset.RIGHT = 25;
     }
 
     playCollectingCoinSound(notCollected){

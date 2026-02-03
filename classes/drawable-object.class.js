@@ -6,10 +6,10 @@ class DrawableObject {
     height = 150;
     imageCache = {};
     offset = {
-        "UP" : 20,
+        "UP" : 0,
         "DOWN" : 0,
-        "LEFT" : 5,
-        "RIGHT" : 5
+        "LEFT" : 0,
+        "RIGHT" : 0
     };
     notCollected = true;
     value = 5;
@@ -33,7 +33,7 @@ class DrawableObject {
     }
 
     drawFrame(ctx){
-        if(this instanceof Character || this instanceof Chicken || this instanceof Endboss){
+        if(this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coin){
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';
@@ -42,7 +42,7 @@ class DrawableObject {
         }
     }
     drawOffsetFrame(ctx){
-        if(this instanceof Character || this instanceof Chicken || this instanceof Endboss){
+        if(this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coin){
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'red';
