@@ -13,6 +13,7 @@ class World {
     actualBottle;
     bottleInAir = false;
     endbossAttacks = false;
+    allCoinsCollected = false;
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
@@ -39,6 +40,8 @@ class World {
             this.checkIfCollectingBottles();
             // check encounter with endboss
             this.checkEncounterEndboss();
+            // check bonus reached
+            // this.checkAmountOfCoins();
         }, 200);
     }
 
@@ -147,6 +150,15 @@ class World {
                 this.level.enemies[enemyEndboss].playAttackSound();
                 this.endbossAttacks = true;
             }
+        }
+    }
+
+    checkAmountOfCoins(){
+        if((this.coinbar.amount == 10) && !this.allCoinsCollected){
+            this.statusbar.setPercentage = 100;
+            this.bottlebar.amount = 10;
+            // hier noch einen sound einfügen (bonus)
+            this.allCoinsCollected = true;
         }
     }
 
