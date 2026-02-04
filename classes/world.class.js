@@ -223,7 +223,7 @@ class World {
     }
 
     checkIfEnemyAlive(o){
-        if(o instanceof Chicken){
+        if(o instanceof Chicken || o instanceof BigChicken){
             if(o.isDead()){
                 if(!o.visible){return;}
                 let actualTime = new Date().getTime();
