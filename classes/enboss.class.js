@@ -58,6 +58,7 @@ class Endboss extends MoveableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_RUNNING);
         this.animate();
+        this.offset.UP = 50;
     }
 
     animate(){
