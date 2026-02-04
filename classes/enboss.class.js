@@ -65,9 +65,9 @@ class Endboss extends MoveableObject {
         setInterval(() => {
             if(this.isDead() && !this.endbossDefeated){
                 let lastImage = this.playAnimation(this.IMAGES_DEAD);
-                this.playAttackSound();
                 if(lastImage){
                     this.endbossDefeated = true;
+                    this.playAttackSound();
                 }
             }else if(this.isAttack()){
                 this.playAnimation(this.IMAGES_ATTACK);

@@ -85,12 +85,12 @@ class Character extends MoveableObject {
 
     animate(){
         setInterval(() => {
-            if(this.world.keyboard.RIGHT && (this.position_x < this.world.level.level_end_x)){
+            if(this.world.keyboard.RIGHT && (this.position_x < this.world.level.level_end_x) && this.movePermission()){
                 this.moveRight();
                 this.otherDirection = false;
             }
 
-            if(this.world.keyboard.LEFT && (this.position_x > 0)){
+            if(this.world.keyboard.LEFT && (this.position_x > 0) && this.movePermission()){
                 this.moveLeft();
                 this.otherDirection = true;
             }
@@ -155,5 +155,14 @@ class Character extends MoveableObject {
     playJumpSound(){
         let jumpSound = new Audio('assets/audio/jump.mp3');
         jumpSound.play();
+    }
+
+    movePermission(){
+        let permission = false;
+        let encounterDone = this.world.level.enemies[this.world.level.enemies.length - 1].encounterTimerActive;
+        if(!encounterDone || (encounterDone && this.cameraPositionReached)){
+            permission = true;
+        }
+        return permission;
     }
 }

@@ -10,12 +10,20 @@ class Coin extends DrawableObject {
         this.offset.DOWN = 25;
         this.offset.LEFT = 25;
         this.offset.RIGHT = 25;
+        this.setFinalCoin();
     }
 
     playCollectingCoinSound(notCollected){
         if(notCollected){
             let sound = new Audio('assets/audio/collecting_coin2.mp3');
             sound.play();
+        }
+    }
+
+    setFinalCoin(){
+        if(this.position_x == 3600){
+            this.width = 250;
+            this.height = 250;
         }
     }
 }
