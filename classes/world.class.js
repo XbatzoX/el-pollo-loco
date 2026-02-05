@@ -158,7 +158,7 @@ class World {
             this.character.energy = 100;
             this.statusbar.setPercentage(this.character.energy);
             this.fillBottleAmount();
-            // hier noch einen sound einfügen (bonus)
+            this.coinbar.playBonusSound();
             this.allCoinsCollected = true;
         }
     }

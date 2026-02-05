@@ -48,4 +48,9 @@ class Coinbar extends DrawableObject{
             this.amount += 1;
         }
     }
+
+    playBonusSound(){
+        let sound = new Audio('assets/audio/bonus_sound.mp3');
+        sound.play();
+    }
 }
