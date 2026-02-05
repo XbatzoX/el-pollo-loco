@@ -41,7 +41,7 @@ class World {
             // check encounter with endboss
             this.checkEncounterEndboss();
             // check bonus reached
-            // this.checkAmountOfCoins();
+            this.checkAmountOfCoins();
         }, 200);
     }
 
@@ -155,11 +155,20 @@ class World {
 
     checkAmountOfCoins(){
         if((this.coinbar.amount == 10) && !this.allCoinsCollected){
-            this.statusbar.setPercentage = 100;
-            this.bottlebar.amount = 10;
+            this.character.energy = 100;
+            this.statusbar.setPercentage(this.character.energy);
+            this.fillBottleAmount();
             // hier noch einen sound einfügen (bonus)
             this.allCoinsCollected = true;
         }
+    }
+
+    fillBottleAmount(){
+        let amountOfBottles = this.bottlebar.amount;
+        for (let index = amountOfBottles; index < 10; index++) {
+            this.bottlebar.increaseAmount(true);
+        }
+        this.bottlebar.setBottleValue(this.bottlebar.amount, true);
     }
 
     draw(){
