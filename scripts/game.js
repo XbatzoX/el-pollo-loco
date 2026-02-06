@@ -59,3 +59,7 @@ window.addEventListener('keyup', (e) => {
         keyboard.D = false;
     }
 });
+
+document.addEventListener("gameover", () => {
+    console.log('funktioniert');
+});

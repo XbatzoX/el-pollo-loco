@@ -25,6 +25,7 @@ h1{
     width: 720px;
     height: 480px;
     background-color: rgba(0, 0, 0, 0.8);
+    font-family: 'MyChangaOne';
 }
 
 .game-container{
@@ -51,9 +52,38 @@ canvas{
     cursor: pointer;
 }
 
+.game-over-container{
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
 .game-over-image{
     height: 200px;
     width: 400px;
+}
+
+.btn-design{
+    background-color: rgb(231, 231, 231);
+    border: 2px solid rgb(192, 55, 55);
+    border-radius: 5px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    width: 120px;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.btn-design:hover{
+    cursor: pointer;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.text-design{
+    color: rgb(192, 55, 55);
 }
 
 @media(max-width:720px){

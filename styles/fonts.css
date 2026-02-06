@@ -4,3 +4,10 @@
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'MyChangaOne';
+    src: url('../assets/fonts/Changa_One/ChangaOne-Regular.ttf') format(truetype);
+    font-weight: normal;
+    font-style: normal;
+}

@@ -115,6 +115,7 @@ class Character extends MoveableObject {
                 if(!this.jumpOfDeath){
                     this.jump();
                     this.jumpOfDeath = true;
+                    document.dispatchEvent(new Event("gameover"));
                 }
             }else if(this.isHurt()){
                 // hurt animation
