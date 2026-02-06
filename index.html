@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Pollo Loco</title>
 
+    <link rel="stylesheet" href="./styles/fonts.css">
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="assets/img/7_statusbars/3_icons/icon_salsa_bottle.png" type="image/x-icon">
     <script src="./classes/drawable-object.class.js"></script>
@@ -31,9 +32,14 @@
 <body onload="init()">
     <div class="game-container">
         <h1>El Pollo Loco</h1>
-        <canvas id="canvas_id" width="720" height="480"></canvas>
-        <div id="sound_btn">
-            <img src="./assets/icons/sound.svg" alt="mute button as speaker">
+        <canvas id="canvas_id" class="invisible" width="720" height="480"></canvas>
+        <div id="game_over" class="game-size-container">
+            <div class="game-over-container">
+                <img class="game-over-image" src="./assets/img/You won, you lost/Game Over.png" alt="game over image with pepe">
+            </div>
+        </div>
+        <div id="sound_btn" class="sound-btn">
+            <img id="sound_image" class="sound-image" src="./assets/icons/sound.svg" alt="mute button as speaker">
         </div>
     </div>
 </body>

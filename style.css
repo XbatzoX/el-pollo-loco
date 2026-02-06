@@ -13,6 +13,20 @@ h1{
     font-family: 'MyPacifico';
 }
 
+.visible{
+    display: block;
+}
+
+.invisible{
+    display: none;
+}
+
+.game-size-container{
+    width: 720px;
+    height: 480px;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
 .game-container{
     height: calc(100vh - 53px);
     display: flex;
@@ -26,11 +40,20 @@ canvas{
     display: block;
 }
 
-@font-face {
-    font-family: 'MyPacifico';
-    src: url('./assets/fonts/Pacifico/Pacifico-Regular.ttf') format(truetype);
-    font-weight: normal;
-    font-style: normal;
+.sound-image{
+    height: 32px;
+    width: 32px;
+}
+
+.sound-image:hover{
+    height: 34px;
+    width: 34px;
+    cursor: pointer;
+}
+
+.game-over-image{
+    height: 200px;
+    width: 400px;
 }
 
 @media(max-width:720px){
