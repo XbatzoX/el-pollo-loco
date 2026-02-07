@@ -14,6 +14,7 @@ class World {
     bottleInAir = false;
     endbossAttacks = false;
     allCoinsCollected = false;
+    
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');

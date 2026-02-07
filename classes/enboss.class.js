@@ -62,7 +62,7 @@ class Endboss extends MoveableObject {
     }
 
     animate(){
-        setInterval(() => {
+        this.animationInterval = setInterval(() => {
             if(this.isDead() && !this.endbossDefeated){
                 let lastImage = this.playAnimation(this.IMAGES_DEAD);
                 if(lastImage){
@@ -81,8 +81,9 @@ class Endboss extends MoveableObject {
 
             this.checkDirectionOfRunning();
         },200);
+        this.intervalIDs.push(this.animationInterval);
 
-        setInterval(() =>{
+        this.moveInterval = setInterval(() =>{
             if(this.isRunning() && !this.isDead()){
                 if(this.otherDirection){
                     this.moveRight();
@@ -91,6 +92,7 @@ class Endboss extends MoveableObject {
                 }
             }
         }, (1000 / 60));
+        this.intervalIDs.push(this.moveInterval);
     }
 
     playAlertSound(){

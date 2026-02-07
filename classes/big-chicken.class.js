@@ -25,16 +25,18 @@ class BigChicken extends MoveableObject {
     }
 
     animate(){
-        setInterval(() =>{
+        this.moveInterval = setInterval(() =>{
             this.moveLeft();
         }, (1000 / 60));
+        this.intervalIDs.push(this.moveInterval);
 
-        setInterval(() => {
+        this.animationInterval = setInterval(() => {
             if(this.isDead()){
                 this.playAnimation(this.IMAGE_DEAD);
             }else{
                 this.playAnimation(this.IMAGES_WALKING);
             }      
         },200);
+        this.intervalIDs.push(this.animationInterval);
     }
 }

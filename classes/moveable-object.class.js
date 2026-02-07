@@ -23,6 +23,9 @@ class MoveableObject extends DrawableObject {
     encounterTimerActive = false;
     attackTimerActive = false;
     isAttacking = false;
+    intervalIDs = [];
+    animationInterval;
+    moveInterval;
 
     constructor(){
         super();
@@ -189,5 +192,12 @@ class MoveableObject extends DrawableObject {
         this.storePosition_y = this.position_y;
         this.timeLastMove_x = new Date().getTime();
         this.timeLastMove_y = new Date().getTime();
+    }
+
+    resetInterval(){
+        this.intervalIDs.forEach(id => {
+            clearInterval(id);
+        });
+        this.intervalIDs = [];
     }
 }

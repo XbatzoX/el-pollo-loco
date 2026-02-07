@@ -66,7 +66,7 @@ class Character extends MoveableObject {
     ];
     world;
     speed = 10;
-
+    
     constructor(){
         super().loadImage('assets/img/2_character_pepe/2_walk/W-21.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -84,7 +84,7 @@ class Character extends MoveableObject {
     }
 
     animate(){
-        setInterval(() => {
+        this.moveInterval = setInterval(() => {
             if(this.world.keyboard.RIGHT && (this.position_x < this.world.level.level_end_x) && this.movePermission()){
                 this.moveRight();
                 this.otherDirection = false;
@@ -107,8 +107,9 @@ class Character extends MoveableObject {
                 this.updateCamera();
             }
         }, (1000 / 60));
+        this.intervalIDs.push(this.moveInterval);
 
-        setInterval(() => {
+        this.animationInterval = setInterval(() => {
             if(this.isDead()){
                 // dead animation
                 this.playAnimation(this.IMAGES_DEAD);
@@ -137,6 +138,7 @@ class Character extends MoveableObject {
                 this.playAnimation(['assets/img/2_character_pepe/1_idle/idle/I-1.png']);
             }           
         },50);
+        this.intervalIDs.push(this.animationInterval);
     }
 
     updateCamera(){

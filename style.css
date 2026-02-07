@@ -11,6 +11,8 @@ h1{
     margin-block-start: 0px;
     margin-block-end: 16px;
     font-family: 'MyPacifico';
+    color: rgb(192, 55, 55);
+    font-weight: 900;
 }
 
 .visible{
@@ -63,15 +65,16 @@ canvas{
 .game-over-image{
     height: 200px;
     width: 400px;
+    padding-bottom: 32px;
 }
 
 .btn-design{
     background-color: rgb(231, 231, 231);
     border: 2px solid rgb(192, 55, 55);
     border-radius: 5px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    width: 120px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    width: 150px;
     text-align: center;
     transition: transform 0.2s ease;
 }
