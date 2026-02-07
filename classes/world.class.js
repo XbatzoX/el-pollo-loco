@@ -14,12 +14,14 @@ class World {
     bottleInAir = false;
     endbossAttacks = false;
     allCoinsCollected = false;
+    intervalObj = [];
     
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.intervalObj.push(this.character, this.level);
         this.draw(); 
         this.setWorld();
         this.run();

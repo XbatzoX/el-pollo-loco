@@ -6,6 +6,7 @@ let isGameOver = false;
 
 function init(){
     if(isGameOver){
+        gameOver();
         showOverlay('game_over', 'canvas_id');
     }
     canvas = document.getElementById('canvas_id');
@@ -57,4 +58,25 @@ function showOverlay(idRemove, idAdd){
     document.getElementById(idRemove).classList.add('invisible');
     document.getElementById(idAdd).classList.remove('invisible');
     document.getElementById(idAdd).classList.add('visible');
+}
+
+function gameOver(){
+    world.intervalObj.forEach(obj => {
+        if(typeof obj.resetInterval === 'function'){
+            obj.resetInterval();
+        }else if(obj instanceof Level){
+            obj.enemies.forEach(enemy => {
+                if(typeof enemy.resetInterval === 'function'){
+                    enemy.resetInterval();
+                }
+            });
+            obj.clouds.forEach(cloud => {
+                if(typeof cloud.resetInterval === 'function'){
+                    cloud.resetInterval();
+                }
+            });
+        }
+    });
+
+    world.intervalObj.length = 0;
 }
