@@ -7,6 +7,8 @@ let isGameOver = false;
 function init(){
     if(isGameOver){
         gameOver();
+        clearCanvas();
+        
         showOverlay('game_over', 'canvas_id');
     }
     canvas = document.getElementById('canvas_id');
@@ -23,29 +25,12 @@ window.addEventListener('keydown', (e) => {
 });
 
 window.addEventListener('keyup', (e) => {
-    if(e.keyCode == 39){
-        keyboard.RIGHT = false;
-    }
-
-    if(e.keyCode == 37){
-        keyboard.LEFT = false;
-    }
-
-    if(e.keyCode == 38){
-        keyboard.UP = false;
-    }
-
-    if(e.keyCode == 40){
-        keyboard.DOWN = false;
-    }
-
-    if(e.keyCode == 32){
-        keyboard.SPACE = false;
-    }
-
-    if(e.keyCode == 68){
-        keyboard.D = false;
-    }
+    if(e.keyCode == 39){keyboard.RIGHT = false;}
+    if(e.keyCode == 37){keyboard.LEFT = false;}
+    if(e.keyCode == 38){keyboard.UP = false;}
+    if(e.keyCode == 40){keyboard.DOWN = false;}
+    if(e.keyCode == 32){keyboard.SPACE = false;}
+    if(e.keyCode == 68){keyboard.D = false;}
 });
 
 document.addEventListener("gameover", () => {
@@ -79,4 +64,10 @@ function gameOver(){
     });
 
     world.intervalObj.length = 0;
+    world = null;
+}
+
+function clearCanvas(){
+    let canvasContextRef = canvas.getContext("2d");
+    canvasContextRef.clearRect(0, 0, canvas.width, canvas.height);
 }

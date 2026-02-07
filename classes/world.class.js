@@ -4,7 +4,7 @@ class World {
     coinbar = new Coinbar();
     bottlebar = new Bottlebar();
     bossbar = new Bossbar();
-    level = level1;
+    // level = level1;
     ctx;
     canvas;
     keyboard;
@@ -21,6 +21,7 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.level = createLevel();
         this.intervalObj.push(this.character, this.level);
         this.draw(); 
         this.setWorld();
