@@ -74,7 +74,6 @@ class World {
             this.character.currentStateOfHit = this.character.isColliding(enemy);
             this.character.hit(this.character.currentStateOfHit);
             if(this.character.isColliding(enemy)){
-                
                 this.statusbar.setPercentage(this.character.energy);
             }
             if(this.throwableObjects.length > 0){

@@ -142,7 +142,7 @@ class MoveableObject extends DrawableObject {
          
         diff_x = Math.abs(diff_x);
         diff_y = Math.abs(diff_y);
-        this.jumpOnEnemy = ((diff_x <= 50) && (diff_y <= 50) && (this.speedY <= 0))
+        this.jumpOnEnemy = ((diff_x <= 50) && (diff_y <= 70) && (this.speedY <= 0))
 
         return this.jumpOnEnemy;
     }

@@ -13,7 +13,17 @@ const level1Data = {
 };
 
 function createLevel(){
-    const enemies = [
+    let enemies = createNewInstanceOfEnemies();
+    let clouds = createNewInstanceOfClouds(); 
+    let coins = createNewInstanceOfCoins(); 
+    let bottles = createNewInstanceOfBottles(); 
+
+    return new Level(enemies, clouds, level1Data.objArr,
+        level1Data.numberRepetitions, coins, bottles);
+}
+
+function createNewInstanceOfEnemies(){
+    let enemies = [
         new Chicken(600),
         new Chicken(800),
         new Chicken(950),
@@ -25,7 +35,11 @@ function createLevel(){
         new Chicken(3500),
         new Endboss()
     ];
-    const clouds =  [
+    return enemies;
+}
+
+function createNewInstanceOfClouds(){
+    let clouds = [
         new Cloud(0),
         new Cloud(720),
         new Cloud(2 * 720),
@@ -34,21 +48,27 @@ function createLevel(){
         new Cloud(5 * 720),
         new Cloud(6 * 720)
     ];
-    const coins = [
+    return clouds;
+}
+
+function createNewInstanceOfCoins(){
+    let coins = [
         new Coin(500, 350),
         new Coin(570, 350),
         new Coin(640, 350),
-
         new Coin(2000, 210),
         new Coin(2100, 180),
         new Coin(2200, 210),
-        
         new Coin(2900, 210),
         new Coin(3000, 350),
         new Coin(3070, 210),
         new Coin(3600, 210)
     ];
-    const bottles = [
+    return coins;
+}
+
+function createNewInstanceOfBottles(){
+    let bottles = [
         new Bottle(250, 0),
         new Bottle(400, 0),
         new Bottle(750, 1),
@@ -60,92 +80,5 @@ function createLevel(){
         new Bottle(3200, 1),
         new Bottle(3400, 1)
     ];
-
-    return new Level(enemies, clouds, level1Data.objArr,
-        level1Data.numberRepetitions, coins, bottles);
+    return bottles;
 }
-
-// const level1 = new Level(
-//     [
-//         new Chicken(600),
-//         new Chicken(800),
-//         new Chicken(950),
-//         new BigChicken(1500),
-//         new BigChicken(1700),
-//         new BigChicken(2000),
-//         new Chicken(3200),
-//         new BigChicken(3400),
-//         new Chicken(3500),
-//         new Endboss()
-//     ],
-//     [
-//         new Cloud(0),
-//         new Cloud(720),
-//         new Cloud(2 * 720),
-//         new Cloud(3 * 720),
-//         new Cloud(4 * 720),
-//         new Cloud(5 * 720),
-//         new Cloud(6 * 720)
-//     ],
-//     [
-        // new BackgroundObject('../assets/img/5_background/layers/air.png', -719),
-        // new BackgroundObject('../assets/img/5_background/layers/3_third_layer/2.png', -719),
-        // new BackgroundObject('../assets/img/5_background/layers/2_second_layer/2.png', -719),
-        // new BackgroundObject('../assets/img/5_background/layers/1_first_layer/2.png', -719),
-
-        // new BackgroundObject('../assets/img/5_background/layers/air.png', 0),
-        // new BackgroundObject('../assets/img/5_background/layers/3_third_layer/1.png', 0),
-        // new BackgroundObject('../assets/img/5_background/layers/2_second_layer/1.png', 0),
-        // new BackgroundObject('../assets/img/5_background/layers/1_first_layer/1.png', 0),
-
-        // new BackgroundObject('../assets/img/5_background/layers/air.png', 719),
-        // new BackgroundObject('../assets/img/5_background/layers/3_third_layer/2.png', 719),
-        // new BackgroundObject('../assets/img/5_background/layers/2_second_layer/2.png', 719),
-        // new BackgroundObject('../assets/img/5_background/layers/1_first_layer/2.png', 719),
-
-        // new BackgroundObject('../assets/img/5_background/layers/air.png', (719*2)),
-        // new BackgroundObject('../assets/img/5_background/layers/3_third_layer/1.png', (719*2)),
-        // new BackgroundObject('../assets/img/5_background/layers/2_second_layer/1.png', (719*2)),
-        // new BackgroundObject('../assets/img/5_background/layers/1_first_layer/1.png', (719*2)),
-
-        // new BackgroundObject('../assets/img/5_background/layers/air.png', (719*3)),
-        // new BackgroundObject('../assets/img/5_background/layers/3_third_layer/2.png', (719*3)),
-        // new BackgroundObject('../assets/img/5_background/layers/2_second_layer/2.png', (719*3)),
-        // new BackgroundObject('../assets/img/5_background/layers/1_first_layer/2.png', (719*3))
-//         'assets/img/5_background/layers/air.png',
-//         'assets/img/5_background/layers/3_third_layer/2.png',
-//         'assets/img/5_background/layers/2_second_layer/2.png',
-//         'assets/img/5_background/layers/1_first_layer/2.png',
-//         'assets/img/5_background/layers/air.png',
-//         'assets/img/5_background/layers/3_third_layer/1.png',
-//         'assets/img/5_background/layers/2_second_layer/1.png',
-//         'assets/img/5_background/layers/1_first_layer/1.png'
-//     ],
-//     4,
-//     [
-//         new Coin(500, 350),
-//         new Coin(570, 350),
-//         new Coin(640, 350),
-
-//         new Coin(2000, 210),
-//         new Coin(2100, 180),
-//         new Coin(2200, 210),
-        
-//         new Coin(2900, 210),
-//         new Coin(3000, 350),
-//         new Coin(3070, 210),
-//         new Coin(3600, 210)
-//     ],
-//     [
-//         new Bottle(250, 0),
-//         new Bottle(400, 0),
-//         new Bottle(750, 1),
-//         new Bottle(1000, 0),
-//         new Bottle(1500, 0),
-//         new Bottle(2350, 0),
-//         new Bottle(2700, 1),
-//         new Bottle(3000, 0),
-//         new Bottle(3200, 1),
-//         new Bottle(3400, 1)
-//     ]
-// );
