@@ -30,6 +30,14 @@ h1{
     font-family: 'MyChangaOne';
 }
 
+.start-container{
+    width: 720px;
+    height: 480px;
+    background-image: url('./assets/img/9_intro_outro_screens/start/startscreen_2.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
 .game-container{
     height: calc(100vh - 53px);
     display: flex;
