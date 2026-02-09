@@ -8,6 +8,7 @@ class Endboss extends MoveableObject {
     endbossDefeated = false;
     // leftDirection = true;
     // rightDirection = false;
+    deathAnimationDone = false;
 
     IMAGES_ALERT = [
         'assets/img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -63,7 +64,16 @@ class Endboss extends MoveableObject {
 
     animate(){
         this.animationInterval = setInterval(() => {
-            if(this.isDead() && !this.endbossDefeated){
+            if(this.isDead() && this.endbossDefeated){
+                if(this.endbossDefeated){
+                    setTimeout(() => {
+                        this.deathAnimationDone = true;
+                    }, 500);
+                }
+                if(this.deathAnimationDone){
+                    document.dispatchEvent(new Event('gamewon'));
+                }
+            }else if(this.isDead() && !this.endbossDefeated){
                 let lastImage = this.playAnimation(this.IMAGES_DEAD);
                 if(lastImage){
                     this.endbossDefeated = true;

@@ -3,13 +3,20 @@ let world;
 let keyboard = new Keyboard();
 let soundEnabled;
 let isGameOver = false;
+let isGameWon = false;
 
 function init(){
     if(isGameOver){
-        gameOver();
+        playAgain();
         clearCanvas();
-        
         showOverlay('game_over', 'canvas_id');
+        isGameOver = false;
+    }
+    if(isGameWon){
+        playAgain();
+        clearCanvas();
+        showOverlay('win_game', 'canvas_id');
+        isGameWon = false;
     }
     canvas = document.getElementById('canvas_id');
     world = new World(canvas, keyboard);
@@ -38,6 +45,11 @@ document.addEventListener("gameover", () => {
     isGameOver = true;
 });
 
+document.addEventListener("gamewon", () => {
+    showOverlay('canvas_id', 'win_game');
+    isGameWon = true;
+});
+
 function showOverlay(idRemove, idAdd){
     document.getElementById(idRemove).classList.remove('visible');
     document.getElementById(idRemove).classList.add('invisible');
@@ -45,7 +57,7 @@ function showOverlay(idRemove, idAdd){
     document.getElementById(idAdd).classList.add('visible');
 }
 
-function gameOver(){
+function playAgain(){
     world.intervalObj.forEach(obj => {
         if(typeof obj.resetInterval === 'function'){
             obj.resetInterval();
@@ -62,7 +74,6 @@ function gameOver(){
             });
         }
     });
-
     world.intervalObj.length = 0;
     world = null;
 }
