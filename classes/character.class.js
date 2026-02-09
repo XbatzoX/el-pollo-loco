@@ -6,6 +6,7 @@ class Character extends MoveableObject {
     jumpOfDeath = false;
     cameraPositionReached = false;
     cameraOffset = 10;
+    deathAnimationDone = false;
 
     IMAGES_WALKING = [
         'assets/img/2_character_pepe/2_walk/W-21.png',
@@ -116,7 +117,14 @@ class Character extends MoveableObject {
                 if(!this.jumpOfDeath){
                     this.jump();
                     this.jumpOfDeath = true;
-                    document.dispatchEvent(new Event("gameover"));
+                }
+                if(this.jumpOfDeath){
+                    setTimeout(() => {
+                        this.deathAnimationDone = true;
+                    },500);
+                    if(this.deathAnimationDone && (this.position_y > 200)){
+                        document.dispatchEvent(new Event("gameover"));
+                    }
                 }
             }else if(this.isHurt()){
                 // hurt animation
