@@ -36,6 +36,8 @@ h1{
     background-image: url('./assets/img/9_intro_outro_screens/start/startscreen_2.png');
     background-repeat: no-repeat;
     background-size: contain;
+    background-position: center;
+    font-family: 'MyChangaOne';
 }
 
 .game-container{
@@ -102,6 +104,35 @@ canvas{
 
 .text-design{
     color: rgb(192, 55, 55);
+}
+
+.control-container{
+    padding-top: 395px;
+    padding-left: 42px;
+    padding-right: 42px;
+}
+
+.btn-menu{
+    border: 2px solid #eedfbb;
+    border-radius: 5px;
+    padding: 8px 0px;
+    width: 100px;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.btn-menu:hover{
+    cursor: pointer;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.start-color{
+    background-color: rgb(71, 175, 71);
+}
+
+.text-menu{
+    color: #eedfbb;
 }
 
 @media(max-width:720px){

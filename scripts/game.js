@@ -7,19 +7,32 @@ let isGameWon = false;
 
 function init(){
     if(isGameOver){
-        playAgain();
+        refreshMap();
         clearCanvas();
         showOverlay('game_over', 'canvas_id');
         isGameOver = false;
-    }
-    if(isGameWon){
-        playAgain();
+    }else if(isGameWon){
+        refreshMap();
         clearCanvas();
         showOverlay('win_game', 'canvas_id');
         isGameWon = false;
+    }else{
+        showOverlay('start_id', 'canvas_id');
     }
     canvas = document.getElementById('canvas_id');
     world = new World(canvas, keyboard);
+}
+
+function openMainMenu(){
+    refreshMap();
+    clearCanvas();
+    if(isGameOver){
+        showOverlay('game_over', 'start_id');
+        isGameOver = false;
+    }else if(isGameWon){
+        showOverlay('win_game', 'start_id');
+        isGameWon = false;
+    }
 }
 
 window.addEventListener('keydown', (e) => {
@@ -57,7 +70,7 @@ function showOverlay(idRemove, idAdd){
     document.getElementById(idAdd).classList.add('visible');
 }
 
-function playAgain(){
+function refreshMap(){
     world.intervalObj.forEach(obj => {
         if(typeof obj.resetInterval === 'function'){
             obj.resetInterval();

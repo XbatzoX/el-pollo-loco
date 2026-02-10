@@ -30,11 +30,15 @@
     <script src="./classes/world.class.js"></script>
     <script src="./scripts/game.js"></script>
 </head>
-<body onload="init()">
+<body>
     <div class="game-container">
         <h1>El Pollo Loco</h1>
         <div id="start_id" class="start-container visible">
-
+            <div class="control-container">
+                <div class="btn-menu start-color" onclick="init()">
+                    <span class="text-menu">Start Game</span>
+                </div>
+            </div>
         </div>
         <canvas id="canvas_id" class="invisible" width="720" height="480"></canvas>
         <div id="game_over" class="game-size-container invisible">
@@ -43,7 +47,7 @@
                 <div class="btn-design" onclick="init()">
                     <span class="text-design">Play again</span>
                 </div>
-                <div class="btn-design">
+                <div class="btn-design" onclick="openMainMenu()">
                     <span class="text-design">Main menu</span>
                 </div>
             </div>
@@ -54,7 +58,7 @@
                 <div class="btn-design" onclick="init()">
                     <span class="text-design">Play again</span>
                 </div>
-                <div class="btn-design">
+                <div class="btn-design" onclick="openMainMenu()">
                     <span class="text-design">Main menu</span>
                 </div>
             </div>
