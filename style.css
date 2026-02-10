@@ -111,6 +111,7 @@ canvas{
     padding-left: 42px;
     padding-right: 42px;
     display: flex;
+    justify-content: space-between;
 }
 
 .btn-menu{
@@ -134,6 +135,10 @@ canvas{
 
 .controls-color{
     background-color: orangered;
+}
+
+.instructions-color{
+    background-color: rgb(231, 26, 26);
 }
 
 .text-menu{

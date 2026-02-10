@@ -60,3 +60,58 @@
     cursor: pointer;
     transform: translateY(-1px);
 }
+
+.headline{
+    text-align: center;
+}
+
+.instructions-dialog{
+    width: 500px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+    border: 2px solid #eedfbb;
+    border-radius: 5px;
+    font-family: 'MyChangaOne';
+}
+
+.instructions-dialog span{
+    color: #eedfbb;
+    font-size: 20px;
+}
+
+.instructions-frame{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+h2{
+    color: #eedfbb;
+}
+
+#game_play{
+    font-size: 22px;
+}
+
+.text-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 8px;
+}
+
+.link-container{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.link-class{
+    text-decoration: underline;
+    color: #eedfbb;
+    font-size: 21px;
+}
+
+.link-class:hover{
+    cursor: pointer;
+    font-size: 22px;
+}

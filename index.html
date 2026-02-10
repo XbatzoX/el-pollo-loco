@@ -76,6 +76,37 @@
                 </div>
             </div>
         </dialog>
+        <dialog id="instructions_dialog" class="instructions-dialog">
+            <div class="instructions-frame">
+                <span tabindex="-1"></span>
+                <div class="headline">
+                    <h2>Instructions</h2>
+                </div>
+                <div class="text-container">
+                   <span id="game_play"> Game play:</span>
+                   <span>
+                    You play Pepe as the main character. The destination is to defeat a chicken boss at the end of the level. 
+                     Along the way, you will encounter enemies that you can defeat by jumping on them or throwing a bottle of salsa at them.
+                     You can collect these bottles along the way on your journey.
+                    </span>
+                    <span>
+                        You can also collect coins along the way. Once you have collected all the coins, you will receive a bonus. 
+                    </span>
+                    <span>
+                        Please note: As long as a bottle is still visible on the map, you cannot throw another one!
+                    </span>
+                </div>
+                <div class="link-container">
+                    <a class="link-class" href="./html/imprint.html">Imprint</a>
+                    <a class="link-class" href="./html/privacy_policy.html">Privacy policy</a>
+                </div>
+                <div class="ctrl-dialog-close">
+                    <div class="ctrl-close-dialog-btn" onclick="closeInstructionsDialog()">
+                        <span>Close</span>
+                    </div>
+                </div>
+            </div>
+        </dialog>
         <div id="start_id" class="start-container visible">
             <div class="control-container">
                 <div class="btn-menu start-color" onclick="init()">
@@ -83,6 +114,9 @@
                 </div>
                 <div class="btn-menu controls-color" onclick="openControlsDialog()">
                     <span class="text-menu">Controls</span>
+                </div>
+                <div class="btn-menu instructions-color" onclick="openInstructionsDialog()">
+                    <span class="text-menu">Instructions</span>
                 </div>
             </div>
         </div>
