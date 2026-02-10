@@ -7,8 +7,10 @@
 
     <link rel="stylesheet" href="./styles/fonts.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./styles/dialogs.css">
     <link rel="shortcut icon" href="assets/img/7_statusbars/3_icons/icon_salsa_bottle.png" type="image/x-icon">
     <script src="./scripts/main.js"></script>
+    <script src="./scripts/dialogs.js"></script>
     <script src="./classes/drawable-object.class.js"></script>
     <script src="./classes/moveable-object.class.js"></script>
     <script src="./classes/status-bar.class.js"></script>
@@ -33,10 +35,23 @@
 <body>
     <div class="game-container">
         <h1>El Pollo Loco</h1>
+        <dialog id="controls_dialog" class="controls-dialog">
+            <div class="ctrl-dialog-container">
+                <div class="ctrl-box">
+                    <div class="ctrl-dialog-btn">
+                        <img src="./assets/icons/arrow_right.svg" alt="arrow right symbol">
+                    </div>
+                    <span>Move Right</span>
+                </div>
+            </div>
+        </dialog>
         <div id="start_id" class="start-container visible">
             <div class="control-container">
                 <div class="btn-menu start-color" onclick="init()">
                     <span class="text-menu">Start Game</span>
+                </div>
+                <div class="btn-menu controls-color" onclick="openControlsDialog()">
+                    <span class="text-menu">Controls</span>
                 </div>
             </div>
         </div>

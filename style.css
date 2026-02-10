@@ -110,6 +110,7 @@ canvas{
     padding-top: 395px;
     padding-left: 42px;
     padding-right: 42px;
+    display: flex;
 }
 
 .btn-menu{
@@ -129,6 +130,10 @@ canvas{
 
 .start-color{
     background-color: rgb(71, 175, 71);
+}
+
+.controls-color{
+    background-color: orangered;
 }
 
 .text-menu{

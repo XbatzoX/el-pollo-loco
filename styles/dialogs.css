@@ -1,0 +1,34 @@
+.controls-dialog{
+    width: 500px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+    border: 2px solid #eedfbb;
+    border-radius: 5px;
+    font-family: 'MyChangaOne';
+}
+
+.controls-dialog span{
+    color: #eedfbb;
+    font-size: 20px;
+}
+
+.ctrl-dialog-container{
+    border: 1px solid #eedfbb;
+    border-radius: 5px;
+    padding: 12px;
+}
+
+.ctrl-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ctrl-dialog-btn{
+    width: 100px;
+    padding: 8px;
+    background-color: rgb(231, 231, 231);
+    border: 2px solid #c03737;
+    border-radius: 5px;
+    text-align: center;
+}
