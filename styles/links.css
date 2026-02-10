@@ -1,0 +1,91 @@
+body{
+    box-sizing: border-box;
+    margin: 0;
+    background-image: url('../assets/img/desert.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+.content-container{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-family: 'MyChangaOne';
+    color: #eedfbb;
+}
+
+h1{
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.text-content{
+    padding-top: 40px;
+    padding-right: 24px;
+    padding-left: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.imprint-headline{
+    text-align: center;
+}
+
+.imprint-text{
+    font-size: 20px;
+}
+
+.responsibility{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.bold-line{
+    padding-bottom: 12px;
+    font-size: 26px;
+}
+
+li{
+    padding-bottom: 12px;
+    font-size: 20px;
+}
+
+.back-container{
+    padding-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.back-ctrl-btn{
+    padding: 12px;
+    background-color: #eedfbb;
+    border: 2px solid #c03737;
+    border-radius: 5px;
+    width: 110px;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.back-ctrl-btn:hover{
+    transform: translateY(-1px);
+}
+
+.link-btn{
+    font-family: 'MyChangaOne';
+    font-size: 20px;
+    text-decoration: none;
+    color: #c03737;
+}
+
+.link-btn:hover{
+    cursor: pointer;
+}
+
+@media(max-width:720px){
+    .back-container{
+        padding-top: 12px
+    }
+}
