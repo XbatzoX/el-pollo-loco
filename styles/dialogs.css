@@ -12,6 +12,12 @@
     font-size: 20px;
 }
 
+.dialog-frame{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
 .ctrl-dialog-container{
     border: 1px solid #eedfbb;
     border-radius: 5px;
@@ -31,4 +37,26 @@
     border: 2px solid #c03737;
     border-radius: 5px;
     text-align: center;
+}
+
+.ctrl-dialog-btn span{
+    color: #c03737;
+}
+
+.ctrl-dialog-close{
+    padding-top: 40px;
+}
+
+.ctrl-close-dialog-btn{
+    padding: 12px;
+    background-color: #c03737;
+    border: 2px solid #eedfbb;
+    border-radius: 5px;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.ctrl-close-dialog-btn:hover{
+    cursor: pointer;
+    transform: translateY(-1px);
 }

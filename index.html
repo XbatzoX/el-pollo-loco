@@ -36,12 +36,43 @@
     <div class="game-container">
         <h1>El Pollo Loco</h1>
         <dialog id="controls_dialog" class="controls-dialog">
-            <div class="ctrl-dialog-container">
-                <div class="ctrl-box">
-                    <div class="ctrl-dialog-btn">
-                        <img src="./assets/icons/arrow_right.svg" alt="arrow right symbol">
+            <div class="dialog-frame">
+                <div class="ctrl-dialog-container">
+                    <div class="ctrl-box">
+                        <div class="ctrl-dialog-btn">
+                            <img src="./assets/icons/arrow_right.svg" alt="arrow right symbol">
+                        </div>
+                        <span>Move Right</span>
                     </div>
-                    <span>Move Right</span>
+                </div>
+                <div class="ctrl-dialog-container">
+                    <div class="ctrl-box">
+                        <div class="ctrl-dialog-btn">
+                            <img src="./assets/icons/arrow_left.svg" alt="arrow left symbol">
+                        </div>
+                        <span>Move Left</span>
+                    </div>
+                </div>
+                <div class="ctrl-dialog-container">
+                    <div class="ctrl-box">
+                        <div class="ctrl-dialog-btn">
+                            <span>SPACE</span>
+                        </div>
+                        <span>Jump</span>
+                    </div>
+                </div>
+                <div class="ctrl-dialog-container">
+                    <div class="ctrl-box">
+                        <div class="ctrl-dialog-btn">
+                            <span>D</span>
+                        </div>
+                        <span>Throw Bottle</span>
+                    </div>
+                </div>
+                <div class="ctrl-dialog-close">
+                    <div class="ctrl-close-dialog-btn" onclick="closeControlsDialog()">
+                        <span>Close</span>
+                    </div>
                 </div>
             </div>
         </dialog>
