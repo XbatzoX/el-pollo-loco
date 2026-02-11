@@ -12,8 +12,8 @@ const level1Data = {
     "numberRepetitions" : 4
 };
 
-function createLevel(){
-    let enemies = createNewInstanceOfEnemies();
+function createLevel(isSoundEnabled){
+    let enemies = createNewInstanceOfEnemies(isSoundEnabled);
     let clouds = createNewInstanceOfClouds(); 
     let coins = createNewInstanceOfCoins(); 
     let bottles = createNewInstanceOfBottles(); 
@@ -22,7 +22,7 @@ function createLevel(){
         level1Data.numberRepetitions, coins, bottles);
 }
 
-function createNewInstanceOfEnemies(){
+function createNewInstanceOfEnemies(isSoundEnabled){
     let enemies = [
         new Chicken(600),
         new Chicken(800),
@@ -33,7 +33,7 @@ function createNewInstanceOfEnemies(){
         new Chicken(3200),
         new BigChicken(3400),
         new Chicken(3500),
-        new Endboss()
+        new Endboss(isSoundEnabled)
     ];
     return enemies;
 }

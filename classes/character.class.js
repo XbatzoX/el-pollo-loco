@@ -98,7 +98,7 @@ class Character extends MoveableObject {
 
             if(this.world.keyboard.SPACE && !this.isAboveGround()){
                 this.jump();
-                this.playJumpSound();
+                this.playJumpSound(this.world.soundEnabled);
             }
 
             if(!this.world.level.enemies[this.world.level.enemies.length - 1].encounterTimerActive){
@@ -163,9 +163,11 @@ class Character extends MoveableObject {
         }
     }
 
-    playJumpSound(){
-        let jumpSound = new Audio('assets/audio/jump.mp3');
-        jumpSound.play();
+    playJumpSound(isEnabled){
+        if(isEnabled){
+            let jumpSound = new Audio('assets/audio/jump.mp3');
+            jumpSound.play();
+        }
     }
 
     movePermission(){

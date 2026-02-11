@@ -9,6 +9,7 @@ class Endboss extends MoveableObject {
     // leftDirection = true;
     // rightDirection = false;
     deathAnimationDone = false;
+    soundEnabled = false;
 
     IMAGES_ALERT = [
         'assets/img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -51,13 +52,14 @@ class Endboss extends MoveableObject {
         'assets/img/4_enemie_boss_chicken/1_walk/G4.png'
     ];
 
-    constructor(){
+    constructor(soundEnabled){
         super().loadImage('assets/img/4_enemie_boss_chicken/2_alert/G5.png');
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_RUNNING);
+        this.soundEnabled = soundEnabled;
         this.animate();
         this.offset.UP = 50;
     }
@@ -77,7 +79,7 @@ class Endboss extends MoveableObject {
                 let lastImage = this.playAnimation(this.IMAGES_DEAD);
                 if(lastImage){
                     this.endbossDefeated = true;
-                    this.playAttackSound();
+                    // this.playAttackSound(this.soundEnabled);
                 }
             }else if(this.isAttack()){
                 this.playAnimation(this.IMAGES_ATTACK);
@@ -105,14 +107,18 @@ class Endboss extends MoveableObject {
         this.intervalIDs.push(this.moveInterval);
     }
 
-    playAlertSound(){
-        let sound = new Audio('assets/audio/endboss_begin.mp3');
-        sound.play();
+    playAlertSound(isEnabled){
+        if(isEnabled){
+            let sound = new Audio('assets/audio/endboss_begin.mp3');
+            sound.play();
+        }
     }
 
-    playAttackSound(){
-        let sound = new Audio('assets/audio/chicken-cackle.mp3');
-        sound.play();
+    playAttackSound(isEnabled){
+        if(isEnabled){
+            let sound = new Audio('assets/audio/chicken-cackle.mp3');
+            sound.play();
+        }
     }
 
     checkDirectionOfRunning(){

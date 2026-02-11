@@ -13,8 +13,8 @@ class Bottle extends DrawableObject {
         this.position_y = 370;
     }
 
-    playCollectingBottleSound(notCollected){
-        if(notCollected){
+    playCollectingBottleSound(isEnabled, notCollected){
+        if(notCollected && isEnabled){
             let sound = new Audio('assets/audio/collecting_bottle.mp3');
             sound.play();
         }

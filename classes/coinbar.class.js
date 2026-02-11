@@ -49,8 +49,10 @@ class Coinbar extends DrawableObject{
         }
     }
 
-    playBonusSound(){
-        let sound = new Audio('assets/audio/bonus_sound.mp3');
-        sound.play();
+    playBonusSound(isEnabled){
+        if(isEnabled){
+            let sound = new Audio('assets/audio/bonus_sound.mp3');
+            sound.play();
+        }
     }
 }

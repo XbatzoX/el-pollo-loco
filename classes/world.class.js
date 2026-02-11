@@ -13,15 +13,17 @@ class World {
     actualBottle;
     bottleInAir = false;
     endbossAttacks = false;
+    isDefeated = false;
     allCoinsCollected = false;
     intervalObj = [];
+    soundEnabled = true;
     
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.level = createLevel();
+        this.level = createLevel(this.soundEnabled);
         this.intervalObj.push(this.character, this.level);
         this.draw(); 
         this.setWorld();
@@ -46,6 +48,7 @@ class World {
             this.checkEncounterEndboss();
             // check bonus reached
             this.checkAmountOfCoins();
+            this.checkIfEndbossIsDead();
         }, 200);
     }
 
@@ -112,7 +115,7 @@ class World {
         this.level.coins.forEach((coin) => {
             if(this.character.isColliding(coin)){
                 this.coinbar.increaseAmount(coin.notCollected);
-                coin.playCollectingCoinSound(coin.notCollected);
+                coin.playCollectingCoinSound(this.soundEnabled, coin.notCollected);
                 this.coinbar.setCoinValue(this.coinbar.amount, coin.notCollected);
                 coin.notCollected = false;
             }
@@ -123,7 +126,7 @@ class World {
         this.level.bottles.forEach((bottle) => {
             if(this.character.isColliding(bottle)){
                 this.bottlebar.increaseAmount(bottle.notCollected);
-                bottle.playCollectingBottleSound(bottle.notCollected);
+                bottle.playCollectingBottleSound(this.soundEnabled, bottle.notCollected);
                 this.bottlebar.setBottleValue(this.bottlebar.amount, bottle.notCollected);
                 bottle.notCollected = false;
             }
@@ -136,7 +139,7 @@ class World {
         let encounterTimerActive = this.level.enemies[enemyEndboss].encounterTimerActive;
         if(!bossEncounter && !encounterTimerActive){
             if(this.character.position_x >= 3600){
-                this.level.enemies[enemyEndboss].playAlertSound();
+                this.level.enemies[enemyEndboss].playAlertSound(this.soundEnabled);
                 setTimeout(() => {
                     this.level.enemies[enemyEndboss].bossEncounter = true;
                 }, 3000);
@@ -150,9 +153,17 @@ class World {
     checkAttackScenario(enemyEndboss){
         if(this.level.enemies[enemyEndboss].isAttack()){
             if(!this.endbossAttacks){
-                this.level.enemies[enemyEndboss].playAttackSound();
+                this.level.enemies[enemyEndboss].playAttackSound(this.soundEnabled);
                 this.endbossAttacks = true;
             }
+        }
+    }
+
+    checkIfEndbossIsDead(){
+        let endboss = this.level.enemies.length - 1;
+        if(this.level.enemies[endboss].isDead() && !this.level.enemies[endboss].endbossDefeated && !this.isDefeated){
+            this.level.enemies[endboss].playAttackSound(this.soundEnabled);
+            this.isDefeated = true;
         }
     }
 
@@ -161,7 +172,7 @@ class World {
             this.character.energy = 100;
             this.statusbar.setPercentage(this.character.energy);
             this.fillBottleAmount();
-            this.coinbar.playBonusSound();
+            this.coinbar.playBonusSound(this.soundEnabled);
             this.allCoinsCollected = true;
         }
     }

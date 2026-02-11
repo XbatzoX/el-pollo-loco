@@ -13,8 +13,8 @@ class Coin extends DrawableObject {
         this.setFinalCoin();
     }
 
-    playCollectingCoinSound(notCollected){
-        if(notCollected){
+    playCollectingCoinSound(isEnabled, notCollected){
+        if(notCollected && isEnabled){
             let sound = new Audio('assets/audio/collecting_coin2.mp3');
             sound.play();
         }

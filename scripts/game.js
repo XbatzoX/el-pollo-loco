@@ -1,7 +1,6 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-let soundEnabled;
 let isGameOver = false;
 let isGameWon = false;
 
@@ -94,4 +93,13 @@ function refreshMap(){
 function clearCanvas(){
     let canvasContextRef = canvas.getContext("2d");
     canvasContextRef.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function setSoundStatus(){
+    let isSoundEnabled = world.soundEnabled;
+    if(isSoundEnabled){
+        world.soundEnabled = false;
+    }else{
+        world.soundEnabled = true;
+    }
 }
