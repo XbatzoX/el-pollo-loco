@@ -4,7 +4,10 @@ body{
     background-image: url('../assets/img/desert.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    /* height: 100vh; */
+}
+
+.body-imprint{
+    height: 100vh;
 }
 
 .content-container{
@@ -88,5 +91,11 @@ li{
 @media(max-width:720px){
     .back-container{
         padding-top: 12px
+    }
+}
+
+@media(max-width:325px){
+    .body-imprint{
+        height: unset;
     }
 }
