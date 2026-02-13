@@ -55,6 +55,7 @@ class World {
     checkThrowObjects(){
         if(this.keyboard.D && this.bottleInAir == false && this.bottlebar.amount > 0 && this.isFinalAnimationFinished()){
             let bottle = new ThrowableObject(this.character.position_x, this.character.position_y, this.character.otherDirection);
+            bottle.playThrowBottleSound(this.soundEnabled, bottle.isThrown);
             this.bottlebar.amount -= 1;
             this.bottlebar.setBottleValue(this.bottlebar.amount, true);
             this.throwableObjects.push(bottle);
@@ -86,6 +87,7 @@ class World {
                 //this.actualBottle.isColliding(enemy)
                 if(this.actualBottle.currentStateOfHit){
                     this.actualBottle.bottleHitsEnemy();
+                    this.actualBottle.playBottleHitsEnemySound(this.soundEnabled, this.actualBottle.isHitEnemy)
                     if(enemy instanceof Endboss){
                         this.bossbar.setPercentage(enemy.energy);
                         this.checkDirectionOfHit();

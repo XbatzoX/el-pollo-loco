@@ -37,7 +37,7 @@ class ThrowableObject extends MoveableObject {
         this.applyGravity();
 
         this.idBottleThrow = setInterval(() => {
-            this.playThrowBottleSound(this.isThrown);
+            // this.playThrowBottleSound(this.isThrown);
             this.playAnimation(this.IMAGES_ROTATION);
         }, 100);
 
@@ -57,7 +57,7 @@ class ThrowableObject extends MoveableObject {
         clearInterval(this.idBottlePosition_x);
 
         setInterval(() => {
-            this.playBottleHitsEnemySound(this.isHitEnemy);
+            // this.playBottleHitsEnemySound(this.isHitEnemy);
             this.playAnimation(this.IMAGES_SPLASH);
         }, 200);
     }
@@ -68,16 +68,16 @@ class ThrowableObject extends MoveableObject {
         }
     }
 
-    playThrowBottleSound(isThrown){
-        if(!isThrown){
+    playThrowBottleSound(isEnabled, isThrown){
+        if(!isThrown && isEnabled){
             let sound = new Audio('assets/audio/bottle_throw.mp3');
             sound.play();
             this.isThrown = true;
         }
     }
 
-    playBottleHitsEnemySound(isHitEnemy){
-        if(!isHitEnemy){
+    playBottleHitsEnemySound(isEnabled, isHitEnemy){
+        if(!isHitEnemy && isEnabled){
             let sound = new Audio('assets/audio/bottle_hit.mp3');
             sound.play();
             this.isHitEnemy = true;

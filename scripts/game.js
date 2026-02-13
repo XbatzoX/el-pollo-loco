@@ -99,7 +99,9 @@ function setSoundStatus(){
     let isSoundEnabled = world.soundEnabled;
     if(isSoundEnabled){
         world.soundEnabled = false;
+        document.getElementById('sound_image').src = './assets/icons/no_sound.svg';
     }else{
         world.soundEnabled = true;
+        document.getElementById('sound_image').src = './assets/icons/sound.svg';
     }
 }

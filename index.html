@@ -33,6 +33,11 @@
     <script src="./scripts/game.js"></script>
 </head>
 <body>
+    <div class="game-control-container">
+        <div id="sound_btn" class="sound-btn" onclick="setSoundStatus()">
+            <img id="sound_image" class="sound-image" src="./assets/icons/sound.svg" alt="mute button as speaker">
+        </div>
+    </div>
     <div class="game-container">
         <h1>El Pollo Loco</h1>
         <dialog id="controls_dialog" class="controls-dialog">
@@ -142,9 +147,6 @@
                     <span class="text-design">Main menu</span>
                 </div>
             </div>
-        </div>
-        <div id="sound_btn" class="sound-btn" onclick="setSoundStatus()">
-            <img id="sound_image" class="sound-image" src="./assets/icons/sound.svg" alt="mute button as speaker">
         </div>
     </div>
 </body>
