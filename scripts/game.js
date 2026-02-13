@@ -3,6 +3,7 @@ let world;
 let keyboard = new Keyboard();
 let isGameOver = false;
 let isGameWon = false;
+let isSoundEnabled = true;
 
 function init(){
     if(isGameOver){
@@ -18,8 +19,21 @@ function init(){
     }else{
         showOverlay('start_id', 'canvas_id');
     }
+    // checkLocalStorageIsSoundEnabled();
     canvas = document.getElementById('canvas_id');
     world = new World(canvas, keyboard);
+}
+
+function handleSoundStatus(){
+    checkLocalStorageIsSoundEnabled();
+}
+
+
+function checkLocalStorageIsSoundEnabled(){
+    let mySoundStatus = JSON.parse(localStorage.getItem('mySound'));
+    if(mySoundStatus != null){
+        isSoundEnabled = mySoundStatus;
+    }
 }
 
 function openMainMenu(){
