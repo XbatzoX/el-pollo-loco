@@ -18,7 +18,8 @@ function init(){
         showOverlay('win_game', 'canvas_id');
         isGameWon = false;
     }else{
-        showOverlay('start_id', 'canvas_id');
+        showOverlay('start_frame', 'canvas_id');
+        document.getElementById('start_ctrl_mobile').classList.add('invisible');
     }
     // checkLocalStorageIsSoundEnabled();
     canvas = document.getElementById('canvas_id');
@@ -52,10 +53,12 @@ function openMainMenu(){
     refreshMap();
     clearCanvas();
     if(isGameOver){
-        showOverlay('game_over', 'start_id');
+        showOverlay('game_over', 'start_frame');
+        document.getElementById('start_ctrl_mobile').classList.remove('invisible');
         isGameOver = false;
     }else if(isGameWon){
-        showOverlay('win_game', 'start_id');
+        showOverlay('win_game', 'start_frame');
+        document.getElementById('start_ctrl_mobile').classList.remove('invisible');
         isGameWon = false;
     }
 }

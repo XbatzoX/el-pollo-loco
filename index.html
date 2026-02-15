@@ -112,7 +112,7 @@
                 </div>
             </div>
         </dialog>
-        <div class="start-frame">
+        <div id="start_frame" class="start-frame">
             <div id="start_id" class="start-container visible">
                 <div class="control-container">
                     <div class="btn-menu start-color" onclick="init()">
@@ -124,18 +124,20 @@
                     <div class="btn-menu instructions-color" onclick="openInstructionsDialog()">
                         <span class="text-menu">Instructions</span>
                     </div>
+                </div>
             </div>
         </div>
-        </div>
-        <div class="control-container-mobile">
-            <div class="btn-menu start-color" onclick="init()">
-                <span class="text-menu">Start Game</span>
-            </div>
-            <div class="btn-menu controls-color" onclick="openControlsDialog()">
-                <span class="text-menu">Controls</span>
-            </div>
-            <div class="btn-menu instructions-color" onclick="openInstructionsDialog()">
-                <span class="text-menu">Instructions</span>
+        <div id="start_ctrl_mobile">
+            <div class="control-container-mobile">
+                <div class="btn-menu start-color" onclick="init()">
+                    <span class="text-menu">Start Game</span>
+                </div>
+                <div class="btn-menu controls-color" onclick="openControlsDialog()">
+                    <span class="text-menu">Controls</span>
+                </div>
+                <div class="btn-menu instructions-color" onclick="openInstructionsDialog()">
+                    <span class="text-menu">Instructions</span>
+                </div>
             </div>
         </div>
         <canvas id="canvas_id" class="invisible" width="720" height="480"></canvas>

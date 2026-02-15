@@ -173,7 +173,7 @@ canvas{
 
 @media(max-width:720px){
     canvas, .game-size-container{
-        width: 100%;
+        width: calc(100vw - 175px);
     }
 
     h1{
@@ -211,8 +211,16 @@ canvas{
 }
 
 @media(max-height:480px){
-    canvas{
-        height: 100vh;
+    canvas, .game-size-container{
+        height: calc(100vh - 75px);
+    }
+
+    .game-container{
+        padding-top: 32px;
+    }
+
+    h1{
+        display: none;
     }
 
     .start-frame{
@@ -242,5 +250,14 @@ canvas{
         padding-top:0px;
         display: flex;
         align-items: end;
+    }
+
+    .game-control-container{
+        padding: 8px 8px;
+    }
+
+    .sound-image{
+        width: 16px;
+        height: 16px;
     }
 }
