@@ -1,5 +1,6 @@
 let canvas;
 let world;
+let worldExist = false;
 let keyboard = new Keyboard();
 let isGameOver = false;
 let isGameWon = false;
@@ -21,11 +22,13 @@ function init(){
     }
     // checkLocalStorageIsSoundEnabled();
     canvas = document.getElementById('canvas_id');
-    world = new World(canvas, keyboard);
+    world = new World(canvas, keyboard, isSoundEnabled);
+    worldExist = true;
 }
 
 function handleSoundStatus(){
     checkLocalStorageIsSoundEnabled();
+    setSoundStatusToLocalStorage(isSoundEnabled);
 }
 
 
@@ -34,6 +37,15 @@ function checkLocalStorageIsSoundEnabled(){
     if(mySoundStatus != null){
         isSoundEnabled = mySoundStatus;
     }
+    if(isSoundEnabled){
+        document.getElementById('sound_image').src = './assets/icons/sound.svg';
+    }else{
+        document.getElementById('sound_image').src = './assets/icons/no_sound.svg';
+    }
+}
+
+function setSoundStatusToLocalStorage(soundStatus){
+    localStorage.setItem('mySound', JSON.stringify(soundStatus));
 }
 
 function openMainMenu(){
@@ -110,12 +122,29 @@ function clearCanvas(){
 }
 
 function setSoundStatus(){
-    let isSoundEnabled = world.soundEnabled;
-    if(isSoundEnabled){
-        world.soundEnabled = false;
-        document.getElementById('sound_image').src = './assets/icons/no_sound.svg';
+    let soundEnabled;
+    if(worldExist){
+        soundEnabled = world.soundEnabled;
     }else{
-        world.soundEnabled = true;
-        document.getElementById('sound_image').src = './assets/icons/sound.svg';
+        soundEnabled = isSoundEnabled;
     }
+    if(soundEnabled){
+        if(worldExist){
+            world.soundEnabled = false;
+        }else{
+            isSoundEnabled = false;
+        }
+        document.getElementById('sound_image').src = './assets/icons/no_sound.svg';
+        soundEnabled = false;
+    }else{
+        if(worldExist){
+            world.soundEnabled = true;
+        }
+        else{
+            isSoundEnabled = true;
+        }
+        document.getElementById('sound_image').src = './assets/icons/sound.svg';
+        soundEnabled = true;
+    }
+    setSoundStatusToLocalStorage(soundEnabled);
 }

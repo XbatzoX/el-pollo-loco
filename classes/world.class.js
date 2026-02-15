@@ -19,10 +19,11 @@ class World {
     soundEnabled = true;
     
 
-    constructor(canvas, keyboard){
+    constructor(canvas, keyboard, soundEnabled){
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.soundEnabled = soundEnabled;
         this.level = createLevel(this.soundEnabled);
         this.intervalObj.push(this.character, this.level);
         this.draw(); 

@@ -49,7 +49,7 @@ h1{
 }
 
 .game-container{
-    height: calc(100vh - 250px);
+    height: calc(100% - 120px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -127,9 +127,11 @@ canvas{
 }
 
 .control-container{
-    padding-top: 395px;
+    /* padding-top: 395px; */
     padding-left: 42px;
     padding-right: 42px;
+    position: relative;
+    top: 83%;
     display: flex;
     justify-content: space-between;
 }
