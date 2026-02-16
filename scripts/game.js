@@ -177,3 +177,13 @@ function buttonThrowBottleDown(){
 function buttonThrowBottleUp(){
     world.mobileThrowBottle = false;
 }
+
+function buttonJumpDown(){
+    if(!world.character.mobileJump){
+        world.character.mobileJump = true;
+    }
+}
+
+function buttonJumpUp(){
+    world.character.mobileJump = false;
+}

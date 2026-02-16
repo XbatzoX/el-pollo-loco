@@ -9,6 +9,7 @@ class Character extends MoveableObject {
     deathAnimationDone = false;
     mobileLeft = false;
     mobileRight = false;
+    mobileJump = false;
 
 
     IMAGES_WALKING = [
@@ -99,7 +100,7 @@ class Character extends MoveableObject {
                 this.otherDirection = true;
             }
 
-            if(this.world.keyboard.SPACE && !this.isAboveGround()){
+            if((this.world.keyboard.SPACE || this.jumpMobile(this.mobileJump)) && !this.isAboveGround()){
                 this.jump();
                 this.playJumpSound(this.world.soundEnabled);
             }
@@ -200,5 +201,15 @@ class Character extends MoveableObject {
             movingRight = false;
         }
         return movingRight;
+    }
+
+    jumpMobile(buttonDown){
+        let jump;
+        if(buttonDown){
+            jump = true;
+        }else{
+            jump = false;
+        }
+        return jump;
     }
 }
