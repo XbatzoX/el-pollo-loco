@@ -167,3 +167,13 @@ function buttonRightDown(){
 function buttonRightUp(){
     world.character.mobileRight = false;
 }
+
+function buttonThrowBottleDown(){
+    if(!world.mobileThrowBottle){
+        world.mobileThrowBottle = true;
+    }
+}
+
+function buttonThrowBottleUp(){
+    world.mobileThrowBottle = false;
+}

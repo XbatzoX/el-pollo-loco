@@ -17,6 +17,7 @@ class World {
     allCoinsCollected = false;
     intervalObj = [];
     soundEnabled = true;
+    mobileThrowBottle = false;
     
 
     constructor(canvas, keyboard, soundEnabled){
@@ -54,7 +55,7 @@ class World {
     }
 
     checkThrowObjects(){
-        if(this.keyboard.D && this.bottleInAir == false && this.bottlebar.amount > 0 && this.isFinalAnimationFinished()){
+        if((this.keyboard.D || this.throwBottleMobile(this.mobileThrowBottle)) && this.bottleInAir == false && this.bottlebar.amount > 0 && this.isFinalAnimationFinished()){
             let bottle = new ThrowableObject(this.character.position_x, this.character.position_y, this.character.otherDirection);
             bottle.playThrowBottleSound(this.soundEnabled, bottle.isThrown);
             this.bottlebar.amount -= 1;
@@ -186,6 +187,16 @@ class World {
             this.bottlebar.increaseAmount(true);
         }
         this.bottlebar.setBottleValue(this.bottlebar.amount, true);
+    }
+
+    throwBottleMobile(buttonDown){
+        let throwBottle;
+        if(buttonDown){
+            throwBottle = true;
+        }else{
+            throwBottle = false;
+        }
+        return throwBottle;
     }
 
     draw(){
