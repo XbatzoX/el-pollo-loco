@@ -260,4 +260,22 @@ canvas{
         width: 16px;
         height: 16px;
     }
+
+    .game-over-container{
+        padding-top: 12px;
+        gap: 12px;
+    }
+
+    .win-image{
+        height: 75px;
+        width: 200px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
+
+    .game-over-image{
+        height: 100px;
+        width: 200px;
+        padding-bottom: 8px;
+    }
 }
