@@ -33,12 +33,12 @@
     <script src="./scripts/game.js"></script>
 </head>
 <body onload="handleSoundStatus()">
-    <div class="game-control-container">
+    <section class="game-control-container">
         <div id="sound_btn" class="sound-btn" onclick="setSoundStatus()">
             <img id="sound_image" class="sound-image" src="./assets/icons/sound.svg" alt="mute button as speaker">
         </div>
-    </div>
-    <div class="game-container">
+    </section>
+    <section class="game-container">
         <h1>El Pollo Loco</h1>
         <dialog id="controls_dialog" class="controls-dialog">
             <div class="dialog-frame">
@@ -112,7 +112,7 @@
                 </div>
             </div>
         </dialog>
-        <div id="start_frame" class="start-frame">
+        <section id="start_frame" class="start-frame">
             <div id="start_id" class="start-container visible">
                 <div class="control-container">
                     <div class="btn-menu start-color" onclick="init()">
@@ -126,8 +126,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="start_ctrl_mobile">
+        </section>
+        <section id="start_ctrl_mobile">
             <div class="control-container-mobile">
                 <div class="btn-menu start-color" onclick="init()">
                     <span class="text-menu">Start Game</span>
@@ -139,9 +139,31 @@
                     <span class="text-menu">Instructions</span>
                 </div>
             </div>
-        </div>
-        <canvas id="canvas_id" class="invisible" width="720" height="480"></canvas>
-        <div id="game_over" class="game-size-container invisible">
+        </section>
+        <section class="canvas-container">
+            <div id="mobile_ctrl_left">
+                <div class="mobile-ctrl-box">
+                    <div id="ctrl_left_btn" class="mobile-btn image-offset-left" onpointerdown="buttonLeftDown()" onpointerup="buttonLeftUp()">
+                        <img src="./assets/icons/arrow_back_mobile.svg" alt="arrow left button">
+                    </div>
+                    <div id="ctrl_right_btn" class="mobile-btn image-offset-right" onpointerdown="buttonRightDown()" onpointerup="buttonRightUp()">
+                        <img src="./assets/icons/arrow_forward_mobile.svg" alt="arrow right button">
+                    </div>
+                </div>
+            </div>
+            <canvas id="canvas_id" class="invisible" width="720" height="480"></canvas>
+            <div id="mobile_ctrl_right">
+                <div class="mobile-ctrl-box">
+                    <div id="ctrl_throw_btn" class="mobile-btn">
+                        <img class="throw-btn-image" src="./assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png" alt="throw button designed with salsa bottle">
+                    </div>
+                    <div id="ctrl_jump_btn" class="mobile-btn">
+                        <img class="jump-btn-image" src="./assets/img/2_character_pepe/3_jump/J-36.png" alt="jump button designed with image of jumping pepe">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="game_over" class="game-size-container invisible">
             <div class="game-over-container">
                 <img class="game-over-image" src="./assets/img/You won, you lost/Game Over.png" alt="game over image with pepe">
                 <div class="btn-design" onclick="init()">
@@ -151,8 +173,8 @@
                     <span class="text-design">Main menu</span>
                 </div>
             </div>
-        </div>
-        <div id="win_game" class="game-size-container invisible">
+        </section>
+        <section id="win_game" class="game-size-container invisible">
             <div class="game-over-container">
                 <img class="win-image" src="./assets/img/You won, you lost/You win B.png" alt="win image">
                 <div class="btn-design" onclick="init()">
@@ -162,7 +184,7 @@
                     <span class="text-design">Main menu</span>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
+    </section>
 </body>
 </html>

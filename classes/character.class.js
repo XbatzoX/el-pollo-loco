@@ -7,6 +7,9 @@ class Character extends MoveableObject {
     cameraPositionReached = false;
     cameraOffset = 10;
     deathAnimationDone = false;
+    mobileLeft = false;
+    mobileRight = false;
+
 
     IMAGES_WALKING = [
         'assets/img/2_character_pepe/2_walk/W-21.png',
@@ -86,12 +89,12 @@ class Character extends MoveableObject {
 
     animate(){
         this.moveInterval = setInterval(() => {
-            if(this.world.keyboard.RIGHT && (this.position_x < this.world.level.level_end_x) && this.movePermission()){
+            if((this.world.keyboard.RIGHT || this.movingRightMobile(this.mobileRight)) && (this.position_x < this.world.level.level_end_x) && this.movePermission()){
                 this.moveRight();
                 this.otherDirection = false;
             }
 
-            if(this.world.keyboard.LEFT && (this.position_x > 0) && this.movePermission()){
+            if((this.world.keyboard.LEFT || this.movingLeftMobile(this.mobileLeft)) && (this.position_x > 0) && this.movePermission()){
                 this.moveLeft();
                 this.otherDirection = true;
             }
@@ -138,7 +141,7 @@ class Character extends MoveableObject {
             }else if(this.isAboveGround()){
                 // jump animation
                 this.playAnimation(this.IMAGES_JUMPING);
-            }else if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
+            }else if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.movingLeftMobile(this.mobileLeft) || this.movingRightMobile(this.mobileRight)){
                 // walk animation
                 this.playAnimation(this.IMAGES_WALKING);
             }else{
@@ -177,5 +180,25 @@ class Character extends MoveableObject {
             permission = true;
         }
         return permission;
+    }
+
+    movingLeftMobile(buttonDown){
+        let movingLeft;
+        if(buttonDown){
+            movingLeft = true;
+        }else{
+            movingLeft = false;
+        }
+        return movingLeft;
+    }
+
+    movingRightMobile(buttonDown){
+        let movingRight;
+        if(buttonDown){
+            movingRight = true;
+        }else{
+            movingRight = false;
+        }
+        return movingRight;
     }
 }

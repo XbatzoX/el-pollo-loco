@@ -151,3 +151,19 @@ function setSoundStatus(){
     }
     setSoundStatusToLocalStorage(soundEnabled);
 }
+
+function buttonLeftDown(){
+    world.character.mobileLeft = true;
+}
+
+function buttonLeftUp(){
+    world.character.mobileLeft = false;
+}
+
+function buttonRightDown(){
+    world.character.mobileRight = true;
+}
+
+function buttonRightUp(){
+    world.character.mobileRight = false;
+}
