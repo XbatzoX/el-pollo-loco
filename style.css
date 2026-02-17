@@ -217,6 +217,10 @@ canvas{
     padding-bottom: 2px;
 }
 
+.landscape-info{
+    display: none;
+}
+
 
 @media(max-width:720px){
     canvas, .game-size-container{
@@ -332,5 +336,30 @@ canvas{
         background-color: #eedfbb;
         border: 2px solid rgb(192, 55, 55);
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+}
+
+@media(pointer: coarse) and (orientation: portrait){
+    .game-container{
+        display: none !important;
+    }
+
+    .landscape-info{
+        display: block;
+        height: 100%;
+    }
+
+    .landscape-box{
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .landscape-text{
+        padding-bottom: 100px;
+        font-family: 'MyChangaOne';
+        color: white;
+        font-size: 21px;
     }
 }
