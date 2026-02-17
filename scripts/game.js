@@ -5,6 +5,7 @@ let keyboard = new Keyboard();
 let isGameOver = false;
 let isGameWon = false;
 let isSoundEnabled = true;
+let isMobileDevice = false;
 
 function init(){
     if(isGameOver){
@@ -21,17 +22,36 @@ function init(){
         showOverlay('start_frame', 'canvas_id');
         document.getElementById('start_ctrl_mobile').classList.add('invisible');
     }
+    activateMobileButtons();
     // checkLocalStorageIsSoundEnabled();
     canvas = document.getElementById('canvas_id');
     world = new World(canvas, keyboard, isSoundEnabled);
     worldExist = true;
 }
 
-function handleSoundStatus(){
+function onloadFunctions(){
+    isMobileDevice = checkIfMobileDevice();
     checkLocalStorageIsSoundEnabled();
     setSoundStatusToLocalStorage(isSoundEnabled);
 }
 
+function checkIfMobileDevice(){
+    return window.matchMedia('(pointer: coarse)').matches;   
+}
+
+function activateMobileButtons(){
+    if(isMobileDevice){
+        document.getElementById('mobile_ctrl_left').classList.remove('invisible');
+        document.getElementById('mobile_ctrl_right').classList.remove('invisible');
+    }
+}
+
+function deactivateMobileButtons(){
+    if(isMobileDevice){
+        document.getElementById('mobile_ctrl_left').classList.add('invisible');
+        document.getElementById('mobile_ctrl_right').classList.add('invisible');
+    }
+}
 
 function checkLocalStorageIsSoundEnabled(){
     let mySoundStatus = JSON.parse(localStorage.getItem('mySound'));
@@ -82,11 +102,13 @@ window.addEventListener('keyup', (e) => {
 });
 
 document.addEventListener("gameover", () => {
+    deactivateMobileButtons();
     showOverlay('canvas_id', 'game_over');
     isGameOver = true;
 });
 
 document.addEventListener("gamewon", () => {
+    deactivateMobileButtons();
     showOverlay('canvas_id', 'win_game');
     isGameWon = true;
 });
