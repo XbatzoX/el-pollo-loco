@@ -200,7 +200,7 @@ canvas{
 .mobile-ctrl-box{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 32px;
     padding-bottom: 12px;
 }
 
