@@ -6,6 +6,8 @@ let isGameOver = false;
 let isGameWon = false;
 let isSoundEnabled = true;
 let isMobileDevice = false;
+let buttonLeft;
+let buttonRight;
 
 function init(){
     if(isGameOver){
@@ -31,6 +33,7 @@ function init(){
 
 function onloadFunctions(){
     isMobileDevice = checkIfMobileDevice();
+    activateMobileLeftButton();
     checkLocalStorageIsSoundEnabled();
     setSoundStatusToLocalStorage(isSoundEnabled);
 }
@@ -174,12 +177,25 @@ function setSoundStatus(){
     setSoundStatusToLocalStorage(soundEnabled);
 }
 
-function buttonLeftDown(){
-    world.character.mobileLeft = true;
-}
+// function buttonLeftDown(){
+//     world.character.mobileLeft = true;
+// }
 
-function buttonLeftUp(){
-    world.character.mobileLeft = false;
+// function buttonLeftUp(){
+//     world.character.mobileLeft = false;
+// }
+
+function activateMobileLeftButton(){
+    if(isMobileDevice){
+        buttonLeft = document.querySelector('#ctrl_left_btn');
+        buttonLeft.addEventListener('pointerdown', e => {
+            e.preventDefault();
+            world.character.mobileLeft = true;
+        });
+        buttonLeft.addEventListener('pointerup', e => {
+            world.character.mobileLeft = false;
+        });
+    }
 }
 
 function buttonRightDown(){
