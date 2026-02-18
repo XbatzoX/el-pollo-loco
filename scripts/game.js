@@ -193,6 +193,7 @@ function activateMobileLeftButton(){
             world.character.mobileLeft = true;
         });
         buttonLeft.addEventListener('pointerup', e => {
+            e.preventDefault();
             world.character.mobileLeft = false;
         });
     }
