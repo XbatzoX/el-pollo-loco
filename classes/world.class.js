@@ -18,6 +18,7 @@ class World {
     intervalObj = [];
     soundEnabled = true;
     mobileThrowBottle = false;
+    gameSound = new Audio('assets/audio/game_sound .mp3');
     
 
     constructor(canvas, keyboard, soundEnabled){
@@ -51,6 +52,7 @@ class World {
             // check bonus reached
             this.checkAmountOfCoins();
             this.checkIfEndbossIsDead();
+            this.playGameSound();
         }, 200);
     }
 
@@ -197,6 +199,17 @@ class World {
             throwBottle = false;
         }
         return throwBottle;
+    }
+
+    playGameSound(){
+        if(this.soundEnabled && (this.gameSound.ended || this.gameSound.paused)){
+            this.gameSound.currentTime = 0;
+            this.gameSound.volume = 0.3;
+            this.gameSound.play();
+        }
+        if(!this.soundEnabled){
+            this.gameSound.pause();
+        }
     }
 
     draw(){

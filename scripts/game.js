@@ -8,6 +8,7 @@ let isSoundEnabled = true;
 let isMobileDevice = false;
 let buttonLeft;
 let buttonRight;
+let introSound = new Audio('assets/audio/game_intro.mp3');
 
 function init(){
     if(isGameOver){
@@ -37,6 +38,7 @@ function onloadFunctions(){
     activateMobileRightButton();
     checkLocalStorageIsSoundEnabled();
     setSoundStatusToLocalStorage(isSoundEnabled);
+    // playIntroSound();
 }
 
 function checkIfMobileDevice(){
@@ -85,6 +87,7 @@ function openMainMenu(){
         document.getElementById('start_ctrl_mobile').classList.remove('invisible');
         isGameWon = false;
     }
+    playIntroSound();
 }
 
 window.addEventListener('keydown', (e) => {
@@ -142,7 +145,9 @@ function refreshMap(){
         }
     });
     world.intervalObj.length = 0;
+    world.gameSound.pause();
     world = null;
+    worldExist = false;
 }
 
 function clearCanvas(){
@@ -174,6 +179,9 @@ function setSoundStatus(){
         }
         document.getElementById('sound_image').src = './assets/icons/sound.svg';
         soundEnabled = true;
+    }
+    if(!worldExist){
+        playIntroSound();
     }
     setSoundStatusToLocalStorage(soundEnabled);
 }
@@ -247,3 +255,13 @@ function buttonJumpDown(){
 function buttonJumpUp(){
     world.character.mobileJump = false;
 }
+
+function playIntroSound(){
+    if(isSoundEnabled){
+        introSound.volume = 0.3;
+        introSound.play();
+    }else{
+        introSound.pause();
+    }
+}
+
