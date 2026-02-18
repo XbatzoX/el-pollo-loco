@@ -194,7 +194,10 @@ function activateMobileLeftButton(){
             buttonLeft.setPointerCapture(e.pointerId);
             world.character.mobileLeft = true;
         });
-        buttonLeft.addEventListener('pointerup', stopMoveLeft);
+        buttonLeft.addEventListener('pointerup', e => {
+            e.preventDefault();
+            stopMoveLeft();
+        });
         buttonLeft.addEventListener('pointercancel', stopMoveLeft);
         buttonLeft.addEventListener('lostpointercapture', stopMoveLeft);
     }
