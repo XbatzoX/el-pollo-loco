@@ -34,6 +34,7 @@ function init(){
 function onloadFunctions(){
     isMobileDevice = checkIfMobileDevice();
     activateMobileLeftButton();
+    activateMobileRightButton();
     checkLocalStorageIsSoundEnabled();
     setSoundStatusToLocalStorage(isSoundEnabled);
 }
@@ -206,12 +207,25 @@ function activateMobileLeftButton(){
     }
 }
 
-function buttonRightDown(){
-    world.character.mobileRight = true;
-}
-
-function buttonRightUp(){
-    world.character.mobileRight = false;
+function activateMobileRightButton(){
+    if(isMobileDevice){
+        buttonRight = document.querySelector('#ctrl_right_btn');
+        const stopMoveRight = () => {world.character.mobileRight = false;};
+        buttonRight.addEventListener('pointerdown', e => {
+            e.preventDefault();
+            buttonRight.setPointerCapture(e.pointerId);
+            world.character.mobileRight = true;
+        });
+        buttonRight.addEventListener('pointerup', e => {
+            e.preventDefault();
+            stopMoveRight();
+        });
+        buttonRight.addEventListener('contextmenu', e => {
+            e.preventDefault();
+        });
+        buttonRight.addEventListener('pointercancel', stopMoveRight);
+        buttonRight.addEventListener('lostpointercapture', stopMoveRight);
+    }
 }
 
 function buttonThrowBottleDown(){
