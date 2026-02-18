@@ -334,7 +334,8 @@ canvas{
 @media(pointer: coarse){
     .mobile-btn:active{
         background-color: #eedfbb;
-        border: 2px solid rgb(192, 55, 55);
+        /* border: 2px solid rgb(192, 55, 55); */
+        border: 2px solid green;
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     }
 }
