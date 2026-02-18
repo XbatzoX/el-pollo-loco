@@ -198,6 +198,9 @@ function activateMobileLeftButton(){
             e.preventDefault();
             stopMoveLeft();
         });
+        buttonLeft.addEventListener('contextmenu', e => {
+            e.preventDefault();
+        })
         buttonLeft.addEventListener('pointercancel', stopMoveLeft);
         buttonLeft.addEventListener('lostpointercapture', stopMoveLeft);
     }
