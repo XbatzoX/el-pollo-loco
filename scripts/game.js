@@ -188,14 +188,15 @@ function setSoundStatus(){
 function activateMobileLeftButton(){
     if(isMobileDevice){
         buttonLeft = document.querySelector('#ctrl_left_btn');
+        const stopMoveLeft = () => {world.character.mobileLeft = false;};
         buttonLeft.addEventListener('pointerdown', e => {
             e.preventDefault();
+            buttonLeft.setPointerCapture(e.pointerId);
             world.character.mobileLeft = true;
         });
-        buttonLeft.addEventListener('pointerup', e => {
-            e.preventDefault();
-            world.character.mobileLeft = false;
-        });
+        buttonLeft.addEventListener('pointerup', stopMoveLeft);
+        buttonLeft.addEventListener('pointercancel', stopMoveLeft);
+        buttonLeft.addEventListener('lostpointercapture', stopMoveLeft);
     }
 }
 
