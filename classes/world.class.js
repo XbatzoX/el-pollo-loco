@@ -4,7 +4,7 @@ class World {
     coinbar = new Coinbar();
     bottlebar = new Bottlebar();
     bossbar = new Bossbar();
-    // level = level1;
+    idRunInterval;
     ctx;
     canvas;
     keyboard;
@@ -19,6 +19,7 @@ class World {
     soundEnabled = true;
     mobileThrowBottle = false;
     gameSound = new Audio('assets/audio/game_sound .mp3');
+    throwSound = new Audio('assets/audio/bottle_throw.mp3');
     
 
     constructor(canvas, keyboard, soundEnabled){
@@ -38,7 +39,7 @@ class World {
     }
 
     run(){
-        setInterval(() => {
+        this.idRunInterval = setInterval(() => {
             // check Collision
             this.checkCollisions();
             // throw bottle
@@ -54,15 +55,25 @@ class World {
             this.checkIfEndbossIsDead();
             this.playGameSound();
         }, 200);
+        this.intervalObj.push(this.idRunInterval);
     }
 
     checkThrowObjects(){
         if((this.keyboard.D || this.throwBottleMobile(this.mobileThrowBottle)) && this.bottleInAir == false && this.bottlebar.amount > 0 && this.isFinalAnimationFinished()){
             let bottle = new ThrowableObject(this.character.position_x, this.character.position_y, this.character.otherDirection);
-            bottle.playThrowBottleSound(this.soundEnabled, bottle.isThrown);
+            // bottle.playThrowBottleSound(this.soundEnabled, bottle.isThrown);
+            this.playBottleSound();
             this.bottlebar.amount -= 1;
             this.bottlebar.setBottleValue(this.bottlebar.amount, true);
             this.throwableObjects.push(bottle);
+        }
+    }
+
+    playBottleSound(){
+        if(this.soundEnabled){
+            console.log('sound wird abgespielt');
+            this.throwSound.currentTime = 0;
+            this.throwSound.play();
         }
     }
 
@@ -202,13 +213,15 @@ class World {
     }
 
     playGameSound(){
-        if(this.soundEnabled && (this.gameSound.ended || this.gameSound.paused)){
+        if(this.gameSound != null){
+            if(this.soundEnabled && (this.gameSound.ended || this.gameSound.paused)){
             this.gameSound.currentTime = 0;
             this.gameSound.volume = 0.3;
             this.gameSound.play();
-        }
-        if(!this.soundEnabled){
-            this.gameSound.pause();
+            }
+            if(!this.soundEnabled){
+                this.gameSound.pause();
+            }
         }
     }
 

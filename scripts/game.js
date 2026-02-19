@@ -110,12 +110,14 @@ window.addEventListener('keyup', (e) => {
 
 document.addEventListener("gameover", () => {
     deactivateMobileButtons();
+    clearGameSoundInstance();
     showOverlay('canvas_id', 'game_over');
     isGameOver = true;
 });
 
 document.addEventListener("gamewon", () => {
     deactivateMobileButtons();
+    clearGameSoundInstance();
     showOverlay('canvas_id', 'win_game');
     isGameWon = true;
 });
@@ -128,6 +130,7 @@ function showOverlay(idRemove, idAdd){
 }
 
 function refreshMap(){
+    clearInterval(world.intervalObj[length - 1]);
     world.intervalObj.forEach(obj => {
         if(typeof obj.resetInterval === 'function'){
             obj.resetInterval();
@@ -145,7 +148,7 @@ function refreshMap(){
         }
     });
     world.intervalObj.length = 0;
-    world.gameSound.pause();
+    clearGameSoundInstance();
     world = null;
     worldExist = false;
 }
@@ -153,6 +156,15 @@ function refreshMap(){
 function clearCanvas(){
     let canvasContextRef = canvas.getContext("2d");
     canvasContextRef.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function clearGameSoundInstance(){
+    if(world.gameSound != null){
+        world.gameSound.pause();
+        world.gameSound.src = '';
+        world.gameSound.load();
+        world.gameSound = null;
+    }
 }
 
 function setSoundStatus(){
