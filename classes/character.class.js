@@ -75,7 +75,7 @@ class Character extends MoveableObject {
     speed = 10;
     
     /**
-     * 
+     * Constructor loads images for animation and put offset for colliding with objects
      * 
      */
     constructor(){
@@ -94,77 +94,143 @@ class Character extends MoveableObject {
         this.offset.RIGHT = 15;
     }
 
+    /**
+     * This function is used set Intervals for movements and animations
+     * 
+     */
     animate(){
         this.moveInterval = setInterval(() => {
-            if((this.world.keyboard.RIGHT || this.movingRightMobile(this.mobileRight)) && (this.position_x < this.world.level.level_end_x) && this.movePermission()){
-                this.moveRight();
-                this.otherDirection = false;
-            }
-
-            if((this.world.keyboard.LEFT || this.movingLeftMobile(this.mobileLeft)) && (this.position_x > 0) && this.movePermission()){
-                this.moveLeft();
-                this.otherDirection = true;
-            }
-
-            if((this.world.keyboard.SPACE || this.jumpMobile(this.mobileJump)) && !this.isAboveGround()){
-                this.jump();
-                this.playJumpSound(this.world.soundEnabled);
-            }
-
-            if(!this.world.level.enemies[this.world.level.enemies.length - 1].encounterTimerActive){
-                this.world.camera_x = -this.position_x + 100;
-            }else{
-                // this.world.camera_x = -this.position_x + 250;
-                this.updateCamera();
-            }
+            this.moveConditionsWithFunctions();
         }, (1000 / 60));
         this.intervalIDs.push(this.moveInterval);
 
         this.animationInterval = setInterval(() => {
-            if(this.isDead()){
-                // dead animation
-                this.playAnimation(this.IMAGES_DEAD);
-                if(!this.jumpOfDeath){
-                    this.jump();
-                    this.jumpOfDeath = true;
-                }
-                if(this.jumpOfDeath){
-                    setTimeout(() => {
-                        this.deathAnimationDone = true;
-                    },500);
-                    if(this.deathAnimationDone && (this.position_y > 200)){
-                        document.dispatchEvent(new Event("gameover"));
-                    }
-                }
-            }else if(this.isHurt()){
-                // hurt animation
-                this.playAnimation(this.IMAGES_HURT);
-                this.playHurtSound(this.world.soundEnabled);
-            }else if(this.isLongIdle(this.world.keyboard.D)){
-                // long idle animation
-                this.playAnimation(this.IMAGES_IDLE_LONG);
-                this.playLongIdleSound(this.world.soundEnabled);
-            }else if(this.isIdle(this.world.keyboard.D)){
-                // idle animation
-                this.playAnimation(this.IMAGES_IDLE);
-            }else if(this.isAboveGround()){
-                // jump animation
-                this.playAnimation(this.IMAGES_JUMPING);
-            }else if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.movingLeftMobile(this.mobileLeft) || this.movingRightMobile(this.mobileRight)){
-                // walk animation
-                this.playAnimation(this.IMAGES_WALKING);
-            }else{
-                // stay image view
-                this.playAnimation(['assets/img/2_character_pepe/1_idle/idle/I-1.png']);
-            }           
+           this.characterAnimations(); 
         },50);
         this.intervalIDs.push(this.animationInterval);
     }
 
+    /**
+     * This function controls moving right of character
+     * 
+     */
+    moveRightCondition(){
+        if((this.world.keyboard.RIGHT || this.movingRightMobile(this.mobileRight)) && (this.position_x < this.world.level.level_end_x) && this.movePermission()){
+            this.moveRight();
+            this.otherDirection = false;
+        }
+    }
+
+    /**
+     * This function controls moving left of character
+     * 
+     */
+    moveLeftCondition(){
+        if((this.world.keyboard.LEFT || this.movingLeftMobile(this.mobileLeft)) && (this.position_x > 0) && this.movePermission()){
+            this.moveLeft();
+            this.otherDirection = true;
+        }
+    }
+
+    /**
+     * This function controls jumping of character
+     * 
+     */
+    jumpCondition(){
+        if((this.world.keyboard.SPACE || this.jumpMobile(this.mobileJump)) && !this.isAboveGround()){
+            this.jump();
+            this.playJumpSound(this.world.soundEnabled);
+        }
+    }
+
+    /**
+     * This function is used to control the camera view on x-axis during game 
+     * 
+     */
+    cameraView(){
+        if(!this.world.level.enemies[this.world.level.enemies.length - 1].encounterTimerActive){
+            this.world.camera_x = -this.position_x + 100;
+        }else{
+            this.updateCamera();
+        }
+    }
+
+    /**
+     * This function stages the death of the character.
+     * 
+     */
+    deadAnimation(){
+        this.playAnimation(this.IMAGES_DEAD);
+        if(!this.jumpOfDeath){
+            this.jump();
+            this.jumpOfDeath = true;
+        }
+        if(this.jumpOfDeath){
+            setTimeout(() => {
+                this.deathAnimationDone = true;
+            },500);
+            if(this.deathAnimationDone && (this.position_y > 200)){
+                document.dispatchEvent(new Event("gameover"));
+            }
+        }
+    }
+
+    /**
+     * This function stages the character's damage event.
+     * 
+     */
+    hurtAnimation(){
+        this.playAnimation(this.IMAGES_HURT);
+        this.playHurtSound(this.world.soundEnabled);
+    }
+
+    /**
+     * This function stages the character's long idle event.
+     * 
+     */
+    longIdleAnimation(){
+        this.playAnimation(this.IMAGES_IDLE_LONG);
+        this.playLongIdleSound(this.world.soundEnabled);
+    }
+
+    /**
+     * This function manages the movement conditions and animations.
+     * 
+     */
+    moveConditionsWithFunctions(){
+        this.moveRightCondition();
+        this.moveLeftCondition();
+        this.jumpCondition();
+        this.cameraView();
+    }
+
+    /**
+     * This function manages the animation of different animations from character.
+     * 
+     */
+    characterAnimations(){
+        if(this.isDead()){
+            this.deadAnimation();
+        }else if(this.isHurt()){
+            this.hurtAnimation();
+        }else if(this.isLongIdle(this.world.keyboard.D)){
+            this.longIdleAnimation();
+        }else if(this.isIdle(this.world.keyboard.D)){
+            this.playAnimation(this.IMAGES_IDLE);
+        }else if(this.isAboveGround()){
+            this.playAnimation(this.IMAGES_JUMPING);
+        }else if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.movingLeftMobile(this.mobileLeft) || this.movingRightMobile(this.mobileRight)){
+            this.playAnimation(this.IMAGES_WALKING);
+        }else{this.playAnimation(['assets/img/2_character_pepe/1_idle/idle/I-1.png']);}           
+    }
+
+    /**
+     * This function is used to set the camera view of x-axis
+     * 
+     */
     updateCamera(){
         let offsetCameraX = -this.position_x + 250;
         if((this.world.camera_x != offsetCameraX) && !this.cameraPositionReached){
-            // this.world.camera_x += (offsetCameraX - this.world.camera_x) * 0.01;
             this.world.camera_x = -this.position_x + 100 + this.cameraOffset;
             this.cameraOffset += 0.5;
             if(this.world.camera_x == offsetCameraX){
@@ -175,6 +241,11 @@ class Character extends MoveableObject {
         }
     }
 
+    /**
+     * This function creates a jump sound if sound is enabled
+     * 
+     * @param {boolean} isEnabled - includes information if the sound is enabled 
+     */
     playJumpSound(isEnabled){
         if(isEnabled){
             let jumpSound = new Audio('assets/audio/jump.mp3');
@@ -182,6 +253,11 @@ class Character extends MoveableObject {
         }
     }
 
+    /**
+     * This function creates a snoring sound if sound is enabled
+     * 
+     * @param {boolean} isEnabled - includes information if the sound is enabled 
+     */
     playLongIdleSound(isEnabled){
         if(isEnabled && (this.longIdleSound.ended || this.longIdleSound.paused)){
             this.longIdleSound.currentTime = 0;
@@ -192,6 +268,11 @@ class Character extends MoveableObject {
         }
     }
 
+    /**
+     * This function creates a damage sound if the sound is enabled
+     * 
+     * @param {boolean} isEnabled - includes information if the sound is enabled  
+     */
     playHurtSound(isEnabled){
         if(isEnabled && (this.hurtSound.ended || this.hurtSound.paused)){
             this.hurtSound.currentTime = 0;
@@ -202,6 +283,11 @@ class Character extends MoveableObject {
         }
     }
 
+    /**
+     * This function is used to stop the movement of character during first encounter with endboss
+     * 
+     * @returns - a boolean with info of move permission
+     */
     movePermission(){
         let permission = false;
         let encounterDone = this.world.level.enemies[this.world.level.enemies.length - 1].encounterTimerActive;
