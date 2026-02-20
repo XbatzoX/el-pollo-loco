@@ -9,6 +9,8 @@ let isMobileDevice = false;
 let buttonLeft;
 let buttonRight;
 let introSound = new Audio('assets/audio/game_intro.mp3');
+let wonGameSound = new Audio('assets/audio/game_win.mp3');
+let gameOverSound = new Audio('assets/audio/game_over.mp3');
 
 function init(){
     if(isGameOver){
@@ -17,7 +19,6 @@ function init(){
         showOverlay('game_over', 'canvas_id');
         isGameOver = false;
     }else if(isGameWon){
-        refreshMap();
         clearCanvas();
         showOverlay('win_game', 'canvas_id');
         isGameWon = false;
@@ -113,6 +114,7 @@ document.addEventListener("gameover", () => {
     deactivateMobileButtons();
     clearGameSoundInstance();
     showOverlay('canvas_id', 'game_over');
+    playGameOverSound();
     isGameOver = true;
 });
 
@@ -120,6 +122,10 @@ document.addEventListener("gamewon", () => {
     deactivateMobileButtons();
     clearGameSoundInstance();
     showOverlay('canvas_id', 'win_game');
+    playWinGameSound();
+    if(isGameWon){
+        refreshMap();
+    }
     isGameWon = true;
 });
 
@@ -283,3 +289,22 @@ function stopIntroSound(){
     introSound.pause();
 }
 
+function playWinGameSound(){
+    if(isSoundEnabled && !isGameWon){
+        wonGameSound.currentTime = 0;
+        wonGameSound.play();
+    }
+    if(!isSoundEnabled){
+        wonGameSound.pause();
+    }
+}
+
+function playGameOverSound(){
+    if(isSoundEnabled && !isGameOver){
+        gameOverSound.currentTime = 0;
+        gameOverSound.play();
+    }
+    if(!isSoundEnabled){
+        gameOverSound.pause();
+    }
+}

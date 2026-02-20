@@ -11,6 +11,7 @@ class Character extends MoveableObject {
     mobileRight = false;
     mobileJump = false;
     longIdleSound = new Audio('assets/audio/pepe_snoring.mp3');
+    hurtSound = new Audio('assets/audio/pepe_hurt.mp3');
 
 
     IMAGES_WALKING = [
@@ -138,6 +139,7 @@ class Character extends MoveableObject {
             }else if(this.isHurt()){
                 // hurt animation
                 this.playAnimation(this.IMAGES_HURT);
+                this.playHurtSound(this.world.soundEnabled);
             }else if(this.isLongIdle(this.world.keyboard.D)){
                 // long idle animation
                 this.playAnimation(this.IMAGES_IDLE_LONG);
@@ -187,6 +189,16 @@ class Character extends MoveableObject {
         }
         if(!isEnabled && (this.longIdleSound != 0)){
             this.longIdleSound.pause();
+        }
+    }
+
+    playHurtSound(isEnabled){
+        if(isEnabled && (this.hurtSound.ended || this.hurtSound.paused)){
+            this.hurtSound.currentTime = 0;
+            this.hurtSound.play();
+        }
+        if(!isEnabled && (this.hurtSound.currentTime != 0)){
+            this.hurtSound.pause();
         }
     }
 
