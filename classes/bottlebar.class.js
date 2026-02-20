@@ -8,6 +8,10 @@ class Bottlebar extends Coinbar {
         'assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/100.png'
     ];
 
+    /**
+     * The constructor loads the images for the different stats of statusbar and set the position on map
+     * 
+     */
     constructor(){
         super().loadImages(this.IMAGES_BOTTLE);
         this.setBottleValue(0, true);
@@ -17,6 +21,12 @@ class Bottlebar extends Coinbar {
         this.height = 50;
     }
 
+    /**
+     * This function is used to set the value of bottles in statusbar and to choose the corract status image
+     * 
+     * @param {number} amount - includes the amount of bottles which pepe collected 
+     * @param {boolean} notCollected - includes the information if the bottle already collected 
+     */
     setBottleValue(amount, notCollected){
         if(notCollected){
             this.amount = amount;

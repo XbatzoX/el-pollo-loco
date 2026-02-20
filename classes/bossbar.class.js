@@ -9,6 +9,10 @@ class Bossbar extends DrawableObject {
     ];
     percentage = 60;
 
+    /**
+     * The constructor loads to begin the status bar images and set the position of bar in map
+     * 
+     */
     constructor(){
         super();
         this.loadImages(this.IMAGES);
@@ -19,12 +23,22 @@ class Bossbar extends DrawableObject {
         this.height = 50;
     }
 
+    /**
+     * This function is used to set the value of statusbar
+     * 
+     * @param {number} percentage - includes the value of rest energie from endboss 
+     */
     setPercentage(percentage){
         this.percentage = percentage;
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
+    /**
+     * This function is used to choose the correct number for getting the correct image of statusbar depending on energy level of endboss
+     * 
+     * @returns - a number which will use for take the correct image of statusbar array
+     */
     resolveImageIndex(){
         if(this.percentage == 30){
             return 5;

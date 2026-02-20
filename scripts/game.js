@@ -23,6 +23,7 @@ function init(){
         isGameWon = false;
     }else{
         showOverlay('start_frame', 'canvas_id');
+        stopIntroSound();
         document.getElementById('start_ctrl_mobile').classList.add('invisible');
     }
     activateMobileButtons();
@@ -130,7 +131,7 @@ function showOverlay(idRemove, idAdd){
 }
 
 function refreshMap(){
-    clearInterval(world.intervalObj[length - 1]);
+    clearInterval(world.intervalObj[world.intervalObj.length - 1]);
     world.intervalObj.forEach(obj => {
         if(typeof obj.resetInterval === 'function'){
             obj.resetInterval();
@@ -270,10 +271,15 @@ function buttonJumpUp(){
 
 function playIntroSound(){
     if(isSoundEnabled){
+        introSound.currentTime = 0;
         introSound.volume = 0.3;
         introSound.play();
     }else{
         introSound.pause();
     }
+}
+
+function stopIntroSound(){
+    introSound.pause();
 }
 

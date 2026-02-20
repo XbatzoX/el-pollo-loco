@@ -10,6 +10,7 @@ class Character extends MoveableObject {
     mobileLeft = false;
     mobileRight = false;
     mobileJump = false;
+    longIdleSound = new Audio('assets/audio/pepe_snoring.mp3');
 
 
     IMAGES_WALKING = [
@@ -72,6 +73,10 @@ class Character extends MoveableObject {
     world;
     speed = 10;
     
+    /**
+     * 
+     * 
+     */
     constructor(){
         super().loadImage('assets/img/2_character_pepe/2_walk/W-21.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -136,6 +141,7 @@ class Character extends MoveableObject {
             }else if(this.isLongIdle(this.world.keyboard.D)){
                 // long idle animation
                 this.playAnimation(this.IMAGES_IDLE_LONG);
+                this.playLongIdleSound(this.world.soundEnabled);
             }else if(this.isIdle(this.world.keyboard.D)){
                 // idle animation
                 this.playAnimation(this.IMAGES_IDLE);
@@ -171,6 +177,16 @@ class Character extends MoveableObject {
         if(isEnabled){
             let jumpSound = new Audio('assets/audio/jump.mp3');
             jumpSound.play();
+        }
+    }
+
+    playLongIdleSound(isEnabled){
+        if(isEnabled && (this.longIdleSound.ended || this.longIdleSound.paused)){
+            this.longIdleSound.currentTime = 0;
+            this.longIdleSound.play();
+        }
+        if(!isEnabled && (this.longIdleSound != 0)){
+            this.longIdleSound.pause();
         }
     }
 

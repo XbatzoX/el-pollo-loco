@@ -60,6 +60,7 @@ class World {
 
     checkThrowObjects(){
         if((this.keyboard.D || this.throwBottleMobile(this.mobileThrowBottle)) && this.bottleInAir == false && this.bottlebar.amount > 0 && this.isFinalAnimationFinished()){
+            console.log('function wird doppelt aufgerufen');
             let bottle = new ThrowableObject(this.character.position_x, this.character.position_y, this.character.otherDirection);
             // bottle.playThrowBottleSound(this.soundEnabled, bottle.isThrown);
             this.playBottleSound();

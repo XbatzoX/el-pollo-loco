@@ -12,6 +12,11 @@ class BigChicken extends MoveableObject {
     ]
     energy = 5;
 
+    /**
+     * The constructor load the images for BigChicken animation and calculate the x sporn point of chicken with random function and offset
+     * 
+     * @param {number} offsetX - includes the offset value for sporn point of big chicken 
+     */
     constructor(offsetX){
         super().loadImage('assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.visible = true;
@@ -24,6 +29,10 @@ class BigChicken extends MoveableObject {
         this.animate();
     }
 
+    /**
+     * This function creates intervals for for image and moving animations
+     * 
+     */
     animate(){
         this.moveInterval = setInterval(() =>{
             this.moveLeft();

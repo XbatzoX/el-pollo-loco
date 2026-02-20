@@ -12,6 +12,12 @@ const level1Data = {
     "numberRepetitions" : 4
 };
 
+/**
+ * This function creates a new level with all instances of classes
+ * 
+ * @param {boolean} isSoundEnabled - information if sound is enabled 
+ * @returns - a new instance of class Level
+ */
 function createLevel(isSoundEnabled){
     let enemies = createNewInstanceOfEnemies(isSoundEnabled);
     let clouds = createNewInstanceOfClouds(); 
@@ -22,6 +28,12 @@ function createLevel(isSoundEnabled){
         level1Data.numberRepetitions, coins, bottles);
 }
 
+/**
+ * This subfunction is used to create new Instances of enemies for new level
+ * 
+ * @param {boolean} isSoundEnabled - information if sound is enabled
+ * @returns -  an array with instances of enemies
+ */
 function createNewInstanceOfEnemies(isSoundEnabled){
     let enemies = [
         new Chicken(600),
@@ -38,6 +50,11 @@ function createNewInstanceOfEnemies(isSoundEnabled){
     return enemies;
 }
 
+/**
+ * This subfunction is used to create new Instances of clouds for new level
+ * 
+ * @returns - an array with instances of clouds
+ */
 function createNewInstanceOfClouds(){
     let clouds = [
         new Cloud(0),
@@ -51,6 +68,11 @@ function createNewInstanceOfClouds(){
     return clouds;
 }
 
+/**
+ * This subfunction is used to create new Instances of coins for new level
+ * 
+ * @returns - an array with instances of coins
+ */
 function createNewInstanceOfCoins(){
     let coins = [
         new Coin(500, 350),
@@ -67,6 +89,11 @@ function createNewInstanceOfCoins(){
     return coins;
 }
 
+/**
+ * This subfunction is used to create new Instances of bottles for new level
+ * 
+ * @returns - an array with instances of bottles
+ */
 function createNewInstanceOfBottles(){
     let bottles = [
         new Bottle(250, 0),
