@@ -123,9 +123,7 @@ document.addEventListener("gamewon", () => {
     clearGameSoundInstance();
     showOverlay('canvas_id', 'win_game');
     playWinGameSound();
-    if(isGameWon){
-        refreshMap();
-    }
+    if(isGameWon){refreshMap();}
     isGameWon = true;
 });
 
@@ -137,27 +135,30 @@ function showOverlay(idRemove, idAdd){
 }
 
 function refreshMap(){
-    clearInterval(world.intervalObj[world.intervalObj.length - 1]);
-    world.intervalObj.forEach(obj => {
-        if(typeof obj.resetInterval === 'function'){
-            obj.resetInterval();
-        }else if(obj instanceof Level){
-            obj.enemies.forEach(enemy => {
-                if(typeof enemy.resetInterval === 'function'){
-                    enemy.resetInterval();
-                }
-            });
-            obj.clouds.forEach(cloud => {
-                if(typeof cloud.resetInterval === 'function'){
-                    cloud.resetInterval();
-                }
-            });
-        }
-    });
-    world.intervalObj.length = 0;
-    clearGameSoundInstance();
-    world = null;
-    worldExist = false;
+    if(world != null){
+        clearInterval(world.intervalObj[world.intervalObj.length - 1]);
+    
+        world.intervalObj.forEach(obj => {
+            if(typeof obj.resetInterval === 'function'){
+                obj.resetInterval();
+            }else if(obj instanceof Level){
+                obj.enemies.forEach(enemy => {
+                    if(typeof enemy.resetInterval === 'function'){
+                        enemy.resetInterval();
+                    }
+                });
+                obj.clouds.forEach(cloud => {
+                    if(typeof cloud.resetInterval === 'function'){
+                        cloud.resetInterval();
+                    }
+                });
+            }
+        });
+        world.intervalObj.length = 0;
+        clearGameSoundInstance();
+        world = null;
+        worldExist = false;
+    }
 }
 
 function clearCanvas(){

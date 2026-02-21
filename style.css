@@ -21,6 +21,9 @@ h1{
     font-family: 'MyPacifico';
     color: rgb(192, 55, 55);
     font-weight: 900;
+    position: absolute;
+    top: 20%;
+    font-size: 48px;
 }
 
 .visible{
@@ -233,6 +236,7 @@ canvas{
 
     h1{
         margin-block-end: 0px;
+        font-size: 32px;
     }
 
     .start-frame{

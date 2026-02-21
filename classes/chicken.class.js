@@ -12,6 +12,11 @@ class Chicken extends MoveableObject {
     ]
     energy = 5;
 
+    /**
+     * The constructor loads the image arrays to begin and set the position of chicken with random function
+     * 
+     * @param {number} offsetX - includes an offset value for creating postion of chicken 
+     */
     constructor(offsetX){
         super().loadImage('assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
         this.visible = true;
@@ -24,6 +29,10 @@ class Chicken extends MoveableObject {
         this.animate();
     }
 
+    /**
+     * This function is used to creates intervals for moving and animation of chicken
+     * 
+     */
     animate(){
         this.moveInterval = setInterval(() =>{
             this.moveLeft();

@@ -297,6 +297,12 @@ class Character extends MoveableObject {
         return permission;
     }
 
+    /**
+     * This function is used control the character for moving left in mobile version
+     * 
+     * @param {boolean} buttonDown - includes the information, that a user is pressing the button down 
+     * @returns - returns a boolean as information that button is pressed
+     */
     movingLeftMobile(buttonDown){
         let movingLeft;
         if(buttonDown){
@@ -307,6 +313,12 @@ class Character extends MoveableObject {
         return movingLeft;
     }
 
+    /**
+     * This function is used control the character for moving right in mobile version
+     * 
+     * @param {boolean} buttonDown - includes the information, that a user is pressing the button down 
+     * @returns - returns a boolean as information that button is pressed
+     */
     movingRightMobile(buttonDown){
         let movingRight;
         if(buttonDown){
@@ -317,6 +329,12 @@ class Character extends MoveableObject {
         return movingRight;
     }
 
+    /**
+     * This function is used control the character for jumping in mobile version
+     * 
+     * @param {boolean} buttonDown - includes the information, that a user is pressing the button down
+     * @returns - returns a boolean as information that button is pressed
+     */
     jumpMobile(buttonDown){
         let jump;
         if(buttonDown){
