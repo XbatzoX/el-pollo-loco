@@ -9,6 +9,10 @@ class StatusBar extends DrawableObject {
     ];
     percentage = 100;
 
+    /**
+     * The constructor loads the images of status bar health of pepe and set the position on map
+     * 
+     */
     constructor(){
         super();
         this.loadImages(this.IMAGES);
@@ -19,13 +23,22 @@ class StatusBar extends DrawableObject {
         this.height = 50;
     }
 
-    // setPercentage(50)
+    /**
+     * This function set the percentage of energie level of pepe
+     * 
+     * @param {number} percentage - includes the energie level of pepe
+     */
     setPercentage(percentage){
         this.percentage = percentage;
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
+    /**
+     * This function is used to choose the correct number for getting the correct image of statusbar depending on energy level of pepe
+     * 
+     * @returns a number which will use for take the correct image of statusbar array
+     */
     resolveImageIndex(){
         if(this.percentage == 100){
             return 5;

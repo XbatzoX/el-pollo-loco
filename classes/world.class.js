@@ -21,7 +21,12 @@ class World {
     gameSound = new Audio('assets/audio/game_sound .mp3');
     throwSound = new Audio('assets/audio/bottle_throw.mp3');
     
-
+/**
+ * The constructor loads the map with all necessary elements and informations
+ * @param {HTMLCanvasElement} canvas - includes the canvas html element
+ * @param {Keyboard} keyboard  - includes the stats of keyboard elements
+ * @param {boolean} soundEnabled - includes the information if sound is enabled 
+ */
     constructor(canvas, keyboard, soundEnabled){
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -34,23 +39,19 @@ class World {
         this.run();
     }
 
+    /*** This function links the world instance back to character for recognizing keyboard elements*/
     setWorld(){
         this.character.world = this;
     }
 
+    /*** This function creates an intervall for checking if something happening in game*/
     run(){
         this.idRunInterval = setInterval(() => {
-            // check Collision
             this.checkCollisions();
-            // throw bottle
             this.checkThrowObjects();
-            // check collecting Coins
             this.checkIfCollectingCoins();
-            // check collecting bottles
             this.checkIfCollectingBottles();
-            // check encounter with endboss
             this.checkEncounterEndboss();
-            // check bonus reached
             this.checkAmountOfCoins();
             this.checkIfEndbossIsDead();
             this.playGameSound();
@@ -58,10 +59,10 @@ class World {
         this.intervalObj.push(this.idRunInterval);
     }
 
+    /*** This function checks if a player throw a bottle*/
     checkThrowObjects(){
         if((this.keyboard.D || this.throwBottleMobile(this.mobileThrowBottle)) && this.bottleInAir == false && this.bottlebar.amount > 0 && this.isFinalAnimationFinished()){
             let bottle = new ThrowableObject(this.character.position_x, this.character.position_y, this.character.otherDirection);
-            // bottle.playThrowBottleSound(this.soundEnabled, bottle.isThrown);
             this.playBottleSound();
             this.bottlebar.amount -= 1;
             this.bottlebar.setBottleValue(this.bottlebar.amount, true);
@@ -69,6 +70,7 @@ class World {
         }
     }
 
+    /*** This function plays the throwing bottle sound*/
     playBottleSound(){
         if(this.soundEnabled){
             this.throwSound.currentTime = 0;
@@ -76,6 +78,10 @@ class World {
         }
     }
 
+    /**
+     * This function checks if the final animation after first encounter with endboss is finished and throwing bottle is allowed
+     * @returns - a boolean feedback
+     */
     isFinalAnimationFinished(){
         let throwBottleAllowed = false;
         if((this.character.position_x < 3350) || (this.character.position_x >= 3350 && this.endbossAttacks)){
@@ -84,39 +90,60 @@ class World {
         return throwBottleAllowed;
     }
 
+    /*** This function checks if pepe or a bottle is colliding wit an enemy*/
     checkCollisions(){
         this.level.enemies.forEach((enemy) => {
-            if(this.character.isJumpingOnEnemy(enemy)){
-                enemy.hit(true);
-            }
-            this.character.currentStateOfHit = this.character.isColliding(enemy);
-            this.character.hit(this.character.currentStateOfHit);
-            if(this.character.isColliding(enemy)){
-                this.statusbar.setPercentage(this.character.energy);
-            }
-            if(this.throwableObjects.length > 0){
-                this.actualBottle = this.throwableObjects[0];
-                this.actualBottle.currentStateOfHit = this.actualBottle.isColliding(enemy);
-                enemy.hit(this.actualBottle.currentStateOfHit);
-                //this.actualBottle.isColliding(enemy)
-                if(this.actualBottle.currentStateOfHit){
-                    this.actualBottle.bottleHitsEnemy();
-                    this.actualBottle.playBottleHitsEnemySound(this.soundEnabled, this.actualBottle.isHitEnemy)
-                    if(enemy instanceof Endboss){
-                        this.bossbar.setPercentage(enemy.energy);
-                        this.checkDirectionOfHit();
-                    }
-                    // this.actualBottle.speed = 0;
-                    
-                }
-                this.actualBottle.shiftBottleFromArray(this.actualBottle, this.throwableObjects);
-                // check bottle in air
-                this.checkIfBottleInAir();
-            }
-                
+            this.checkJumpingOnEnemy(enemy);
+            this.checkCharacterCollidingEnemy(enemy);
+            this.checkBottleThrown(enemy);
         });
     }
 
+    /**
+     * This function checks if pepe is jumping on enemy
+     * @param {MoveableObject} enemy - includes the instance of enemy
+     */
+    checkJumpingOnEnemy(enemy){
+        if(this.character.isJumpingOnEnemy(enemy)){
+            enemy.hit(true);
+        }
+        this.character.currentStateOfHit = this.character.isColliding(enemy);
+        this.character.hit(this.character.currentStateOfHit);
+    }
+
+    /**
+     * This function checks if pepe is colliding with an enemy
+     * @param {MoveableObject} enemy - includes the instance of enemy
+     */
+    checkCharacterCollidingEnemy(enemy){
+        if(this.character.isColliding(enemy)){
+            this.statusbar.setPercentage(this.character.energy);
+        }
+    }
+
+    /**
+     * This function checks if a throwing bottle is hitting an enemy
+     * @param {MoveableObject} enemy - includes the instance of enemy
+     */
+    checkBottleThrown(enemy){
+        if(this.throwableObjects.length > 0){
+            this.actualBottle = this.throwableObjects[0];
+            this.actualBottle.currentStateOfHit = this.actualBottle.isColliding(enemy);
+            enemy.hit(this.actualBottle.currentStateOfHit);
+            if(this.actualBottle.currentStateOfHit){
+                this.actualBottle.bottleHitsEnemy();
+                this.actualBottle.playBottleHitsEnemySound(this.soundEnabled, this.actualBottle.isHitEnemy)
+                if(enemy instanceof Endboss){
+                    this.bossbar.setPercentage(enemy.energy);
+                    this.checkDirectionOfHit();
+                }
+            }
+            this.actualBottle.shiftBottleFromArray(this.actualBottle, this.throwableObjects);
+            this.checkIfBottleInAir();
+        }  
+    }
+
+    /*** This function checks if pepe is hitting endboss from behind*/
     checkDirectionOfHit(){
         let endbossChicken = this.level.enemies[(this.level.enemies.length) - 1];
         if(this.character.position_x > endbossChicken.position_x){
@@ -127,6 +154,7 @@ class World {
         }
     }
 
+    /*** This function checks if pepe is collecting a coin*/
     checkIfCollectingCoins(){
         this.level.coins.forEach((coin) => {
             if(this.character.isColliding(coin)){
@@ -138,6 +166,7 @@ class World {
         });
     }
 
+    /*** This function checks if pepe is collecting a salsa bottle from ground*/
     checkIfCollectingBottles(){
         this.level.bottles.forEach((bottle) => {
             if(this.character.isColliding(bottle)){
@@ -149,6 +178,7 @@ class World {
         });
     }
 
+    /*** This function checks if pepe has the first contact with endboss*/
     checkEncounterEndboss(){
         let enemyEndboss = this.level.enemies.length - 1;
         let bossEncounter = this.level.enemies[enemyEndboss].bossEncounter;
@@ -162,10 +192,10 @@ class World {
                 this.level.enemies[enemyEndboss].encounterTimerActive = true;
             }
         }
-
         this.checkAttackScenario(enemyEndboss);
     }
 
+    /*** This function checks if enboss is attacking*/
     checkAttackScenario(enemyEndboss){
         if(this.level.enemies[enemyEndboss].isAttack()){
             if(!this.endbossAttacks){
@@ -175,6 +205,7 @@ class World {
         }
     }
 
+    /*** This function checks if endboss is dead*/
     checkIfEndbossIsDead(){
         let endboss = this.level.enemies.length - 1;
         if(this.level.enemies[endboss].isDead() && !this.level.enemies[endboss].endbossDefeated && !this.isDefeated){
@@ -183,6 +214,7 @@ class World {
         }
     }
 
+    /*** This function checks if all coins are collected and gives a bonus */
     checkAmountOfCoins(){
         if((this.coinbar.amount == 10) && !this.allCoinsCollected){
             this.character.energy = 100;
@@ -193,6 +225,7 @@ class World {
         }
     }
 
+    /*** This function fill the bottle amount if bonus szenario is set*/
     fillBottleAmount(){
         let amountOfBottles = this.bottlebar.amount;
         for (let index = amountOfBottles; index < 10; index++) {
@@ -201,6 +234,11 @@ class World {
         this.bottlebar.setBottleValue(this.bottlebar.amount, true);
     }
 
+    /**
+     * This function recognize a throw bottle push button on mobile view
+     * @param {boolean} buttonDown - includes the button down event 
+     * @returns - a boolean feedback for one throw
+     */
     throwBottleMobile(buttonDown){
         let throwBottle;
         if(buttonDown){
@@ -211,6 +249,7 @@ class World {
         return throwBottle;
     }
 
+    /*** This function plays a game sound during playing game*/
     playGameSound(){
         if(this.gameSound != null){
             if(this.soundEnabled && (this.gameSound.ended || this.gameSound.paused)){
@@ -224,66 +263,65 @@ class World {
         }
     }
 
+    /*** This function draws all objects to map*/
     draw(){
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
         this.ctx.translate(this.camera_x, 0);
-        this.addObjectsToMap(this.level.backgroundObjects);
-
-       
-        this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.level.bottles);
-        this.addToMap(this.character);
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.throwableObjects);
-
-
+        this.drawMoveableObjects();
         this.ctx.translate(-this.camera_x,0);
-        // Space for unmoveable elements
-        this.addToMap(this.statusbar);
-        this.addToMap(this.coinbar);
-        this.addToMap(this.bottlebar);
-        this.addToMap(this.bossbar);
+        this.drawUnmoveableObjects();
         this.ctx.translate(this.camera_x,0);
-        // *********************************
-        
-
         this.ctx.translate(-this.camera_x, 0);
-        
-        // draw() wird immer wieder aufgereufen
         let self = this;
         requestAnimationFrame(function() {
             self.draw();
         })
     }
 
+    /*** This function draws all moveable objects to map*/
+    drawMoveableObjects(){
+        this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.bottles);
+        this.addToMap(this.character);
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.throwableObjects);
+    }
+
+    /*** This function draws all unmoveable objects to map*/
+    drawUnmoveableObjects(){
+        this.addToMap(this.statusbar);
+        this.addToMap(this.coinbar);
+        this.addToMap(this.bottlebar);
+        this.addToMap(this.bossbar);
+    }
+
+    /**
+     * This function add objects from array into map
+     * @param {Array} objects 
+     */
     addObjectsToMap(objects){
         objects.forEach(o => {
-            // this.addToMap(o);
-            if(!(o instanceof Coin || o instanceof Bottle)){
-                this.checkIfEnemyAlive(o);
-            }
-            if(o instanceof Coin || o instanceof Bottle){
-                this.checkIfObjectCollected(o);
-            }
+            if(!(o instanceof Coin || o instanceof Bottle)){this.checkIfEnemyAlive(o);}
+            if(o instanceof Coin || o instanceof Bottle){this.checkIfObjectCollected(o);}
         })
     }
 
+    /**
+     * This functions draw an image with correct direction to map
+     * @param {MoveableObject} mo - includes the instace of object 
+     */
     addToMap(mo){
-        if(mo.otherDirection){
-            this.flipImage(mo);
-        }
-
+        if(mo.otherDirection){this.flipImage(mo);}
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
-        mo.drawOffsetFrame(this.ctx);
-
-        if(mo.otherDirection){
-            this.flipImageBack(mo);
-        }
+        if(mo.otherDirection){this.flipImageBack(mo);}
     }
 
+    /**
+     * This function is used to flip the image of moveable object
+     * @param {MoveableObject} mo  - includes the instace of object 
+     */
     flipImage(mo){
         this.ctx.save();
         this.ctx.translate(mo.width, 0);
@@ -291,11 +329,19 @@ class World {
         mo.position_x = mo.position_x * -1;
     }
 
+    /**
+     * This function is used to flip the image back
+     * 
+     * @param {MoveableObject} mo - includes the instace of object 
+     */
     flipImageBack(mo){
         mo.position_x = mo.position_x * -1;
         this.ctx.restore();
     }
     
+    /**
+     * This function checks if thrown bottle is above the ground
+     */
     checkIfBottleInAir(){
         if( (this.actualBottle.position_y > 480)){
             this.bottleInAir = false;
@@ -304,27 +350,26 @@ class World {
         }
     }
 
+    /**
+     * This function checks if enemy is longer alive
+     * @param {MoveableObject} o - includes the instace of object
+     * @returns - end of function
+     */
     checkIfEnemyAlive(o){
         if(o instanceof Chicken || o instanceof BigChicken){
             if(o.isDead()){
                 if(!o.visible){return;}
                 let actualTime = new Date().getTime();
-                if((actualTime - o.timestampDead) > 2000){
-                    o.visible = false;
-                }else{
-                    this.addToMap(o);
-                }
-            }else{
-                this.addToMap(o);
-            }
-        }else{
-            this.addToMap(o);
-        }
+                if((actualTime - o.timestampDead) > 2000){o.visible = false;}else{this.addToMap(o);}
+            }else{this.addToMap(o);}
+        }else{this.addToMap(o);}
     }
 
+    /**
+     * This function checks if a collectable object is already collected
+     * @param {MoveableObject} o - includes the instace of object
+     */
     checkIfObjectCollected(o){
-        if(!o.isCollected()){
-            this.addToMap(o);
-        }
+        if(!o.isCollected()){this.addToMap(o);}
     }
 }

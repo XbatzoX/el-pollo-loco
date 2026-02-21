@@ -12,41 +12,61 @@ let introSound = new Audio('assets/audio/game_intro.mp3');
 let wonGameSound = new Audio('assets/audio/game_win.mp3');
 let gameOverSound = new Audio('assets/audio/game_over.mp3');
 
+/*** This function initialize the world after game ended or start*/
 function init(){
     if(isGameOver){
-        refreshMap();
-        clearCanvas();
-        showOverlay('game_over', 'canvas_id');
-        isGameOver = false;
+        gameOverActions();
     }else if(isGameWon){
-        clearCanvas();
-        showOverlay('win_game', 'canvas_id');
-        isGameWon = false;
+        gameWonActions();
     }else{
-        showOverlay('start_frame', 'canvas_id');
-        stopIntroSound();
-        document.getElementById('start_ctrl_mobile').classList.add('invisible');
+        startOverlayActions();
     }
     activateMobileButtons();
-    // checkLocalStorageIsSoundEnabled();
     canvas = document.getElementById('canvas_id');
     world = new World(canvas, keyboard, isSoundEnabled);
     worldExist = true;
 }
 
+/*** This function shows canvas view after game over*/
+function gameOverActions(){
+    refreshMap();
+    clearCanvas();
+    showOverlay('game_over', 'canvas_id');
+    isGameOver = false;
+}
+
+/*** This function shows canvas view after won game*/
+function gameWonActions(){
+    clearCanvas();
+    showOverlay('win_game', 'canvas_id');
+    isGameWon = false;
+}
+
+/*** This function shows start overlay*/
+function startOverlayActions(){
+    showOverlay('start_frame', 'canvas_id');
+    stopIntroSound();
+    document.getElementById('start_ctrl_mobile').classList.add('invisible');
+}
+
+/*** This functions checks the sound status of local storage and checks if the game is loaded on a mobile device*/
 function onloadFunctions(){
     isMobileDevice = checkIfMobileDevice();
     activateMobileLeftButton();
     activateMobileRightButton();
     checkLocalStorageIsSoundEnabled();
     setSoundStatusToLocalStorage(isSoundEnabled);
-    // playIntroSound();
 }
 
+/**
+ * This function checks if a mobile device is used
+ * @returns - a boolean feedback
+ */
 function checkIfMobileDevice(){
     return window.matchMedia('(pointer: coarse)').matches;   
 }
 
+/*** This function activate mobile buttons if a mobile device is used*/
 function activateMobileButtons(){
     if(isMobileDevice){
         document.getElementById('mobile_ctrl_left').classList.remove('invisible');
@@ -54,6 +74,7 @@ function activateMobileButtons(){
     }
 }
 
+/*** This function deactivates mobile buttons if needed*/
 function deactivateMobileButtons(){
     if(isMobileDevice){
         document.getElementById('mobile_ctrl_left').classList.add('invisible');
@@ -61,11 +82,10 @@ function deactivateMobileButtons(){
     }
 }
 
+/*** This function checks to local storage if sound is enabled*/
 function checkLocalStorageIsSoundEnabled(){
     let mySoundStatus = JSON.parse(localStorage.getItem('mySound'));
-    if(mySoundStatus != null){
-        isSoundEnabled = mySoundStatus;
-    }
+    if(mySoundStatus != null){isSoundEnabled = mySoundStatus;}
     if(isSoundEnabled){
         document.getElementById('sound_image').src = './assets/icons/sound.svg';
     }else{
@@ -73,10 +93,15 @@ function checkLocalStorageIsSoundEnabled(){
     }
 }
 
+/**
+ * This function set the actual sound status to local storage
+ * @param {boolean} soundStatus - includes the feedback of actual sound status 
+ */
 function setSoundStatusToLocalStorage(soundStatus){
     localStorage.setItem('mySound', JSON.stringify(soundStatus));
 }
 
+/*** This function open the start overlay*/
 function openMainMenu(){
     refreshMap();
     clearCanvas();
@@ -92,6 +117,7 @@ function openMainMenu(){
     playIntroSound();
 }
 
+/*** Event Listener for keydown actions */
 window.addEventListener('keydown', (e) => {
     if(e.keyCode == 39){keyboard.RIGHT = true;}
     if(e.keyCode == 37){keyboard.LEFT = true;}
@@ -101,6 +127,7 @@ window.addEventListener('keydown', (e) => {
     if(e.keyCode == 68){keyboard.D = true;}
 });
 
+/*** Event Listener for keyup actions*/
 window.addEventListener('keyup', (e) => {
     if(e.keyCode == 39){keyboard.RIGHT = false;}
     if(e.keyCode == 37){keyboard.LEFT = false;}
@@ -110,6 +137,7 @@ window.addEventListener('keyup', (e) => {
     if(e.keyCode == 68){keyboard.D = false;}
 });
 
+/*** Event Listener for recognizing game over*/
 document.addEventListener("gameover", () => {
     deactivateMobileButtons();
     clearGameSoundInstance();
@@ -118,6 +146,7 @@ document.addEventListener("gameover", () => {
     isGameOver = true;
 });
 
+/*** Event Listener for recognizing win game*/
 document.addEventListener("gamewon", () => {
     deactivateMobileButtons();
     clearGameSoundInstance();
@@ -127,6 +156,11 @@ document.addEventListener("gamewon", () => {
     isGameWon = true;
 });
 
+/**
+ * This function is used to show and undisplay overlays
+ * @param {string} idRemove - includes the id of undisplay overlay
+ * @param {string} idAdd - includes the id of display overlay 
+ */
 function showOverlay(idRemove, idAdd){
     document.getElementById(idRemove).classList.remove('visible');
     document.getElementById(idRemove).classList.add('invisible');
@@ -134,26 +168,11 @@ function showOverlay(idRemove, idAdd){
     document.getElementById(idAdd).classList.add('visible');
 }
 
+/*** This function refreshes the map after game ended*/
 function refreshMap(){
     if(world != null){
         clearInterval(world.intervalObj[world.intervalObj.length - 1]);
-    
-        world.intervalObj.forEach(obj => {
-            if(typeof obj.resetInterval === 'function'){
-                obj.resetInterval();
-            }else if(obj instanceof Level){
-                obj.enemies.forEach(enemy => {
-                    if(typeof enemy.resetInterval === 'function'){
-                        enemy.resetInterval();
-                    }
-                });
-                obj.clouds.forEach(cloud => {
-                    if(typeof cloud.resetInterval === 'function'){
-                        cloud.resetInterval();
-                    }
-                });
-            }
-        });
+        clearIntervalsFromBrowser();
         world.intervalObj.length = 0;
         clearGameSoundInstance();
         world = null;
@@ -161,11 +180,29 @@ function refreshMap(){
     }
 }
 
+/*** This function clear all Intervals if game is ended*/
+function clearIntervalsFromBrowser(){
+    world.intervalObj.forEach(obj => {
+        if(typeof obj.resetInterval === 'function'){
+            obj.resetInterval();
+        }else if(obj instanceof Level){
+            obj.enemies.forEach(enemy => {
+                if(typeof enemy.resetInterval === 'function'){enemy.resetInterval();}
+            });
+            obj.clouds.forEach(cloud => {
+                if(typeof cloud.resetInterval === 'function'){cloud.resetInterval();}
+            });
+        }
+    });
+}
+
+/*** This function clear the content of canvas tag*/
 function clearCanvas(){
     let canvasContextRef = canvas.getContext("2d");
     canvasContextRef.clearRect(0, 0, canvas.width, canvas.height);
 }
 
+/*** This function clear the Instance of game sound*/
 function clearGameSoundInstance(){
     if(world.gameSound != null){
         world.gameSound.pause();
@@ -177,11 +214,7 @@ function clearGameSoundInstance(){
 
 function setSoundStatus(){
     let soundEnabled;
-    if(worldExist){
-        soundEnabled = world.soundEnabled;
-    }else{
-        soundEnabled = isSoundEnabled;
-    }
+    checkSoundStatusWorldExist(soundEnabled);
     if(soundEnabled){
         if(worldExist){
             world.soundEnabled = false;
@@ -206,13 +239,13 @@ function setSoundStatus(){
     setSoundStatusToLocalStorage(soundEnabled);
 }
 
-// function buttonLeftDown(){
-//     world.character.mobileLeft = true;
-// }
-
-// function buttonLeftUp(){
-//     world.character.mobileLeft = false;
-// }
+function checkSoundStatusWorldExist(soundEnabled){
+    if(worldExist){
+        soundEnabled = world.soundEnabled;
+    }else{
+        soundEnabled = isSoundEnabled;
+    }
+}
 
 function activateMobileLeftButton(){
     if(isMobileDevice){

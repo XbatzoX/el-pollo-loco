@@ -15,13 +15,19 @@ class ThrowableObject extends MoveableObject {
         'assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
         'assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
     ];
-
     idBottleThrow;
     idBottlePosition_x;
     isThrown = false;
     isHitEnemy = false;
     throwDirectionLeft = false;
 
+    /**
+     * The constructor loads the images of throwing bottle and set the position and direction if pepe is throwing
+     * 
+     * @param {number} position_x - includes the sporn point of bottle in x position 
+     * @param {number} position_y - - includes the sporn point of bottle in y position  
+     * @param {boolean} throwDirectionLeft - includes information if the bottle should throw in left direction
+     */
     constructor(position_x, position_y, throwDirectionLeft){
         super().loadImage('assets/img/6_salsa_bottle/salsa_bottle.png');
         this.loadImages(this.IMAGES_ROTATION);
@@ -32,15 +38,16 @@ class ThrowableObject extends MoveableObject {
         this.throw();
     }
 
+    /**
+     * This function is used to creates intervals for moving and image animation
+     * 
+     */
     throw(){
         this.speedY = 30;
         this.applyGravity();
-
         this.idBottleThrow = setInterval(() => {
-            // this.playThrowBottleSound(this.isThrown);
             this.playAnimation(this.IMAGES_ROTATION);
         }, 100);
-
         this.idBottlePosition_x = setInterval(() => {
             if(!this.throwDirectionLeft){
                 this.position_x += 10;
@@ -50,24 +57,38 @@ class ThrowableObject extends MoveableObject {
         }, 25);
     }
 
+    /**
+     * This function plays the animation if a bottle hits an enemy
+     * 
+     */
     bottleHitsEnemy(){
         this.speedY = 0;
         this.speed = 0;
         clearInterval(this.idBottleThrow);
         clearInterval(this.idBottlePosition_x);
-
         setInterval(() => {
-            // this.playBottleHitsEnemySound(this.isHitEnemy);
             this.playAnimation(this.IMAGES_SPLASH);
         }, 200);
     }
 
+    /**
+     * This function decrease the amount of bottles if pepe is throwing one
+     * 
+     * @param {ThrowableObject} actualBottle - includes all information of instance from actual bottle
+     * @param {Array} bottleArr - includes the amount of bottles 
+     */
     shiftBottleFromArray(actualBottle, bottleArr){
         if((actualBottle.position_y >= 480)){
             bottleArr.shift();
         }
     }
 
+    /**
+     * This function plays a sound if a bottle is thrown
+     * 
+     * @param {boolean} isEnabled - includes the information if the sound is enabled
+     * @param {boolean} isThrown - includes the information if a bottle ist thrown 
+     */
     playThrowBottleSound(isEnabled, isThrown){
         if(!isThrown && isEnabled){
             let sound = new Audio('assets/audio/bottle_throw.mp3');
@@ -76,6 +97,12 @@ class ThrowableObject extends MoveableObject {
         }
     }
 
+    /**
+     * This function plays a sound if a bottle hits an enemy
+     * 
+     * @param {boolean} isEnabled - includes the information if the sound is enabled
+     * @param {boolean} isHitEnemy - includes the information if the bottle hits the enemy  
+     */
     playBottleHitsEnemySound(isEnabled, isHitEnemy){
         if(!isHitEnemy && isEnabled){
             let sound = new Audio('assets/audio/bottle_hit.mp3');
@@ -84,6 +111,13 @@ class ThrowableObject extends MoveableObject {
         }
     }
 
+    /**
+     * This function sets the start position of bottle if throwing begins
+     * 
+     * @param {number} position_x - includes the position on x-axis
+     * @param {number} position_y - includes the position on y-axis
+     * @param {boolean} throwDirectionLeft - includes information if pepe is throwing the bottle in left direction
+     */
     setPositionOfBottle(position_x, position_y, throwDirectionLeft){
         this.throwDirectionLeft = throwDirectionLeft;
         this.position_y = (position_y + 100);
