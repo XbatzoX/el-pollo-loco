@@ -10,6 +10,10 @@ class Coinbar extends DrawableObject{
         'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/orange/100.png',
     ];
 
+    /**
+     * The constructor loads the images for status of coinbar set coin value to begin and set the position on map
+     * 
+     */
     constructor(){
         super().loadImages(this.IMAGES_COIN);
         this.setCoinValue(0, true);
@@ -19,6 +23,12 @@ class Coinbar extends DrawableObject{
         this.height = 50;
     }
 
+    /**
+     * This function set the coin value
+     * 
+     * @param {number} amount - number of coins which character collected 
+     * @param {boolean} notCollected - information if coin was already collected 
+     */
     setCoinValue(amount, notCollected){
         if(notCollected){
             this.amount = amount;
@@ -27,6 +37,11 @@ class Coinbar extends DrawableObject{
         }
     }
 
+    /**
+     * This function is used to choose the correct image depending on amount of coins
+     * 
+     * @returns - a number for choose the correct status image in array
+     */
     resolveImageIndex(){
         if(this.amount == 10){
             return 5;
@@ -43,12 +58,22 @@ class Coinbar extends DrawableObject{
         }
     }
 
+    /**
+     * This function increases the amount of collected coins
+     * 
+     * @param {boolean} notCollected - includes the information if coin was already collected 
+     */
     increaseAmount(notCollected){
         if(notCollected){
             this.amount += 1;
         }
     }
 
+    /**
+     * This function plays a sound if the character collected all coins in game
+     * 
+     * @param {boolean} isEnabled - includes the information if the sound is enabled 
+     */
     playBonusSound(isEnabled){
         if(isEnabled){
             let sound = new Audio('assets/audio/bonus_sound.mp3');

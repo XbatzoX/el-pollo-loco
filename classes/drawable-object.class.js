@@ -14,11 +14,21 @@ class DrawableObject {
     notCollected = true;
     value = 5;
 
+    /**
+     * This function creates an Instance of image with path of image
+     * 
+     * @param {string} path - includes the relative path of image 
+     */
     loadImage(path){
-        this.img = new Image(); // document.getElementById('image') <img id="image">
+        this.img = new Image(); 
         this.img.src = path;
     }
 
+    /**
+     * This function creates an Instance of image with path of images
+     * 
+     * @param {Array} arr - includes an array of strings, filled with paths of images
+     */
     loadImages(arr){
         arr.forEach(path => {
             let img = new Image();
@@ -27,11 +37,21 @@ class DrawableObject {
         });
     }
 
+    /**
+     * This function draw on object on map
+     * 
+     * @param {CanvasRenderingContext2D} ctx - includes the context of canvas
+     */
     draw(ctx){
         ctx.drawImage(this.img, this.position_x, this.position_y, this.width, this.height);
 
     }
 
+    /**
+     * This function is used to draw a frame around of drawable objects in map 
+     * 
+     * @param {CanvasRenderingContext2D} ctx - includes the context of canvas 
+     */
     drawFrame(ctx){
         if(this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coin || this instanceof BigChicken){
             ctx.beginPath();
@@ -41,6 +61,12 @@ class DrawableObject {
             ctx.stroke();
         }
     }
+
+    /**
+     * This function is used to draw a frame with offset values around of drawable objects in map 
+     * 
+     * @param {CanvasRenderingContext2D} ctx - includes the context of canvas 
+     */
     drawOffsetFrame(ctx){
         if(this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coin || this instanceof BigChicken){
             ctx.beginPath();
@@ -55,6 +81,11 @@ class DrawableObject {
         }
     }
 
+    /**
+     * This function checks if an object is already collected
+     * 
+     * @returns - a bollean info
+     */
     isCollected(){
         let collected;
         if(!this.notCollected){

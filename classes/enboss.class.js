@@ -6,8 +6,6 @@ class Endboss extends MoveableObject {
     width = 200;
     energy = 30;
     endbossDefeated = false;
-    // leftDirection = true;
-    // rightDirection = false;
     deathAnimationDone = false;
     soundEnabled = false;
 
@@ -52,6 +50,11 @@ class Endboss extends MoveableObject {
         'assets/img/4_enemie_boss_chicken/1_walk/G4.png'
     ];
 
+    /**
+     * The constructor loads the animation images and set the offset value of image from endboss
+     * 
+     * @param {boolean} soundEnabled - includes an information if the sound is enabled 
+     */
     constructor(soundEnabled){
         super().loadImage('assets/img/4_enemie_boss_chicken/2_alert/G5.png');
         this.loadImages(this.IMAGES_ALERT);
@@ -64,49 +67,88 @@ class Endboss extends MoveableObject {
         this.offset.UP = 50;
     }
 
+    /**
+     * This function is used to sets intervals for image and moving animations
+     * 
+     */
     animate(){
         this.animationInterval = setInterval(() => {
-            if(this.isDead() && this.endbossDefeated){
-                if(this.endbossDefeated){
-                    setTimeout(() => {
-                        this.deathAnimationDone = true;
-                    }, 500);
-                }
-                if(this.deathAnimationDone){
-                    document.dispatchEvent(new Event('gamewon'));
-                }
-            }else if(this.isDead() && !this.endbossDefeated){
-                let lastImage = this.playAnimation(this.IMAGES_DEAD);
-                if(lastImage){
-                    this.endbossDefeated = true;
-                    // this.playAttackSound(this.soundEnabled);
-                }
-            }else if(this.isAttack()){
-                this.playAnimation(this.IMAGES_ATTACK);
-            }else if(this.isHurt() && !this.isDead()){
-                this.playAnimation(this.IMAGES_HURT);
-            }else if(this.isRunning() && !this.isDead()){
-                this.playAnimation(this.IMAGES_RUNNING);
-            }else if(!this.isDead()){
-                this.playAnimation(this.IMAGES_ALERT);
-            }
-
-            this.checkDirectionOfRunning();
+            this.enbossAnimationConditions();
         },200);
         this.intervalIDs.push(this.animationInterval);
 
         this.moveInterval = setInterval(() =>{
-            if(this.isRunning() && !this.isDead()){
-                if(this.otherDirection){
-                    this.moveRight();
-                }else{
-                    this.moveLeft();
-                }
-            }
+            this.endbossMovingAnimation();
         }, (1000 / 60));
         this.intervalIDs.push(this.moveInterval);
     }
 
+    /**
+     * This function creates a delay after victory of endboss used for final animation
+     * 
+     */
+    delayAfterVictory(){
+        if(this.endbossDefeated){
+            setTimeout(() => {
+                this.deathAnimationDone = true;
+            }, 500);
+        }
+        if(this.deathAnimationDone){
+            document.dispatchEvent(new Event('gamewon'));
+        }
+    }
+
+    /**
+     * This function shows the death image animation of endboss
+     * 
+     */
+    deathAnimation(){
+        let lastImage = this.playAnimation(this.IMAGES_DEAD);
+        if(lastImage){
+            this.endbossDefeated = true;
+        }
+    }
+
+    /**
+     * This function is used th choose the correct image animation 
+     * 
+     */
+    enbossAnimationConditions(){
+        if(this.isDead() && this.endbossDefeated){
+            this.delayAfterVictory();
+        }else if(this.isDead() && !this.endbossDefeated){
+            this.deathAnimation();
+        }else if(this.isAttack()){
+            this.playAnimation(this.IMAGES_ATTACK);
+        }else if(this.isHurt() && !this.isDead()){
+            this.playAnimation(this.IMAGES_HURT);
+        }else if(this.isRunning() && !this.isDead()){
+            this.playAnimation(this.IMAGES_RUNNING);
+        }else if(!this.isDead()){
+            this.playAnimation(this.IMAGES_ALERT);
+        }
+        this.checkDirectionOfRunning();
+    }
+
+    /**
+     * This function choose the correct moving direction animation of endboss
+     * 
+     */
+    endbossMovingAnimation(){
+        if(this.isRunning() && !this.isDead()){
+            if(this.otherDirection){
+                this.moveRight();
+            }else{
+                this.moveLeft();
+            }
+        }
+    }
+
+    /**
+     * This function plays an Alert sound of chicken
+     * 
+     * @param {boolean} isEnabled - includes the information if the sound is enabled 
+     */
     playAlertSound(isEnabled){
         if(isEnabled){
             let sound = new Audio('assets/audio/endboss_begin.mp3');
@@ -114,6 +156,11 @@ class Endboss extends MoveableObject {
         }
     }
 
+    /**
+     * This function plays a sound during attack of endboss
+     * 
+     * @param {boolean} isEnabled - includes the information if the sound is enabled 
+     */
     playAttackSound(isEnabled){
         if(isEnabled){
             let sound = new Audio('assets/audio/chicken-cackle.mp3');
@@ -121,6 +168,10 @@ class Endboss extends MoveableObject {
         }
     }
 
+    /**
+     * This function is used to set the moving direction of endboss
+     * 
+     */
     checkDirectionOfRunning(){
         if(this.position_x < 100 && !this.otherDirection){
             this.otherDirection = true;
