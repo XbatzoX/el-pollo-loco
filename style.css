@@ -297,10 +297,6 @@ canvas{
         height: calc(100vh - 75px);
     }
 
-    .game-container{
-        /* padding-top: 32px; */
-    }
-
     h1{
         display: none;
     }
@@ -350,7 +346,6 @@ canvas{
 
     .game-over-container{
         padding-top: 8px;
-        /* gap: 8px; */
     }
 
     .win-image{

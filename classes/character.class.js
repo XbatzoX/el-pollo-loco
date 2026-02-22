@@ -1,8 +1,6 @@
 class Character extends MoveableObject {
-
     height = 200;
-    // position_y = 230;
-    position_y = 120;
+    // position_y = 50;
     jumpOfDeath = false;
     cameraPositionReached = false;
     cameraOffset = 10;
@@ -89,6 +87,7 @@ class Character extends MoveableObject {
         this.animate();
         this.applyGravity();
         this.initialiseIdleData();
+        this.position_y = 100;
         this.offset.UP = 70;
         this.offset.LEFT = 25;
         this.offset.RIGHT = 30;

@@ -35,10 +35,10 @@ class ThrowableObject extends MoveableObject {
         this.setPositionOfBottle(position_x, position_y, throwDirectionLeft);
         this.height = 70;
         this.width = 60;
-        this.offset.UP = 10;
-        this.offset.Down = 10;
-        this.offset.Right = 10;
-        this.offset.Left = 10;
+        this.offset.UP = 0;
+        this.offset.Down = 0;
+        this.offset.Right = 0;
+        this.offset.Left = 0;
         this.throw();
     }
 

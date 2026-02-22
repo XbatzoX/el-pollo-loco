@@ -1,7 +1,7 @@
 class Chicken extends MoveableObject {
-    width = 50;
-    height = 50;
-    position_y = 370;
+    width = 60;
+    height = 60;
+    position_y = 375;
     IMAGES_WALKING = [
         'assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
         'assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
