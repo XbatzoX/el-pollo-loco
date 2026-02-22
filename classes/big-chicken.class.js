@@ -9,7 +9,7 @@ class BigChicken extends MoveableObject {
     ];
     IMAGE_DEAD = [
         'assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
-    ]
+    ];
     energy = 5;
 
     /**
