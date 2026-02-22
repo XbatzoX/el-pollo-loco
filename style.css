@@ -227,7 +227,7 @@ canvas{
     display: none;
 }
 
-@media(max-height:850px){
+@media(max-height:920px){
     h1{
         top: 10%;
     }
@@ -296,6 +296,11 @@ canvas{
         display: none;
     }
 
+    .btn-design{
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
     .control-container-mobile{
         font-family: 'MyChangaOne';
         display: flex;
@@ -325,15 +330,15 @@ canvas{
     }
 
     .game-over-container{
-        padding-top: 12px;
-        gap: 12px;
+        padding-top: 8px;
+        gap: 8px;
     }
 
     .win-image{
         height: 75px;
         width: 200px;
-        padding-top: 16px;
-        padding-bottom: 16px;
+        padding-top: 12px;
+        padding-bottom: 12px;
     }
 
     .game-over-image{
