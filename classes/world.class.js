@@ -315,6 +315,7 @@ class World {
     addToMap(mo){
         if(mo.otherDirection){this.flipImage(mo);}
         mo.draw(this.ctx);
+        mo.drawOffsetFrame(this.ctx);
         if(mo.otherDirection){this.flipImageBack(mo);}
     }
 

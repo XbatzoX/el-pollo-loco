@@ -206,7 +206,7 @@ class MoveableObject extends DrawableObject {
         let diff_y = ((this.position_y + this.height) - mo.position_y);
         diff_x = Math.abs(diff_x);
         diff_y = Math.abs(diff_y);
-        this.jumpOnEnemy = ((diff_x <= 50) && (diff_y <= 70) && (this.speedY <= 0))
+        this.jumpOnEnemy = ((diff_x <= 70) && (diff_y <= 50) && (this.speedY <= 0))
         return this.jumpOnEnemy;
     }
 
@@ -262,8 +262,8 @@ class MoveableObject extends DrawableObject {
             this.timestampBottleThrow = 0;
         }
         return ((this.position_x == this.storePosition_x) && (this.position_y == this.storePosition_y) &&
-            (new Date().getTime() - this.timeLastMove_x >= 1000) && (new Date().getTime() - this.timeLastMove_y > 1000) &&
-            (new Date().getTime() - this.timestampBottleThrow >= 1000));
+            (new Date().getTime() - this.timeLastMove_x >= 200) && (new Date().getTime() - this.timeLastMove_y > 200) &&
+            (new Date().getTime() - this.timestampBottleThrow >= 200));
     }
 
     /**

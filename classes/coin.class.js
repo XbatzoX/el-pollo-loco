@@ -40,6 +40,7 @@ class Coin extends DrawableObject {
         if(this.position_x == 3600){
             this.width = 250;
             this.height = 250;
+            this.offset.LEFT = 50;
         }
     }
 }

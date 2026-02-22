@@ -90,8 +90,8 @@ class Character extends MoveableObject {
         this.applyGravity();
         this.initialiseIdleData();
         this.offset.UP = 70;
-        this.offset.LEFT = 10;
-        this.offset.RIGHT = 15;
+        this.offset.LEFT = 25;
+        this.offset.RIGHT = 30;
     }
 
     /**
