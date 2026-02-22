@@ -227,6 +227,11 @@ canvas{
     display: none;
 }
 
+@media(max-height:850px){
+    h1{
+        top: 10%;
+    }
+}
 
 @media(max-width:720px){
     canvas, .game-size-container{

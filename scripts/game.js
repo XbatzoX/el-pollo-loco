@@ -216,7 +216,7 @@ function clearGameSoundInstance(){
 /*** This function set the sound status if button is pressed*/
 function setSoundStatus(){
     let soundEnabled;
-    checkSoundStatusWorldExist(soundEnabled);
+    soundEnabled = checkSoundStatusWorldExist(soundEnabled);
     if(soundEnabled){
         soundEnabled = changeSoundIconToMute(soundEnabled);
     }else{
@@ -238,6 +238,7 @@ function checkSoundStatusWorldExist(soundEnabled){
     }else{
         soundEnabled = isSoundEnabled;
     }
+    return soundEnabled;
 }
 
 /**
