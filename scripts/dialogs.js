@@ -30,10 +30,17 @@ function closeInstructionsDialog(){
     instructionsDialogRef.close();
 }
 
+/**
+ * This function is used to stop the event bubbling of body click
+ * @param {event} event - includes the click event
+ */
 function clickOnDialog(event){
     event.stopPropagation();
 }
 
+/**
+ * This function is used to close the dialogs if onbody was clicked
+ */
 function closeDialogs(){
     let defControlsDialogRef = document.getElementById('controls_dialog');
     let defInstructionsDialogRef = document.getElementById('instructions_dialog');
@@ -45,6 +52,9 @@ function closeDialogs(){
     }
 }
 
+/**
+ * This function is used to display the footer only on start overlay
+ */
 function displayFooter(){
     let contentStartRef = document.getElementById('start_frame');
     let contentImprintRef = document.getElementById('imprint_box');
@@ -57,6 +67,11 @@ function displayFooter(){
     
 }
 
+/**
+ * This function is used to undisplay the footer
+ * @param {HTMLDivElement} contentImprintRef - includes the div container of link
+ * @param {HTMLDivElement} contentPrivacyRef - includes the div container of link
+ */
 function conditionUnshowFooter(contentImprintRef, contentPrivacyRef){
     contentImprintRef.classList.remove('visible');
     contentPrivacyRef.classList.remove('visible');
@@ -64,6 +79,12 @@ function conditionUnshowFooter(contentImprintRef, contentPrivacyRef){
     contentPrivacyRef.classList.add('invisible');
 }
 
+
+/**
+ * This function is used to display the footer
+ * @param {*} contentImprintRef - includes the div container of link
+ * @param {*} contentPrivacyRef - includes the div container of link
+ */
 function conditionShowFooter(contentImprintRef, contentPrivacyRef){
     contentImprintRef.classList.remove('invisible');
     contentPrivacyRef.classList.remove('invisible');
