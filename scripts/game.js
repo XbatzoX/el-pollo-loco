@@ -49,6 +49,7 @@ function startOverlayActions(){
     showOverlay('start_frame', 'canvas_id');
     stopIntroSound();
     document.getElementById('start_ctrl_mobile').classList.add('invisible');
+    displayFooter();
 }
 
 /*** This functions checks the sound status of local storage and checks if the game is loaded on a mobile device*/
@@ -115,6 +116,7 @@ function openMainMenu(){
         document.getElementById('start_ctrl_mobile').classList.remove('invisible');
         isGameWon = false;
     }
+    displayFooter();
     playIntroSound();
 }
 

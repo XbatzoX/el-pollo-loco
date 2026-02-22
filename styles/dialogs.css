@@ -102,16 +102,29 @@ h2{
 
 .link-container{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+    gap: 16px;
+    padding-bottom: 10px;
 }
 
 .link-class{
     text-decoration: underline;
-    color: #eedfbb;
+    color: rgb(231, 231, 231);
     font-size: 21px;
 }
 
 .link-class:hover{
     cursor: pointer;
-    font-size: 22px;
+    color: #eedfbb;
+}
+
+@media(max-height:540px){
+    .link-container{
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+
+    .link-class{
+        font-size: 16px;
+    }
 }

@@ -7,8 +7,13 @@ body{
     height: 100vh;
 }
 
+.body-container{
+    height: calc(100% - 35px);
+}
+
 .game-control-container{
-    padding-top: 32px;
+    width: 720px;
+    padding-bottom: 4px;
     padding-left: 24px;
     padding-right: 32px;
     display: flex;
@@ -22,7 +27,7 @@ h1{
     color: rgb(192, 55, 55);
     font-weight: 900;
     position: absolute;
-    top: 20%;
+    top: 15%;
     font-size: 48px;
 }
 
@@ -52,7 +57,8 @@ h1{
 }
 
 .game-container{
-    height: calc(100% - 120px);
+    /* height: calc(100% - 120px); */
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -85,6 +91,13 @@ canvas{
 
 .sound-image:hover{
     cursor: pointer;
+}
+
+.game-frame{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .game-over-container{
@@ -234,7 +247,7 @@ canvas{
 }
 
 @media(max-width:720px){
-    canvas, .game-size-container{
+    canvas, .game-size-container,.game-control-container{
         width: calc(100vw - 175px);
     }
 
@@ -273,13 +286,19 @@ canvas{
     }
 }
 
+@media(max-height:600px){
+    h1{
+        display: none;
+    }
+}
+
 @media(max-height:480px){
     canvas, .game-size-container{
         height: calc(100vh - 75px);
     }
 
     .game-container{
-        padding-top: 32px;
+        /* padding-top: 32px; */
     }
 
     h1{
@@ -331,7 +350,7 @@ canvas{
 
     .game-over-container{
         padding-top: 8px;
-        gap: 8px;
+        /* gap: 8px; */
     }
 
     .win-image{

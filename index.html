@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./styles/dialogs.css">
     <link rel="shortcut icon" href="assets/img/7_statusbars/3_icons/icon_salsa_bottle.png" type="image/x-icon">
-    <script src="./scripts/dialogs.js"></script>
     <script src="./classes/drawable-object.class.js"></script>
     <script src="./classes/moveable-object.class.js"></script>
     <script src="./classes/status-bar.class.js"></script>
@@ -29,91 +28,103 @@
     <script src="./classes/level.class.js"></script>
     <script src="./levels/level1.js"></script>
     <script src="./classes/world.class.js"></script>
+    <script src="./scripts/dialogs.js"></script>
     <script src="./scripts/game.js"></script>
 </head>
 <body onload="onloadFunctions()">
-    <section class="game-control-container">
-        <div id="sound_btn" class="sound-btn" onclick="setSoundStatus()">
-            <img id="sound_image" class="sound-image" src="./assets/icons/sound.svg" alt="mute button as speaker">
-        </div>
-    </section>
-    <section class="game-container">
-        <h1>El Pollo Loco</h1>
-        <dialog id="controls_dialog" class="controls-dialog">
-            <div class="dialog-frame">
-                <div class="ctrl-dialog-container">
-                    <div class="ctrl-box">
-                        <div class="ctrl-dialog-btn">
-                            <img src="./assets/icons/arrow_right.svg" alt="arrow right symbol">
+    <div class="body-container" onclick="closeDialogs()">
+        <section class="game-container">
+            <h1>El Pollo Loco</h1>
+            <section class="game-control-container">
+                <div id="sound_btn" class="sound-btn" onclick="setSoundStatus()">
+                    <img id="sound_image" class="sound-image" src="./assets/icons/sound.svg" alt="mute button as speaker">
+                </div>
+            </section>
+            <dialog id="controls_dialog" class="controls-dialog">
+                <div class="dialog-frame" onclick="clickOnDialog(event)">
+                    <div class="ctrl-dialog-container">
+                        <div class="ctrl-box">
+                            <div class="ctrl-dialog-btn">
+                                <img src="./assets/icons/arrow_right.svg" alt="arrow right symbol">
+                            </div>
+                            <span>Move Right</span>
                         </div>
-                        <span>Move Right</span>
                     </div>
-                </div>
-                <div class="ctrl-dialog-container">
-                    <div class="ctrl-box">
-                        <div class="ctrl-dialog-btn">
-                            <img src="./assets/icons/arrow_left.svg" alt="arrow left symbol">
+                    <div class="ctrl-dialog-container">
+                        <div class="ctrl-box">
+                            <div class="ctrl-dialog-btn">
+                                <img src="./assets/icons/arrow_left.svg" alt="arrow left symbol">
+                            </div>
+                            <span>Move Left</span>
                         </div>
-                        <span>Move Left</span>
                     </div>
-                </div>
-                <div class="ctrl-dialog-container">
-                    <div class="ctrl-box">
-                        <div class="ctrl-dialog-btn">
-                            <span>SPACE</span>
+                    <div class="ctrl-dialog-container">
+                        <div class="ctrl-box">
+                            <div class="ctrl-dialog-btn">
+                                <span>SPACE</span>
+                            </div>
+                            <span>Jump</span>
                         </div>
-                        <span>Jump</span>
                     </div>
-                </div>
-                <div class="ctrl-dialog-container">
-                    <div class="ctrl-box">
-                        <div class="ctrl-dialog-btn">
-                            <span>D</span>
+                    <div class="ctrl-dialog-container">
+                        <div class="ctrl-box">
+                            <div class="ctrl-dialog-btn">
+                                <span>D</span>
+                            </div>
+                            <span>Throw Bottle</span>
                         </div>
-                        <span>Throw Bottle</span>
+                    </div>
+                    <div class="ctrl-dialog-close">
+                        <div class="ctrl-close-dialog-btn" onclick="closeControlsDialog()">
+                            <span>Close</span>
+                        </div>
                     </div>
                 </div>
-                <div class="ctrl-dialog-close">
-                    <div class="ctrl-close-dialog-btn" onclick="closeControlsDialog()">
-                        <span>Close</span>
+            </dialog>
+            <dialog id="instructions_dialog" class="instructions-dialog">
+                <div class="instructions-frame" onclick="clickOnDialog(event)">
+                    <span tabindex="-1"></span>
+                    <div class="headline">
+                        <h2>Instructions</h2>
                     </div>
-                </div>
-            </div>
-        </dialog>
-        <dialog id="instructions_dialog" class="instructions-dialog">
-            <div class="instructions-frame">
-                <span tabindex="-1"></span>
-                <div class="headline">
-                    <h2>Instructions</h2>
-                </div>
-                <div class="text-container">
-                   <span id="game_play"> Game play:</span>
-                   <span>
-                    You play Pepe as the main character. The destination is to defeat a chicken boss at the end of the level. 
-                     Along the way, you will encounter enemies that you can defeat by jumping on them or throwing a bottle of salsa at them.
-                     You can collect these bottles along the way on your journey.
-                    </span>
+                    <div class="text-container">
+                    <span id="game_play"> Game play:</span>
                     <span>
-                        You can also collect coins along the way. Once you have collected all the coins, you will receive a bonus. 
-                    </span>
-                    <span>
-                        Please note: As long as a bottle is still visible on the map, you cannot throw another one!
-                    </span>
-                </div>
-                <div class="link-container">
-                    <a class="link-class" href="./html/imprint.html">Imprint</a>
-                    <a class="link-class" href="./html/privacy_policy.html">Privacy policy</a>
-                </div>
-                <div class="ctrl-dialog-close">
-                    <div class="ctrl-close-dialog-btn" onclick="closeInstructionsDialog()">
-                        <span>Close</span>
+                        You play Pepe as the main character. The destination is to defeat a chicken boss at the end of the level. 
+                        Along the way, you will encounter enemies that you can defeat by jumping on them or throwing a bottle of salsa at them.
+                        You can collect these bottles along the way on your journey.
+                        </span>
+                        <span>
+                            You can also collect coins along the way. Once you have collected all the coins, you will receive a bonus. 
+                        </span>
+                        <span>
+                            Please note: As long as a bottle is still visible on the map, you cannot throw another one!
+                        </span>
+                    </div>
+                    <div class="ctrl-dialog-close">
+                        <div class="ctrl-close-dialog-btn" onclick="closeInstructionsDialog()">
+                            <span>Close</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </dialog>
-        <section id="start_frame" class="start-frame">
-            <div id="start_id" class="start-container visible">
-                <div class="control-container">
+            </dialog>
+            <section id="start_frame" class="start-frame">
+                <div id="start_id" class="start-container visible">
+                    <div class="control-container" onclick="clickOnDialog(event)">
+                        <div class="btn-menu start-color" onclick="init()">
+                            <span class="text-menu">Start Game</span>
+                        </div>
+                        <div class="btn-menu controls-color" onclick="openControlsDialog()">
+                            <span class="text-menu">Controls</span>
+                        </div>
+                        <div class="btn-menu instructions-color" onclick="openInstructionsDialog()">
+                            <span class="text-menu">Instructions</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="start_ctrl_mobile" onclick="clickOnDialog(event)">
+                <div class="control-container-mobile">
                     <div class="btn-menu start-color" onclick="init()">
                         <span class="text-menu">Start Game</span>
                     </div>
@@ -124,71 +135,70 @@
                         <span class="text-menu">Instructions</span>
                     </div>
                 </div>
-            </div>
-        </section>
-        <section id="start_ctrl_mobile">
-            <div class="control-container-mobile">
-                <div class="btn-menu start-color" onclick="init()">
-                    <span class="text-menu">Start Game</span>
-                </div>
-                <div class="btn-menu controls-color" onclick="openControlsDialog()">
-                    <span class="text-menu">Controls</span>
-                </div>
-                <div class="btn-menu instructions-color" onclick="openInstructionsDialog()">
-                    <span class="text-menu">Instructions</span>
-                </div>
-            </div>
-        </section>
-        <section class="canvas-container">
-            <div id="mobile_ctrl_left" class="invisible">
-                <div class="mobile-ctrl-box">
-                    <div id="ctrl_left_btn" class="mobile-btn image-offset-left">
-                        <img src="./assets/icons/arrow_back_mobile.svg" alt="arrow left button">
-                    </div>
-                    <div id="ctrl_right_btn" class="mobile-btn image-offset-right">
-                        <img src="./assets/icons/arrow_forward_mobile.svg" alt="arrow right button">
+            </section>
+            <section class="canvas-container">
+                <div id="mobile_ctrl_left" class="invisible">
+                    <div class="mobile-ctrl-box">
+                        <div id="ctrl_left_btn" class="mobile-btn image-offset-left">
+                            <img src="./assets/icons/arrow_back_mobile.svg" alt="arrow left button">
+                        </div>
+                        <div id="ctrl_right_btn" class="mobile-btn image-offset-right">
+                            <img src="./assets/icons/arrow_forward_mobile.svg" alt="arrow right button">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <canvas id="canvas_id" class="invisible" width="720" height="480"></canvas>
-            <div id="mobile_ctrl_right" class="invisible">
-                <div class="mobile-ctrl-box">
-                    <div id="ctrl_throw_btn" class="mobile-btn" onpointerdown="buttonThrowBottleDown()" onpointerup="buttonThrowBottleUp()">
-                        <img class="throw-btn-image" src="./assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png" alt="throw button designed with salsa bottle">
+                <canvas id="canvas_id" class="invisible" width="720" height="480"></canvas>
+                <div id="mobile_ctrl_right" class="invisible">
+                    <div class="mobile-ctrl-box">
+                        <div id="ctrl_throw_btn" class="mobile-btn" onpointerdown="buttonThrowBottleDown()" onpointerup="buttonThrowBottleUp()">
+                            <img class="throw-btn-image" src="./assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png" alt="throw button designed with salsa bottle">
+                        </div>
+                        <div id="ctrl_jump_btn" class="mobile-btn" onpointerdown="buttonJumpDown()" onpointerup="buttonJumpUp()">
+                            <img class="jump-btn-image" src="./assets/img/2_character_pepe/3_jump/J-36.png" alt="jump button designed with image of jumping pepe">
+                        </div>
                     </div>
-                    <div id="ctrl_jump_btn" class="mobile-btn" onpointerdown="buttonJumpDown()" onpointerup="buttonJumpUp()">
-                        <img class="jump-btn-image" src="./assets/img/2_character_pepe/3_jump/J-36.png" alt="jump button designed with image of jumping pepe">
+                </div>
+            </section>
+            <section id="game_over" class="game-size-container invisible">
+                <div class="game-frame">
+                    <div class="game-over-container">
+                        <img class="game-over-image" src="./assets/img/You won, you lost/Game Over.png" alt="game over image with pepe">
+                        <div class="btn-design" onclick="init()">
+                            <span class="text-design">Play again</span>
+                        </div>
+                        <div class="btn-design" onclick="openMainMenu()">
+                            <span class="text-design">Main menu</span>
+                        </div>
                     </div>
                 </div>
+            </section>
+            <section id="win_game" class="game-size-container invisible">
+                <div class="game-frame">
+                    <div class="game-over-container">
+                        <img class="win-image" src="./assets/img/You won, you lost/You win B.png" alt="win image">
+                        <div class="btn-design" onclick="init()">
+                            <span class="text-design">Play again</span>
+                        </div>
+                        <div class="btn-design" onclick="openMainMenu()">
+                            <span class="text-design">Main menu</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+        <section class="landscape-info">
+            <div class="landscape-box">
+                <span class="landscape-text">Please rotate your device...</span>
             </div>
         </section>
-        <section id="game_over" class="game-size-container invisible">
-            <div class="game-over-container">
-                <img class="game-over-image" src="./assets/img/You won, you lost/Game Over.png" alt="game over image with pepe">
-                <div class="btn-design" onclick="init()">
-                    <span class="text-design">Play again</span>
-                </div>
-                <div class="btn-design" onclick="openMainMenu()">
-                    <span class="text-design">Main menu</span>
-                </div>
-            </div>
-        </section>
-        <section id="win_game" class="game-size-container invisible">
-            <div class="game-over-container">
-                <img class="win-image" src="./assets/img/You won, you lost/You win B.png" alt="win image">
-                <div class="btn-design" onclick="init()">
-                    <span class="text-design">Play again</span>
-                </div>
-                <div class="btn-design" onclick="openMainMenu()">
-                    <span class="text-design">Main menu</span>
-                </div>
-            </div>
-        </section>
-    </section>
-    <section class="landscape-info">
-        <div class="landscape-box">
-            <span class="landscape-text">Please rotate your device...</span>
+    </div>
+    <footer class="link-container">
+        <div id="imprint_box">
+            <a class="link-class" href="./html/imprint.html">Imprint</a>
         </div>
-    </section>
+        <div id="privacy_box">
+            <a class="link-class" href="./html/privacy_policy.html">Privacy policy</a>
+        </div>
+    </footer>
 </body>
 </html>
