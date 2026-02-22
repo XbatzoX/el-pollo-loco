@@ -21,10 +21,12 @@ function init(){
     }else{
         startOverlayActions();
     }
-    activateMobileButtons();
     canvas = document.getElementById('canvas_id');
     world = new World(canvas, keyboard, isSoundEnabled);
     worldExist = true;
+    showMobileButtons();
+    activateMobileLeftButton();
+    activateMobileRightButton();
 }
 
 /*** This function shows canvas view after game over*/
@@ -52,8 +54,7 @@ function startOverlayActions(){
 /*** This functions checks the sound status of local storage and checks if the game is loaded on a mobile device*/
 function onloadFunctions(){
     isMobileDevice = checkIfMobileDevice();
-    activateMobileLeftButton();
-    activateMobileRightButton();
+    
     checkLocalStorageIsSoundEnabled();
     setSoundStatusToLocalStorage(isSoundEnabled);
 }
@@ -67,7 +68,7 @@ function checkIfMobileDevice(){
 }
 
 /*** This function activate mobile buttons if a mobile device is used*/
-function activateMobileButtons(){
+function showMobileButtons(){
     if(isMobileDevice){
         document.getElementById('mobile_ctrl_left').classList.remove('invisible');
         document.getElementById('mobile_ctrl_right').classList.remove('invisible');
@@ -212,26 +213,14 @@ function clearGameSoundInstance(){
     }
 }
 
+/*** This function set the sound status if button is pressed*/
 function setSoundStatus(){
     let soundEnabled;
     checkSoundStatusWorldExist(soundEnabled);
     if(soundEnabled){
-        if(worldExist){
-            world.soundEnabled = false;
-        }else{
-            isSoundEnabled = false;
-        }
-        document.getElementById('sound_image').src = './assets/icons/no_sound.svg';
-        soundEnabled = false;
+        soundEnabled = changeSoundIconToMute(soundEnabled);
     }else{
-        if(worldExist){
-            world.soundEnabled = true;
-        }
-        else{
-            isSoundEnabled = true;
-        }
-        document.getElementById('sound_image').src = './assets/icons/sound.svg';
-        soundEnabled = true;
+        soundEnabled = changeSoundIconToOn(soundEnabled);
     }
     if(!worldExist){
         playIntroSound();
@@ -239,6 +228,10 @@ function setSoundStatus(){
     setSoundStatusToLocalStorage(soundEnabled);
 }
 
+/**
+ * This subfunction checks if the new status of sound comes from start page or game page
+ * @param {boolean} soundEnabled - store bit for information if sound is enabled 
+ */
 function checkSoundStatusWorldExist(soundEnabled){
     if(worldExist){
         soundEnabled = world.soundEnabled;
@@ -247,68 +240,124 @@ function checkSoundStatusWorldExist(soundEnabled){
     }
 }
 
+/**
+ * This function changes the state of sound and changes the icon from button
+ * @param {boolean} soundEnabled - includes previous state of sound status 
+ * @returns - new state of actual sound status
+ */
+function changeSoundIconToMute(soundEnabled){
+    if(worldExist){
+        world.soundEnabled = false;
+    }else{
+        isSoundEnabled = false;
+    }
+    document.getElementById('sound_image').src = './assets/icons/no_sound.svg';
+    soundEnabled = false;
+    return soundEnabled;
+}
+
+/**
+ * This function changes the state of sound and changes the icon from button
+ * @param {boolean} soundEnabled - includes previous state of sound status 
+ * @returns - new state of actual sound status
+ */
+function changeSoundIconToOn(soundEnabled){
+    if(worldExist){
+        world.soundEnabled = true;
+    }
+    else{
+        isSoundEnabled = true;
+    }
+    document.getElementById('sound_image').src = './assets/icons/sound.svg';
+    soundEnabled = true;
+    return soundEnabled;
+}
+
+/*** This function is used to handle the mobile left button for mobile devices*/
 function activateMobileLeftButton(){
     if(isMobileDevice){
         buttonLeft = document.querySelector('#ctrl_left_btn');
         const stopMoveLeft = () => {world.character.mobileLeft = false;};
-        buttonLeft.addEventListener('pointerdown', e => {
-            e.preventDefault();
-            buttonLeft.setPointerCapture(e.pointerId);
-            world.character.mobileLeft = true;
-        });
-        buttonLeft.addEventListener('pointerup', e => {
-            e.preventDefault();
-            stopMoveLeft();
-        });
-        buttonLeft.addEventListener('contextmenu', e => {
-            e.preventDefault();
-        })
+        createEventListenerMobileLeftDown();
+        createEventListenerMobileLeftUp();
+        stopMoveLeft();
+        buttonLeft.addEventListener('contextmenu', e => {e.preventDefault();});
         buttonLeft.addEventListener('pointercancel', stopMoveLeft);
         buttonLeft.addEventListener('lostpointercapture', stopMoveLeft);
     }
 }
 
+/*** This function creates an event listener on pointerdown action*/
+function createEventListenerMobileLeftDown(){
+    buttonLeft.addEventListener('pointerdown', e => {
+        e.preventDefault();
+        buttonLeft.setPointerCapture(e.pointerId);
+        world.character.mobileLeft = true;
+    });
+}
+
+/*** This function creates an event listener on pointerup action*/
+function createEventListenerMobileLeftUp(){
+    buttonLeft.addEventListener('pointerup', e => {
+        e.preventDefault();
+    });
+}
+
+/*** This function is used to handle the mobile right button for mobile devices*/
 function activateMobileRightButton(){
     if(isMobileDevice){
         buttonRight = document.querySelector('#ctrl_right_btn');
         const stopMoveRight = () => {world.character.mobileRight = false;};
-        buttonRight.addEventListener('pointerdown', e => {
-            e.preventDefault();
-            buttonRight.setPointerCapture(e.pointerId);
-            world.character.mobileRight = true;
-        });
-        buttonRight.addEventListener('pointerup', e => {
-            e.preventDefault();
-            stopMoveRight();
-        });
-        buttonRight.addEventListener('contextmenu', e => {
-            e.preventDefault();
-        });
+        createEventListenerMobileRightDown();
+        createEventListenerMobileRightUp();
+        stopMoveRight();
+        buttonRight.addEventListener('contextmenu', e => {e.preventDefault();});
         buttonRight.addEventListener('pointercancel', stopMoveRight);
         buttonRight.addEventListener('lostpointercapture', stopMoveRight);
     }
 }
 
+/*** This function creates an event listener for pointerdown action*/
+function createEventListenerMobileRightDown(){
+    buttonRight.addEventListener('pointerdown', e => {
+        e.preventDefault();
+        buttonRight.setPointerCapture(e.pointerId);
+        world.character.mobileRight = true;
+    });
+}
+
+/*** This function creates an event listener for pointerup action*/
+function createEventListenerMobileRightUp(){
+    buttonRight.addEventListener('pointerup', e => {
+        e.preventDefault();
+    });
+}
+
+/*** This function handles the button throw bottle*/
 function buttonThrowBottleDown(){
     if(!world.mobileThrowBottle){
         world.mobileThrowBottle = true;
     }
 }
 
+/*** This function handles the button throw bottle*/
 function buttonThrowBottleUp(){
     world.mobileThrowBottle = false;
 }
 
+/*** This function handles the button jump*/
 function buttonJumpDown(){
     if(!world.character.mobileJump){
         world.character.mobileJump = true;
     }
 }
 
+/*** This function handles the button jump*/
 function buttonJumpUp(){
     world.character.mobileJump = false;
 }
 
+/*** This function plays an intro sound an start page after first interaction of user*/
 function playIntroSound(){
     if(isSoundEnabled){
         introSound.currentTime = 0;
@@ -319,10 +368,12 @@ function playIntroSound(){
     }
 }
 
+/*** This function is used to stop the intro sound*/
 function stopIntroSound(){
     introSound.pause();
 }
 
+/*** This function is used to play a sound after win of endboss*/
 function playWinGameSound(){
     if(isSoundEnabled && !isGameWon){
         wonGameSound.currentTime = 0;
@@ -333,6 +384,7 @@ function playWinGameSound(){
     }
 }
 
+/*** This function is used to play a sound after loosing the game*/
 function playGameOverSound(){
     if(isSoundEnabled && !isGameOver){
         gameOverSound.currentTime = 0;
