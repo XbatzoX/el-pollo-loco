@@ -17,6 +17,7 @@ class ThrowableObject extends MoveableObject {
     ];
     idBottleThrow;
     idBottlePosition_x;
+    idBottleSplash;
     isThrown = false;
     isHitEnemy = false;
     throwDirectionLeft = false;
@@ -52,13 +53,23 @@ class ThrowableObject extends MoveableObject {
         this.idBottleThrow = setInterval(() => {
             this.playAnimation(this.IMAGES_ROTATION);
         }, 100);
+        this.intervalIDs.push(this.idBottleThrow);
         this.idBottlePosition_x = setInterval(() => {
-            if(!this.throwDirectionLeft){
-                this.position_x += 10;
-            }else{
-                this.position_x -= 10;
-            }
+            this.setPositionX();
+            this.clearBottleIntervals();
         }, 25);
+        this.intervalIDs.push(this.idBottlePosition_x);
+    }
+
+    /**
+     * This function is used to set the X Position of bootle during flight
+     */
+    setPositionX(){
+        if(!this.throwDirectionLeft){
+            this.position_x += 10;
+        }else{
+            this.position_x -= 10;
+        }
     }
 
     /**
@@ -70,9 +81,20 @@ class ThrowableObject extends MoveableObject {
         this.speed = 0;
         clearInterval(this.idBottleThrow);
         clearInterval(this.idBottlePosition_x);
-        setInterval(() => {
+        this.idBottleSplash = setInterval(() => {
             this.playAnimation(this.IMAGES_SPLASH);
+            this.clearBottleIntervals();
         }, 200);
+        this.intervalIDs.push(this.idBottleSplash);
+    }
+
+    /**
+     * This function is used clear the bottle Intervals after hit an enemy or miss thrown
+     */
+    clearBottleIntervals(){
+        if(this.position_y >= 480){
+            this.resetInterval();
+        }
     }
 
     /**

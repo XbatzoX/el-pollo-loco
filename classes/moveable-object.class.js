@@ -24,6 +24,7 @@ class MoveableObject extends DrawableObject {
     attackTimerActive = false;
     isAttacking = false;
     intervalIDs = [];
+    idGravityInterval;
     animationInterval;
     moveInterval;
 
@@ -75,7 +76,7 @@ class MoveableObject extends DrawableObject {
      * 
      */
     applyGravity(){
-        setInterval(() => {
+        this.idGravityInterval = setInterval(() => {
             if(this.isAboveGround() || (this.speedY > 0)){
                 this.position_y -= this.speedY;
                 this.speedY -= this.acceleration;
@@ -83,6 +84,7 @@ class MoveableObject extends DrawableObject {
                 this.timeLastMove_y = new Date().getTime();
             }
         }, (1000 / 25));
+        this.intervalIDs.push(this.idGravityInterval);
     }
 
     /**
