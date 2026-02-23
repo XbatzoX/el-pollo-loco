@@ -128,11 +128,12 @@ class MoveableObject extends DrawableObject {
      * @param {boolean} currentStateOfHit - includes information if the object was hit for first time
      */
     hit(currentStateOfHit){
+        let diffTime = (new Date().getTime()) - this.lastHit;
         this.currentStateOfHit = currentStateOfHit;
         let risingEdge = this.currentStateOfHit && !this.lastStateOfHit;
         this.lastStateOfHit = this.currentStateOfHit;
-        if(risingEdge){
-            this.energy -= 5;
+        if(risingEdge && diffTime > 1000){
+            this.energy -= 20;
             if(this.energy < 0){
                 this.energy = 0;
             }else{
@@ -149,7 +150,7 @@ class MoveableObject extends DrawableObject {
     isHurt(){
         let timePassed = new Date().getTime() - this.lastHit; 
         timePassed = (timePassed / 1000); 
-        return (timePassed < 0.5);
+        return (timePassed < 1);
     }
 
     /**

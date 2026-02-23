@@ -16,7 +16,7 @@ class Bossbar extends DrawableObject {
     constructor(){
         super();
         this.loadImages(this.IMAGES);
-        this.setPercentage(30);
+        this.setPercentage(100);
         this.position_x = 540;
         this.position_y = 0;
         this.width = 150;
@@ -40,15 +40,15 @@ class Bossbar extends DrawableObject {
      * @returns - a number which will use for take the correct image of statusbar array
      */
     resolveImageIndex(){
-        if(this.percentage == 30){
+        if(this.percentage == 100){
             return 5;
-        }else if(this.percentage >= 25){
+        }else if(this.percentage == 80){
             return 4;
-        }else if(this.percentage >= 20){
+        }else if(this.percentage == 60){
             return 3;
-        }else if(this.percentage >= 10){
+        }else if(this.percentage == 40){
             return 2;
-        }else if(this.percentage > 0){
+        }else if(this.percentage == 20){
             return 1;
         }else {
             return 0;

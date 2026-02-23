@@ -5,6 +5,7 @@ class World {
     bottlebar = new Bottlebar();
     bossbar = new Bossbar();
     idRunInterval;
+    idFastRunInterval;
     ctx;
     canvas;
     keyboard;
@@ -20,6 +21,7 @@ class World {
     mobileThrowBottle = false;
     gameSound = new Audio('assets/audio/game_sound .mp3');
     throwSound = new Audio('assets/audio/bottle_throw.mp3');
+    animationID;
     
 /**
  * The constructor loads the map with all necessary elements and informations
@@ -32,6 +34,7 @@ class World {
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.soundEnabled = soundEnabled;
+        this.animationID = null;
         this.level = createLevel(this.soundEnabled);
         this.intervalObj.push(this.character, this.level);
         this.draw(); 
@@ -47,16 +50,19 @@ class World {
     /*** This function creates an intervall for checking if something happening in game*/
     run(){
         this.idRunInterval = setInterval(() => {
-            this.checkCollisions();
-            this.checkThrowObjects();
             this.checkIfCollectingCoins();
             this.checkIfCollectingBottles();
             this.checkEncounterEndboss();
             this.checkAmountOfCoins();
             this.checkIfEndbossIsDead();
             this.playGameSound();
-        }, 200);
+        }, 100);
         this.intervalObj.push(this.idRunInterval);
+        this.idFastRunInterval = setInterval(() => {
+            this.checkCollisions();
+            this.checkThrowObjects();
+        }, (1000 / 60));
+        this.intervalObj.push(this.idFastRunInterval);
     }
 
     /*** This function checks if a player throw a bottle*/
@@ -132,14 +138,14 @@ class World {
             enemy.hit(this.actualBottle.currentStateOfHit);
             if(this.actualBottle.currentStateOfHit){
                 this.actualBottle.bottleHitsEnemy();
-                this.actualBottle.playBottleHitsEnemySound(this.soundEnabled, this.actualBottle.isHitEnemy)
+                this.actualBottle.playBottleHitsEnemySound(this.soundEnabled, this.actualBottle.isHitEnemy);
                 if(enemy instanceof Endboss){
                     this.bossbar.setPercentage(enemy.energy);
                     this.checkDirectionOfHit();
                 }
             }
-            this.actualBottle.shiftBottleFromArray(this.actualBottle, this.throwableObjects);
             this.checkIfBottleInAir();
+            this.actualBottle.shiftBottleFromArray(this.actualBottle, this.throwableObjects);
         }  
     }
 
@@ -273,7 +279,7 @@ class World {
         this.ctx.translate(this.camera_x,0);
         this.ctx.translate(-this.camera_x, 0);
         let self = this;
-        requestAnimationFrame(function() {
+        this.animationID = requestAnimationFrame(function() {
             self.draw();
         })
     }
@@ -343,7 +349,7 @@ class World {
      * This function checks if thrown bottle is above the ground
      */
     checkIfBottleInAir(){
-        if( (this.actualBottle.position_y > 480)){
+        if( (this.actualBottle.position_y >= 480)){
             this.bottleInAir = false;
         }else{
             this.bottleInAir = true;

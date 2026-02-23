@@ -4,7 +4,7 @@ class Endboss extends MoveableObject {
     speed = 3.5;
     height = 400;
     width = 200;
-    energy = 30;
+    energy = 100;
     endbossDefeated = false;
     deathAnimationDone = false;
     soundEnabled = false;

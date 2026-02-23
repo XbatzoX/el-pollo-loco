@@ -145,6 +145,7 @@ document.addEventListener("gameover", () => {
     deactivateMobileButtons();
     clearGameSoundInstance();
     showOverlay('canvas_id', 'game_over');
+    isSoundEnabled = world.soundEnabled;
     playGameOverSound();
     isGameOver = true;
 });
@@ -154,6 +155,7 @@ document.addEventListener("gamewon", () => {
     deactivateMobileButtons();
     clearGameSoundInstance();
     showOverlay('canvas_id', 'win_game');
+    isSoundEnabled = world.soundEnabled;
     playWinGameSound();
     if(isGameWon){refreshMap();}
     isGameWon = true;
@@ -174,13 +176,27 @@ function showOverlay(idRemove, idAdd){
 /*** This function refreshes the map after game ended*/
 function refreshMap(){
     if(world != null){
+        clearInterval(world.intervalObj[world.intervalObj.length - 2]);
         clearInterval(world.intervalObj[world.intervalObj.length - 1]);
         clearIntervalsFromBrowser();
+        resetKeys();
+        isSoundEnabled = world.soundEnabled;
         world.intervalObj.length = 0;
         clearGameSoundInstance();
+        cancelAnimationFrame(world.animationID);
         world = null;
         worldExist = false;
     }
+}
+
+/*** This function is used to set key activities to false after game*/
+function resetKeys(){
+    keyboard.UP = false;
+    keyboard.DOWN = false;
+    keyboard.SPACE = false;
+    keyboard.D = false;
+    keyboard.RIGHT = false;
+    keyboard.LEFT = false;
 }
 
 /*** This function clear all Intervals if game is ended*/
