@@ -152,10 +152,10 @@ class World {
     /*** This function checks if pepe is hitting endboss from behind*/
     checkDirectionOfHit(){
         let endbossChicken = this.level.enemies[(this.level.enemies.length) - 1];
-        if(this.character.position_x > endbossChicken.position_x){
+        if((this.character.position_x > endbossChicken.position_x) && !this.character.isHurt()){
             this.level.enemies[(this.level.enemies.length) - 1].otherDirection = true;
         }
-        if((this.character.position_x < endbossChicken.position_x) && endbossChicken.otherDirection == true){
+        if((this.character.position_x < endbossChicken.position_x) && endbossChicken.otherDirection == true && !this.character.isHurt()){
             this.level.enemies[(this.level.enemies.length) - 1].otherDirection = false;
         }
     }
