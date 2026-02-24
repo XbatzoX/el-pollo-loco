@@ -38,7 +38,7 @@ h1{
 }
 
 .imprint-text{
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .responsibility{
@@ -49,12 +49,12 @@ h1{
 
 .bold-line{
     padding-bottom: 12px;
-    font-size: 26px;
+    font-size: 20px;
 }
 
 li{
     padding-bottom: 12px;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .back-container{
@@ -74,18 +74,14 @@ li{
 }
 
 .back-ctrl-btn:hover{
+    cursor: pointer;
     transform: translateY(-1px);
 }
 
 .link-btn{
     font-family: 'MyChangaOne';
     font-size: 20px;
-    text-decoration: none;
     color: #c03737;
-}
-
-.link-btn:hover{
-    cursor: pointer;
 }
 
 @media(max-width:720px){
