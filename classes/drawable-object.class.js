@@ -68,7 +68,7 @@ class DrawableObject {
      * @param {CanvasRenderingContext2D} ctx - includes the context of canvas 
      */
     drawOffsetFrame(ctx){
-        if(this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coin || this instanceof BigChicken){
+        if(this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coin || this instanceof BigChicken || this instanceof ThrowableObject){
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'red';

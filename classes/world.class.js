@@ -321,6 +321,7 @@ class World {
     addToMap(mo){
         if(mo.otherDirection){this.flipImage(mo);}
         mo.draw(this.ctx);
+        mo.drawOffsetFrame(this.ctx);
         if(mo.otherDirection){this.flipImageBack(mo);}
     }
 
@@ -366,7 +367,8 @@ class World {
             if(o.isDead()){
                 if(!o.visible){return;}
                 let actualTime = new Date().getTime();
-                if((actualTime - o.timestampDead) > 2000){o.visible = false;}else{this.addToMap(o);}
+                o.speed = 0;
+                if((actualTime - o.timestampDead) > 500){o.visible = false;}else{this.addToMap(o);}
             }else{this.addToMap(o);}
         }else{this.addToMap(o);}
     }

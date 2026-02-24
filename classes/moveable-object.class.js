@@ -83,6 +83,9 @@ class MoveableObject extends DrawableObject {
                 this.storePosition_y = this.position_y;
                 this.timeLastMove_y = new Date().getTime();
             }
+            if(!this.isAboveGround()){
+                this.speedY = 0;
+            }
         }, (1000 / 25));
         this.intervalIDs.push(this.idGravityInterval);
     }
@@ -133,7 +136,7 @@ class MoveableObject extends DrawableObject {
         let risingEdge = this.currentStateOfHit && !this.lastStateOfHit;
         this.lastStateOfHit = this.currentStateOfHit;
         if(risingEdge && diffTime > 1000){
-            this.energy -= 20;
+            this.energy -= 20 ;
             if(this.energy < 0){
                 this.energy = 0;
             }else{
@@ -209,7 +212,7 @@ class MoveableObject extends DrawableObject {
         let diff_y = ((this.position_y + this.height) - mo.position_y);
         diff_x = Math.abs(diff_x);
         diff_y = Math.abs(diff_y);
-        this.jumpOnEnemy = ((diff_x <= 70) && (diff_y <= 50) && (this.speedY <= 0))
+        this.jumpOnEnemy = ((diff_x <= 70) && (diff_y <= 50) && (this.speedY < 0))
         return this.jumpOnEnemy;
     }
 
