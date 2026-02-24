@@ -8,6 +8,8 @@ let isSoundEnabled = true;
 let isMobileDevice = false;
 let buttonLeft;
 let buttonRight;
+let buttonThrow;
+let buttonJump;
 let introSound = new Audio('assets/audio/game_intro.mp3');
 let wonGameSound = new Audio('assets/audio/game_win.mp3');
 let gameOverSound = new Audio('assets/audio/game_over.mp3');
@@ -25,8 +27,15 @@ function init(){
     world = new World(canvas, keyboard, isSoundEnabled);
     worldExist = true;
     showMobileButtons();
-    activateMobileLeftButton();
-    activateMobileRightButton();
+    activateMobileButtons();
+}
+
+/*** This function is used to activate the functionality of mobile buttons*/
+function activateMobileButtons(){
+    activateMobileLeftButton(isMobileDevice, buttonLeft, world);
+    activateMobileRightButton(isMobileDevice, buttonRight, world);
+    activateMobileThrowBottleButton(isMobileDevice, buttonThrow, world);
+    activateMobileJumpButton(isMobileDevice, buttonJump, world);
 }
 
 /*** This function shows canvas view after game over*/
@@ -180,6 +189,7 @@ function refreshMap(){
         clearInterval(world.intervalObj[world.intervalObj.length - 1]);
         clearIntervalsFromBrowser();
         resetKeys();
+        resetMobileKeys();
         isSoundEnabled = world.soundEnabled;
         world.intervalObj.length = 0;
         clearGameSoundInstance();
@@ -197,6 +207,14 @@ function resetKeys(){
     keyboard.D = false;
     keyboard.RIGHT = false;
     keyboard.LEFT = false;
+}
+
+/*** This function is used to set key activities to false after game*/
+function resetMobileKeys(){
+    world.character.mobileRight = false;
+    world.character.mobileLeft = false;
+    world.mobileThrowBottle = false;
+    world.character.mobileJump = false;
 }
 
 /*** This function clear all Intervals if game is ended*/
@@ -290,90 +308,6 @@ function changeSoundIconToOn(soundEnabled){
     document.getElementById('sound_image').src = './assets/icons/sound.svg';
     soundEnabled = true;
     return soundEnabled;
-}
-
-/*** This function is used to handle the mobile left button for mobile devices*/
-function activateMobileLeftButton(){
-    if(isMobileDevice){
-        buttonLeft = document.querySelector('#ctrl_left_btn');
-        const stopMoveLeft = () => {world.character.mobileLeft = false;};
-        createEventListenerMobileLeftDown();
-        createEventListenerMobileLeftUp();
-        stopMoveLeft();
-        buttonLeft.addEventListener('contextmenu', e => {e.preventDefault();});
-        buttonLeft.addEventListener('pointercancel', stopMoveLeft);
-        buttonLeft.addEventListener('lostpointercapture', stopMoveLeft);
-    }
-}
-
-/*** This function creates an event listener on pointerdown action*/
-function createEventListenerMobileLeftDown(){
-    buttonLeft.addEventListener('pointerdown', e => {
-        e.preventDefault();
-        buttonLeft.setPointerCapture(e.pointerId);
-        world.character.mobileLeft = true;
-    });
-}
-
-/*** This function creates an event listener on pointerup action*/
-function createEventListenerMobileLeftUp(){
-    buttonLeft.addEventListener('pointerup', e => {
-        e.preventDefault();
-    });
-}
-
-/*** This function is used to handle the mobile right button for mobile devices*/
-function activateMobileRightButton(){
-    if(isMobileDevice){
-        buttonRight = document.querySelector('#ctrl_right_btn');
-        const stopMoveRight = () => {world.character.mobileRight = false;};
-        createEventListenerMobileRightDown();
-        createEventListenerMobileRightUp();
-        stopMoveRight();
-        buttonRight.addEventListener('contextmenu', e => {e.preventDefault();});
-        buttonRight.addEventListener('pointercancel', stopMoveRight);
-        buttonRight.addEventListener('lostpointercapture', stopMoveRight);
-    }
-}
-
-/*** This function creates an event listener for pointerdown action*/
-function createEventListenerMobileRightDown(){
-    buttonRight.addEventListener('pointerdown', e => {
-        e.preventDefault();
-        buttonRight.setPointerCapture(e.pointerId);
-        world.character.mobileRight = true;
-    });
-}
-
-/*** This function creates an event listener for pointerup action*/
-function createEventListenerMobileRightUp(){
-    buttonRight.addEventListener('pointerup', e => {
-        e.preventDefault();
-    });
-}
-
-/*** This function handles the button throw bottle*/
-function buttonThrowBottleDown(){
-    if(!world.mobileThrowBottle){
-        world.mobileThrowBottle = true;
-    }
-}
-
-/*** This function handles the button throw bottle*/
-function buttonThrowBottleUp(){
-    world.mobileThrowBottle = false;
-}
-
-/*** This function handles the button jump*/
-function buttonJumpDown(){
-    if(!world.character.mobileJump){
-        world.character.mobileJump = true;
-    }
-}
-
-/*** This function handles the button jump*/
-function buttonJumpUp(){
-    world.character.mobileJump = false;
 }
 
 /*** This function plays an intro sound an start page after first interaction of user*/

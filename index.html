@@ -30,6 +30,7 @@
     <script src="./levels/level1.js"></script>
     <script src="./classes/world.class.js"></script>
     <script src="./scripts/dialogs.js"></script>
+    <script src="./scripts/mobileButtons.js"></script>
     <script src="./scripts/game.js"></script>
 </head>
 <body onload="onloadFunctions()">
@@ -151,10 +152,10 @@
                 <canvas id="canvas_id" class="invisible" width="720" height="480"></canvas>
                 <div id="mobile_ctrl_right" class="invisible">
                     <div class="mobile-ctrl-box">
-                        <div id="ctrl_throw_btn" class="mobile-btn" onpointerdown="buttonThrowBottleDown()" onpointerup="buttonThrowBottleUp()">
+                        <div id="ctrl_throw_btn" class="mobile-btn">
                             <img class="throw-btn-image" src="./assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png" alt="throw button designed with salsa bottle">
                         </div>
-                        <div id="ctrl_jump_btn" class="mobile-btn" onpointerdown="buttonJumpDown()" onpointerup="buttonJumpUp()">
+                        <div id="ctrl_jump_btn" class="mobile-btn">
                             <img class="jump-btn-image" src="./assets/img/2_character_pepe/3_jump/J-36.png" alt="jump button designed with image of jumping pepe">
                         </div>
                     </div>
