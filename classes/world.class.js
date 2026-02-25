@@ -67,13 +67,21 @@ class World {
 
     /*** This function checks if a player throw a bottle*/
     checkThrowObjects(){
-        if((this.keyboard.D || this.throwBottleMobile(this.mobileThrowBottle)) && this.bottleInAir == false && this.bottlebar.amount > 0 && this.isFinalAnimationFinished()){
+        if(this.conditionThrowObject()){
             let bottle = new ThrowableObject(this.character.position_x, this.character.position_y, this.character.otherDirection);
             this.playBottleSound();
             this.bottlebar.amount -= 1;
             this.bottlebar.setBottleValue(this.bottlebar.amount, true);
             this.throwableObjects.push(bottle);
         }
+    }
+
+    /**
+     * This function checks the condition for throwing bottle
+     * @returns feedback in boolean
+     */
+    conditionThrowObject(){
+        return ((this.keyboard.D || this.throwBottleMobile(this.mobileThrowBottle)) && this.bottleInAir == false && this.bottlebar.amount > 0 && this.isFinalAnimationFinished());
     }
 
     /*** This function plays the throwing bottle sound*/
