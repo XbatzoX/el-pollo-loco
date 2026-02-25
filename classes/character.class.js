@@ -105,7 +105,7 @@ class Character extends MoveableObject {
 
         this.animationInterval = setInterval(() => {
            this.characterAnimations(); 
-        },50);
+        },100);
         this.intervalIDs.push(this.animationInterval);
     }
 

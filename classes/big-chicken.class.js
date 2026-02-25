@@ -1,7 +1,7 @@
 class BigChicken extends MoveableObject {
-    width = 40;
-    height = 40;
-    position_y = 395;
+    width = 55;
+    height = 55;
+    position_y = 385;
     IMAGES_WALKING = [
         'assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
         'assets/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
@@ -24,7 +24,7 @@ class BigChicken extends MoveableObject {
         this.loadImages(this.IMAGE_DEAD);
         this.position_x = offsetX + (Math.random() * 300);
         this.speed = 0.15 + (Math.random() * 0.3);
-        this.offset.RIGHT = 0;
+        this.offset.UP = 15;
         this.offset.LEFT = 0;
         this.animate();
     }
