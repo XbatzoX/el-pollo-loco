@@ -8,6 +8,9 @@ class Endboss extends MoveableObject {
     endbossDefeated = false;
     deathAnimationDone = false;
     soundEnabled = false;
+    idEndbossGravity;
+    jumpCompleted = false;
+    startedGravityInterval = false;
 
     IMAGES_ALERT = [
         'assets/img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -122,12 +125,49 @@ class Endboss extends MoveableObject {
             this.playAnimation(this.IMAGES_ATTACK);
         }else if(this.isHurt() && !this.isDead()){
             this.playAnimation(this.IMAGES_HURT);
+            this.enbossHurtAttack();
         }else if(this.isRunning() && !this.isDead()){
             this.playAnimation(this.IMAGES_RUNNING);
         }else if(!this.isDead()){
             this.playAnimation(this.IMAGES_ALERT);
         }
         this.checkDirectionOfRunning();
+    }
+
+    enbossHurtAttack(){
+        if(!this.startedGravityInterval){
+            this.speedY = 20;
+            this.endbossGravity();
+        };
+    }
+
+    endbossGravity(){
+        this.idEndbossGravity = setInterval(() => {
+            let aboveGround = () => {return (this.position_y < 50);};
+            if((aboveGround() || this.speedY > 0) && !this.jumpCompleted){
+                this.position_y -= this.speedY;
+                this.speedY -= this.acceleration;
+            }
+            if(!aboveGround()){
+                this.speedY = 0;
+                this.position_y = 50;
+                this.jumpCompleted = true;
+                this.speed = 8;
+            }
+            this.resetGravityInterval();
+        }, (1000 / 25));
+        this.startedGravityInterval = true;
+    }
+
+    resetGravityInterval(){
+        if(this.jumpCompleted){
+            clearInterval(this.idEndbossGravity);
+            setTimeout(() => {
+                this.jumpCompleted = false;
+                this.startedGravityInterval = false;
+                this.speed = 3.5
+            }, 2000);
+        }
     }
 
     /**
