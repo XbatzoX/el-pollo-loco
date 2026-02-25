@@ -124,8 +124,7 @@ class Endboss extends MoveableObject {
         }else if(this.isAttack()){
             this.playAnimation(this.IMAGES_ATTACK);
         }else if(this.isHurt() && !this.isDead()){
-            this.playAnimation(this.IMAGES_HURT);
-            this.enbossHurtAttack();
+            this.hurtAnimation();
         }else if(this.isRunning() && !this.isDead()){
             this.playAnimation(this.IMAGES_RUNNING);
         }else if(!this.isDead()){
@@ -134,6 +133,17 @@ class Endboss extends MoveableObject {
         this.checkDirectionOfRunning();
     }
 
+    /**
+     * This function is used play the hurt image animation an set special values for a time
+     */
+    hurtAnimation(){
+        this.playAnimation(this.IMAGES_HURT);
+        this.enbossHurtAttack();
+    }
+
+    /**
+     * This function is used to set special values for enboss after hit
+     */
     enbossHurtAttack(){
         if(!this.startedGravityInterval){
             this.speedY = 20;
@@ -141,6 +151,9 @@ class Endboss extends MoveableObject {
         };
     }
 
+    /**
+     * This function let the enboss jump after hit and makes him faster for a while
+     */
     endbossGravity(){
         this.idEndbossGravity = setInterval(() => {
             let aboveGround = () => {return (this.position_y < 50);};
@@ -149,16 +162,26 @@ class Endboss extends MoveableObject {
                 this.speedY -= this.acceleration;
             }
             if(!aboveGround()){
-                this.speedY = 0;
-                this.position_y = 50;
-                this.jumpCompleted = true;
-                this.speed = 8;
+                this.resetValuesEndbossGravity();
             }
             this.resetGravityInterval();
         }, (1000 / 25));
         this.startedGravityInterval = true;
     }
 
+    /**
+     * This function rest the values after the jumping animation
+     */
+    resetValuesEndbossGravity(){
+        this.speedY = 0;
+        this.position_y = 50;
+        this.jumpCompleted = true;
+        this.speed = 8;
+    }
+
+    /**
+     * This function is used the clear the gravity interval of endboss
+     */
     resetGravityInterval(){
         if(this.jumpCompleted){
             clearInterval(this.idEndbossGravity);
