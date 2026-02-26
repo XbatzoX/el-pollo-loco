@@ -232,7 +232,7 @@ class Endboss extends MoveableObject {
     }
 
     /**
-     * This function is used to set the moving direction of endboss
+     * This function is used to set the moving direction of endboss depending on position x
      * 
      */
     checkDirectionOfRunning(){
